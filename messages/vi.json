@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "title": "GENFUSE",
+    "tagline": "Nơi ba thế hệ cùng lưu giữ kỷ niệm, thấu hiểu nhau và vui chơi.",
+    "description": "Không gian riêng tư cho ông bà, cha mẹ và con cháu: Cây Ký Ức, Cháu Ngoan, Phiên dịch thế hệ và Lá chắn chống lừa đảo."
+  },
+  "common": {
+    "loading": "Đang tải…",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "next": "Tiếp",
+    "send": "Gửi",
+    "delete": "Xóa",
+    "confirm": "Xác nhận",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "retry": "Thử lại",
+    "optional": "không bắt buộc",
+    "or": "hoặc",
+    "skipToContent": "Chuyển đến nội dung chính"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "companion": "Cháu Ngoan",
+    "memoryTree": "Cây Ký Ức",
+    "translator": "Phiên dịch thế hệ",
+    "scamShield": "Lá chắn lừa đảo",
+    "reminders": "Nhắc nhở chăm sóc",
+    "games": "Trò chơi gia đình",
+    "upgrade": "Nâng cấp Premium",
+    "settings": "Cài đặt",
+    "signOut": "Đăng xuất"
+  },
+  "auth": {
+    "signIn": "Đăng nhập",
+    "signUp": "Tạo tài khoản",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "haveAccount": "Đã có tài khoản?",
+    "noAccount": "Lần đầu dùng GENFUSE?",
+    "checkEmailTitle": "Hãy kiểm tra email",
+    "checkEmailBody": "Chúng tôi đã gửi một liên kết xác nhận. Hãy mở liên kết trên thiết bị này để hoàn tất đăng ký.",
+    "callbackError": "Liên kết không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại.",
+    "invalidCredentials": "Email hoặc mật khẩu chưa đúng.",
+    "passwordHint": "Ít nhất 8 ký tự."
+  },
+  "onboarding": {
+    "welcome": "Chào mừng đến với GENFUSE",
+    "createFamily": "Tạo gia đình mới",
+    "joinFamily": "Tham gia gia đình",
+    "familyName": "Tên gia đình",
+    "familyCode": "Mã gia đình",
+    "familyCodeHint": "6 chữ cái hoặc chữ số, ví dụ K9P3RZ",
+    "yourName": "Chúng tôi nên gọi bạn là gì?",
+    "yourRole": "Bạn là ai trong gia đình?",
+    "uiMode": "Bạn muốn ứng dụng hiển thị thế nào?",
+    "create": "Tạo gia đình",
+    "join": "Tham gia",
+    "creating": "Đang tạo…",
+    "joining": "Đang tham gia…",
+    "yourFamilyCode": "Mã gia đình của bạn",
+    "shareCode": "Hãy gửi mã này cho người thân để họ cùng tham gia.",
+    "roles": {
+      "grandparent": "Ông / Bà",
+      "parent": "Cha / Mẹ",
+      "child": "Con / Cháu"
+    },
+    "uiModes": {
+      "standard": {
+        "title": "Tiêu chuẩn",
+        "desc": "Kích thước và giao diện thông thường."
+      },
+      "senior": {
+        "title": "Chế độ Chữ lớn cho người cao tuổi",
+        "desc": "Chữ to hơn, độ tương phản cao, nút bấm lớn và hỗ trợ giọng nói."
+      }
+    },
+    "openApp": "Vào gia đình của tôi"
+  },
+  "credits": {
+    "left": "{count, plural, other {Còn # lượt dùng miễn phí}}",
+    "unlimited": "Không giới hạn",
+    "premiumBadge": "Premium",
+    "outOfCredits": "Gia đình đã dùng hết 5 lượt AI miễn phí",
+    "outOfCreditsBody": "Nâng cấp Premium để thoải mái trò chuyện với Cháu Ngoan, hiểu tiếng lóng của giới trẻ và kiểm tra tin nhắn đáng ngờ.",
+    "upgradeCta": "Xem các gói Premium"
+  },
+  "companion": {
+    "name": "Cháu Ngoan",
+    "subtitle": "Luôn ở đây để lắng nghe",
+    "placeholder": "Nhập tin nhắn…",
+    "speak": "Nói",
+    "listening": "Đang nghe… hãy nói đi ạ",
+    "stopListening": "Dừng",
+    "readAloud": "Đọc to",
+    "stopReading": "Dừng đọc",
+    "thinking": "Đang suy nghĩ…",
+    "clear": "Xóa cuộc trò chuyện",
+    "clearConfirm": "Xóa lịch sử trò chuyện với Cháu Ngoan?",
+    "greeting": {
+      "grandparent": "Dạ cháu chào {name}! Cháu mừng quá được gặp ông bà. Hôm nay ông bà thấy trong người thế nào ạ?",
+      "parent": "Chào {name}. Mình ở đây để giúp bạn hiểu và gần gũi hơn với các thành viên trong gia đình. Bạn đang nghĩ đến điều gì?",
+      "child": "Chào {name}! Đây là không gian an toàn của bạn. Bạn đang cảm thấy thế nào cũng có thể nói ở đây nhé."
+    },
+    "chips": {
+      "grandparent": [
+        "Hôm nay tôi thấy hơi buồn",
+        "Hôm nay tôi cần làm những gì?",
+        "Để tôi kể cháu nghe chuyện hồi trẻ",
+        "Giúp tôi gọi video cho cháu"
+      ],
+      "parent": [
+        "Con tuổi teen không chịu nói chuyện với tôi",
+        "Giúp tôi bình tĩnh khi cãi nhau với con",
+        "Vì sao con dành quá nhiều thời gian cho điện thoại?",
+        "Làm sao để xin lỗi con?"
+      ],
+      "child": [
+        "Hôm nay mình hơi buồn",
+        "Giúp mình nói với bố/mẹ về điểm số",
+        "Mình vừa cãi nhau với gia đình",
+        "Mình muốn xin được tự do hơn"
+      ]
+    },
+    "autoRead": "Tự động đọc to câu trả lời",
+    "privateNote": "Cuộc trò chuyện ở đây là riêng tư của bạn."
+  },
+  "memoryTree": {
+    "title": "Cây Ký Ức",
+    "subtitle": "Mỗi kỷ niệm là một chiếc lá. Cùng nhìn cây gia đình đơm hoa.",
+    "addLeaf": "Thêm một chiếc lá ký ức",
+    "leafTypes": {
+      "text": "Câu chuyện",
+      "image": "Ảnh",
+      "audio": "Ghi âm"
+    },
+    "titleLabel": "Tiêu đề",
+    "storyLabel": "Câu chuyện của bạn",
+    "uploadPhoto": "Tải ảnh lên",
+    "recordVoice": "Ghi âm giọng nói",
+    "stopRecording": "Dừng ghi âm",
+    "dateLabel": "Chuyện này xảy ra khi nào?",
+    "timeCapsule": "Hộp thời gian",
+    "timeCapsuleHint": "Niêm phong kỷ niệm này đến một ngày trong tương lai, như lễ tốt nghiệp hay sinh nhật.",
+    "unlockOn": "Mở vào ngày",
+    "locked": "Đã niêm phong",
+    "lockedUntil": "Niêm phong đến {date}",
+    "aiArchiving": "Cháu Ngoan đang chuẩn bị kỷ niệm này…",
+    "aiTitle": "Tiêu đề gợi ý",
+    "aiFollowUp": "Một câu hỏi cho thế hệ khác",
+    "reply": "Trả lời kỷ niệm này",
+    "empty": "Cây đang chờ chiếc lá đầu tiên.",
+    "limitReached": "Cây miễn phí đã đầy (20 lá). Nâng cấp Premium để thêm không giới hạn.",
+    "leavesCount": "{count, plural, other {# chiếc lá}}",
+    "by": "Của {name}",
+    "publish": "Gieo chiếc lá này",
+    "replyTo": "Trả lời cho “{title}”",
+    "savedNoAi": "Đã lưu. Lượt AI miễn phí đã hết nên Cháu Ngoan chưa thể thêm tiêu đề hay tóm tắt.",
+    "titleHint": "Để trống, Cháu Ngoan sẽ gợi ý một tiêu đề.",
+    "uploadAudio": "Tải tệp ghi âm lên"
+  },
+  "translator": {
+    "title": "Phiên dịch thế hệ",
+    "subtitle": "Hiểu lời nói và tâm trạng của Gen Z, Gen Alpha, rồi đáp lại bằng tình thương.",
+    "placeholder": "Nhập một từ, xu hướng hoặc hành vi…",
+    "examples": [
+      "cringe",
+      "flex",
+      "overthinking",
+      "vô tri",
+      "slay"
+    ],
+    "translate": "Giải thích",
+    "cards": {
+      "meaning": "Nghĩa dễ hiểu",
+      "context": "Vì sao giới trẻ như vậy",
+      "script": "Bạn có thể nói"
+    },
+    "hint": "Thử một từ mà con cháu bạn vừa dùng."
+  },
+  "scamShield": {
+    "title": "Lá chắn chống lừa đảo cho người cao tuổi",
+    "subtitle": "Biết chiêu trò. Giữ an toàn. Có điều nghi ngờ hãy hỏi người nhà.",
+    "premiumNote": "Gia đình Premium nhận cảnh báo lừa đảo mới ngay khi xuất hiện.",
+    "highAlert": "Cảnh báo cao",
+    "doLabel": "NÊN",
+    "dontLabel": "KHÔNG NÊN",
+    "cards": {
+      "deepfake": {
+        "title": "Cuộc gọi video deepfake",
+        "summary": "Kẻ lừa đảo dùng AI giả khuôn mặt và giọng nói của người thân, rồi nhờ chuyển tiền gấp.",
+        "do": [
+          "Cúp máy và gọi lại cho người thân bằng số quen thuộc",
+          "Thống nhất trong gia đình một câu hỏi hoặc mật khẩu bí mật",
+          "Hỏi một điều chỉ người thật mới biết"
+        ],
+        "dont": [
+          "Đừng chuyển tiền chỉ vì một cuộc gọi video",
+          "Đừng tin khuôn mặt hay giọng nói chỉ vì trông và nghe rất giống",
+          "Đừng làm theo khi bị thúc giục"
+        ]
+      },
+      "bank": {
+        "title": "Tin nhắn và đường link ngân hàng giả",
+        "summary": "Tin nhắn báo tài khoản bị khóa hoặc có giao dịch lạ, kèm đường link để \"khắc phục\".",
+        "do": [
+          "Tự mở ứng dụng ngân hàng, hoặc gọi số in ở mặt sau thẻ",
+          "Kiểm tra kỹ người gửi và địa chỉ trang web",
+          "Cho người nhà xem tin nhắn trước"
+        ],
+        "dont": [
+          "Đừng bấm vào đường link trong tin nhắn",
+          "Đừng đọc mã OTP, mã PIN hay mật khẩu cho bất kỳ ai, kể cả \"nhân viên ngân hàng\"",
+          "Đừng cài ứng dụng do người lạ gửi qua tin nhắn"
+        ]
+      },
+      "police": {
+        "title": "Gọi điện giả danh công an, cơ quan nhà nước",
+        "summary": "Người gọi nói bạn liên quan đến vụ án và yêu cầu chuyển tiền vào \"tài khoản an toàn\".",
+        "do": [
+          "Cúp máy và gọi công an theo số điện thoại chính thức",
+          "Nhớ rằng cơ quan chức năng không bao giờ yêu cầu chuyển tiền qua điện thoại",
+          "Báo ngay cho người nhà"
+        ],
+        "dont": [
+          "Đừng chuyển tiền vào \"tài khoản an toàn\"",
+          "Đừng cung cấp số căn cước hay thông tin ngân hàng qua điện thoại",
+          "Đừng giữ bí mật cuộc gọi"
+        ]
+      }
+    },
+    "scanner": {
+      "title": "Nhờ AI kiểm tra tin nhắn đáng ngờ",
+      "placeholder": "Dán tin nhắn, đường link hoặc nội dung cuộc gọi vào đây…",
+      "check": "Kiểm tra ngay",
+      "risk": {
+        "HIGH": "Nguy cơ cao: rất có thể là lừa đảo",
+        "MEDIUM": "Nguy cơ trung bình: hãy cẩn thận",
+        "LOW": "Nguy cơ thấp: có vẻ ổn, nhưng vẫn nên cảnh giác",
+        "UNKNOWN": "Chưa chắc chắn: hãy hỏi người nhà"
+      },
+      "why": "Vì sao",
+      "whatToDo": "Nên làm gì",
+      "whatNotToDo": "Không nên làm gì"
+    }
+  },
+  "reminders": {
+    "title": "Nhắc nhở chăm sóc",
+    "add": "Thêm nhắc nhở",
+    "reminderTitle": "Nội dung nhắc",
+    "forWho": "Dành cho",
+    "when": "Khi nào",
+    "medication": "Uống thuốc",
+    "checkIn": "Hỏi thăm",
+    "done": "Xong",
+    "empty": "Chưa có nhắc nhở nào.",
+    "checkInNudge": "Hôm nay hãy hỏi thăm {name} nhé. Một cuộc gọi ngắn cũng rất ý nghĩa.",
+    "checkInTitle": "Gọi điện hoặc nhắn tin cho {name}",
+    "overdue": "Quá hạn"
+  },
+  "games": {
+    "title": "Trò chơi gia đình",
+    "trivia": {
+      "title": "Đố vui gia đình",
+      "desc": "Câu hỏi được tạo từ chính những kỷ niệm của gia đình bạn.",
+      "start": "Bắt đầu",
+      "question": "Câu hỏi {number}",
+      "correct": "Chính xác!",
+      "wrong": "Chưa đúng rồi.",
+      "next": "Câu tiếp theo",
+      "score": "Bạn trả lời đúng {score}/{total} câu",
+      "needMemories": "Hãy thêm vài kỷ niệm vào cây trước rồi quay lại chơi nhé.",
+      "finish": "Xem điểm của tôi",
+      "loading": "Đang soạn câu hỏi…",
+      "playAgain": "Chơi lại"
+    },
+    "story": {
+      "title": "Cùng kể chuyện",
+      "desc": "Lần lượt thêm mỗi người một câu để xây dựng câu chuyện. AI sẽ làm người dẫn truyện.",
+      "start": "Bắt đầu câu chuyện",
+      "yourTurn": "Đến lượt bạn",
+      "waiting": "Đang chờ {name}…",
+      "addSentence": "Thêm câu của bạn",
+      "narrator": "Người dẫn truyện",
+      "askNarrator": "Nhờ người dẫn truyện viết tiếp",
+      "empty": "Chưa có câu chuyện nào. Hãy cùng bắt đầu một câu chuyện.",
+      "noSentences": "Chưa có câu nào. Hãy viết câu đầu tiên.",
+      "sentencePlaceholder": "Viết một câu…",
+      "titleLabel": "Tên câu chuyện",
+      "waitOthers": "Đang chờ người khác thêm một câu."
+    }
+  },
+  "premium": {
+    "title": "GENFUSE Premium Gia đình",
+    "subtitle": "Một gói cho cả gia đình.",
+    "free": {
+      "name": "Miễn phí",
+      "features": [
+        "5 lượt dùng AI cho cả gia đình",
+        "Cây Ký Ức tối đa 20 lá",
+        "Mẹo phòng chống lừa đảo"
+      ]
+    },
+    "monthly": {
+      "name": "Theo tháng",
+      "price": "39.000đ",
+      "period": "mỗi tháng"
+    },
+    "yearly": {
+      "name": "Theo năm",
+      "price": "390.000đ",
+      "period": "mỗi năm",
+      "badge": "Tặng 2 tháng"
+    },
+    "features": [
+      "Cháu Ngoan, phiên dịch thế hệ và kiểm tra tin nhắn không giới hạn",
+      "Hòa giải thấu cảm đầy đủ khi gia đình có xung đột",
+      "Thêm lá vào Cây Ký Ức không giới hạn",
+      "Cảnh báo lừa đảo cho người cao tuổi",
+      "Dùng chung cho mọi thành viên trong gia đình"
+    ],
+    "payWithPayos": "Thanh toán bằng VietQR / chuyển khoản",
+    "payHint": "Quét mã QR bằng ứng dụng ngân hàng bất kỳ. Premium sẽ tự động kích hoạt sau ít phút.",
+    "success": "Cảm ơn bạn! Gia đình bạn đã lên Premium.",
+    "pending": "Đang chờ thanh toán của bạn…",
+    "cancelled": "Đã hủy thanh toán. Bạn chưa bị trừ tiền.",
+    "checking": "Đang kiểm tra thanh toán…",
+    "choose": "Chọn gói này",
+    "currentPlan": "Gia đình bạn đang dùng Premium đến {date}.",
+    "extend": "Gia hạn thêm",
+    "openPaymentPage": "Mở trang thanh toán",
+    "scanQr": "Quét mã này bằng ứng dụng ngân hàng",
+    "timeout": "Chúng tôi chưa nhận được thanh toán. Nếu bạn đã thanh toán, Premium sẽ tự bật trong vài phút."
+  },
+  "settings": {
+    "language": "Ngôn ngữ",
+    "uiMode": "Chế độ hiển thị",
+    "displayName": "Tên hiển thị",
+    "saved": "Đã lưu"
+  },
+  "voice": {
+    "unsupported": "Trình duyệt của bạn chưa hỗ trợ giọng nói. Hãy thử Chrome hoặc Safari.",
+    "permissionDenied": "Vui lòng cho phép dùng micro để nói."
+  },
+  "errors": {
+    "BAD_REQUEST": "Yêu cầu không hợp lệ.",
+    "UNAUTHENTICATED": "Vui lòng đăng nhập lại.",
+    "NO_FAMILY": "Hãy tạo hoặc tham gia một gia đình trước.",
+    "NO_CREDITS": "Lượt dùng AI miễn phí đã hết. Nâng cấp Premium để tiếp tục.",
+    "RATE_LIMITED": "Bạn gửi quá nhanh. Vui lòng chờ một chút.",
+    "INPUT_TOO_LONG": "Tin nhắn quá dài. Vui lòng rút gọn.",
+    "AI_NOT_CONFIGURED": "AI chưa được thiết lập. Vui lòng liên hệ hỗ trợ.",
+    "AI_STREAM_ERROR": "Xin lỗi, AI chưa trả lời xong. Vui lòng thử lại.",
+    "FREE_MEMORY_LIMIT_REACHED": "Cây miễn phí đã đầy. Nâng cấp Premium để thêm không giới hạn.",
+    "INVALID_CODE": "Mã gia đình không tồn tại. Vui lòng kiểm tra lại.",
+    "ALREADY_IN_FAMILY": "Bạn đã thuộc về một gia đình.",
+    "TOO_MANY_ATTEMPTS": "Nhập sai mã quá nhiều lần. Hãy thử lại sau 15 phút.",
+    "FAMILY_FULL": "Gia đình này đã đủ thành viên.",
+    "GENERIC": "Có lỗi xảy ra. Vui lòng thử lại.",
+    "DATE_IN_PAST": "Hãy chọn một ngày trong tương lai.",
+    "FILE_TOO_LARGE": "Tệp này lớn hơn 10 MB.",
+    "NEED_MEMORIES": "Hãy thêm vài kỷ niệm bằng chữ vào cây trước.",
+    "NOT_FOUND": "Không tìm thấy nội dung này.",
+    "NOT_YOUR_TURN": "Hãy chờ người khác thêm một câu trước.",
+    "STORY_TOO_SHORT": "Hãy viết ít nhất hai câu trước khi nhờ người dẫn truyện.",
+    "PAYMENT_CREATE_FAILED": "Không thể bắt đầu thanh toán. Vui lòng thử lại.",
+    "PAYOS_NOT_CONFIGURED": "Thanh toán chưa được thiết lập. Vui lòng liên hệ hỗ trợ."
+  },
+  "home": {
+    "desc": {
+      "companion": "Trò chuyện, tâm sự hoặc nhờ giúp đỡ bất cứ lúc nào.",
+      "memoryTree": "Cùng gieo những câu chuyện, bức ảnh và lời ghi âm.",
+      "translator": "Hiểu những điều giới trẻ muốn nói.",
+      "scamShield": "Kiểm tra tin nhắn đáng ngờ trước khi trả lời.",
+      "reminders": "Uống thuốc, hỏi thăm và những lời nhắc nhỏ.",
+      "games": "Đố vui gia đình và câu chuyện viết nối từng người."
+    },
+    "dueToday": "Việc cần làm hôm nay",
+    "familyCode": "Mã gia đình",
+    "greeting": "Chào {name}, rất vui được gặp bạn",
+    "jumpIn": "Bắt đầu từ đây",
+    "members": "{count, plural, other {# thành viên}}",
+    "nothingDue": "Hôm nay không có việc gì cần làm."
+  },
+  "landing": {
+    "cta": "Bắt đầu",
+    "signIn": "Đăng nhập",
+    "gran": "Chữ to, một giọng nói biết lắng nghe, và một đứa cháu luôn có thời gian.",
+    "par": "Hiểu con muốn nói gì, và tìm được lời nhẹ nhàng để đáp lại.",
+    "kid": "Một nơi riêng tư để nói điều khó nói và được lắng nghe."
+  },
+  "pwa": {
+    "title": "Thêm GENFUSE vào màn hình chính",
+    "body": "Mở như một ứng dụng thật: toàn màn hình, không có thanh trình duyệt.",
+    "install": "Cài đặt ứng dụng",
+    "dismiss": "Để sau",
+    "gotIt": "Đã hiểu",
+    "ios": {
+      "steps": [
+        "Bấm nút Chia sẻ ở cuối màn hình Safari.",
+        "Kéo xuống và bấm “Thêm vào Màn hình chính”.",
+        "Bấm “Thêm” ở góc trên."
+      ]
+    },
+    "android": {
+      "steps": [
+        "Bấm nút menu (ba chấm) của trình duyệt.",
+        "Bấm “Cài đặt ứng dụng” hoặc “Thêm vào màn hình chính”.",
+        "Bấm “Cài đặt” để xác nhận."
+      ]
+    }
+  }
+}

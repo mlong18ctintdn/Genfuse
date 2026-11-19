@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "title": "GENFUSE",
+    "tagline": "A place for three generations to keep memories, understand each other, and play.",
+    "description": "A private family space for grandparents, parents and children: Memory Tree, Loving Companion, Generational Translator and Scam Shield."
+  },
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "send": "Send",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "retry": "Try again",
+    "optional": "optional",
+    "or": "or",
+    "skipToContent": "Skip to main content"
+  },
+  "nav": {
+    "home": "Home",
+    "companion": "Companion",
+    "memoryTree": "Memory Tree",
+    "translator": "Generation Translator",
+    "scamShield": "Scam Shield",
+    "reminders": "Care Reminders",
+    "games": "Family Games",
+    "upgrade": "Go Premium",
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "haveAccount": "Already have an account?",
+    "noAccount": "New to GENFUSE?",
+    "checkEmailTitle": "Check your email",
+    "checkEmailBody": "We sent a confirmation link. Open it on this device to finish signing up.",
+    "callbackError": "That link didn't work or has expired. Please sign in again.",
+    "invalidCredentials": "Wrong email or password.",
+    "passwordHint": "At least 8 characters."
+  },
+  "onboarding": {
+    "welcome": "Welcome to GENFUSE",
+    "createFamily": "Create a new family",
+    "joinFamily": "Join a family",
+    "familyName": "Family name",
+    "familyCode": "Family code",
+    "familyCodeHint": "6 letters or numbers, e.g. K9P3RZ",
+    "yourName": "What should we call you?",
+    "yourRole": "Who are you in the family?",
+    "uiMode": "How would you like the app to look?",
+    "create": "Create family",
+    "join": "Join family",
+    "creating": "Creating…",
+    "joining": "Joining…",
+    "yourFamilyCode": "Your family code",
+    "shareCode": "Share this code with your family so they can join.",
+    "roles": {
+      "grandparent": "Grandparent",
+      "parent": "Parent",
+      "child": "Child / Teen"
+    },
+    "uiModes": {
+      "standard": {
+        "title": "Standard",
+        "desc": "Everyday size and look."
+      },
+      "senior": {
+        "title": "Senior-Friendly Large Mode",
+        "desc": "Bigger text, high contrast, bigger buttons and voice help."
+      }
+    },
+    "openApp": "Go to my family"
+  },
+  "credits": {
+    "left": "{count, plural, one {# free use left} other {# free uses left}}",
+    "unlimited": "Unlimited",
+    "premiumBadge": "Premium",
+    "outOfCredits": "You've used all 5 free AI uses",
+    "outOfCreditsBody": "Go Premium to keep chatting with your companion, translating slang and checking messages, as much as you like.",
+    "upgradeCta": "See Premium plans"
+  },
+  "companion": {
+    "name": "Loving Companion",
+    "subtitle": "Always here to listen",
+    "placeholder": "Write a message…",
+    "speak": "Speak",
+    "listening": "Listening… speak now",
+    "stopListening": "Stop",
+    "readAloud": "Read aloud",
+    "stopReading": "Stop reading",
+    "thinking": "Thinking…",
+    "clear": "Clear conversation",
+    "clearConfirm": "Delete your chat history with the companion?",
+    "greeting": {
+      "grandparent": "Hello {name}! I'm so happy to see you. How are you feeling today?",
+      "parent": "Hi {name}. I'm here to help you understand and connect with your family. What's on your mind?",
+      "child": "Hey {name}! This is your safe space. Whatever you're feeling, you can say it here."
+    },
+    "chips": {
+      "grandparent": [
+        "I feel a bit lonely today",
+        "What do I need to do today?",
+        "Let me tell you a story from my youth",
+        "Help me video call my grandchild"
+      ],
+      "parent": [
+        "My teen won't talk to me",
+        "Help me stay calm during an argument",
+        "Why does my child spend so much time on the phone?",
+        "How can I say sorry to my child?"
+      ],
+      "child": [
+        "I feel a bit sad today",
+        "Help me tell Mom/Dad about my grades",
+        "I had an argument with my family",
+        "I want to ask for more freedom"
+      ]
+    },
+    "autoRead": "Read replies aloud",
+    "privateNote": "Your chats here are private to you."
+  },
+  "memoryTree": {
+    "title": "Memory Tree",
+    "subtitle": "Every memory is a leaf. Watch your family tree bloom.",
+    "addLeaf": "Add a memory leaf",
+    "leafTypes": {
+      "text": "Story",
+      "image": "Photo",
+      "audio": "Voice note"
+    },
+    "titleLabel": "Title",
+    "storyLabel": "Your story",
+    "uploadPhoto": "Upload a photo",
+    "recordVoice": "Record a voice note",
+    "stopRecording": "Stop recording",
+    "dateLabel": "When did this happen?",
+    "timeCapsule": "Time Capsule",
+    "timeCapsuleHint": "Seal this memory until a future date, such as a graduation or birthday.",
+    "unlockOn": "Unlock on",
+    "locked": "Sealed",
+    "lockedUntil": "Sealed until {date}",
+    "aiArchiving": "Your companion is preparing this memory…",
+    "aiTitle": "Suggested title",
+    "aiFollowUp": "A question for another generation",
+    "reply": "Reply to this memory",
+    "empty": "Your tree is waiting for its first leaf.",
+    "limitReached": "Your free tree is full (20 leaves). Go Premium for unlimited leaves.",
+    "leavesCount": "{count, plural, one {# leaf} other {# leaves}}",
+    "by": "By {name}",
+    "publish": "Plant this leaf",
+    "replyTo": "In reply to “{title}”",
+    "savedNoAi": "Saved. Your free AI uses are finished, so the companion couldn't add a title or summary.",
+    "titleHint": "Leave it empty and the companion will suggest one.",
+    "uploadAudio": "Upload an audio file"
+  },
+  "translator": {
+    "title": "Generation Translator",
+    "subtitle": "Understand Gen Z & Gen Alpha words and moods, then reply with love.",
+    "placeholder": "Type a word, trend or behavior…",
+    "examples": [
+      "cringe",
+      "flex",
+      "overthinking",
+      "vô tri",
+      "slay"
+    ],
+    "translate": "Explain",
+    "cards": {
+      "meaning": "Plain meaning",
+      "context": "Why young people do this",
+      "script": "What you can say"
+    },
+    "hint": "Try a word your grandchild used recently."
+  },
+  "scamShield": {
+    "title": "Senior Scam Shield",
+    "subtitle": "Know the tricks. Stay safe. Ask your family when in doubt.",
+    "premiumNote": "Premium families get new scam alerts as they appear.",
+    "highAlert": "High alert",
+    "doLabel": "DO",
+    "dontLabel": "DON'T",
+    "cards": {
+      "deepfake": {
+        "title": "Deepfake video calls",
+        "summary": "A scammer uses AI to copy the face and voice of someone you love and asks for urgent money.",
+        "do": [
+          "Hang up and call your relative on their usual number",
+          "Agree on a secret family question or code word",
+          "Ask something only the real person would know"
+        ],
+        "dont": [
+          "Don't send money because of a video call alone",
+          "Don't trust a face or voice just because it looks and sounds right",
+          "Don't act under time pressure"
+        ]
+      },
+      "bank": {
+        "title": "Fake bank texts and links",
+        "summary": "A message says your account is locked or suspicious and sends a link to \"fix\" it.",
+        "do": [
+          "Open your bank app yourself, or call the number on the back of your card",
+          "Check the sender and the web address carefully",
+          "Show the message to a family member first"
+        ],
+        "dont": [
+          "Don't tap links in text messages",
+          "Don't share your OTP, PIN or password with anyone, not even \"the bank\"",
+          "Don't install apps sent to you in a message"
+        ]
+      },
+      "police": {
+        "title": "Fake police or government calls",
+        "summary": "A caller claims you are involved in a crime and demands you move money to a \"safe account\".",
+        "do": [
+          "Hang up and call the police on the official number",
+          "Remember: real officials never ask for money transfers by phone",
+          "Tell a family member right away"
+        ],
+        "dont": [
+          "Don't transfer money to a \"safe account\"",
+          "Don't share ID numbers or bank details by phone",
+          "Don't keep the call a secret"
+        ]
+      }
+    },
+    "scanner": {
+      "title": "Check a suspicious message with AI",
+      "placeholder": "Paste the message, link or phone script here…",
+      "check": "Check now",
+      "risk": {
+        "HIGH": "High risk: very likely a scam",
+        "MEDIUM": "Medium risk: be careful",
+        "LOW": "Low risk: looks fine, but stay alert",
+        "UNKNOWN": "Not sure: please ask your family"
+      },
+      "why": "Why",
+      "whatToDo": "What to do",
+      "whatNotToDo": "What not to do"
+    }
+  },
+  "reminders": {
+    "title": "Care Reminders",
+    "add": "Add reminder",
+    "reminderTitle": "Reminder",
+    "forWho": "For",
+    "when": "When",
+    "medication": "Medication",
+    "checkIn": "Check-in",
+    "done": "Done",
+    "empty": "No reminders yet.",
+    "checkInNudge": "Say hello to {name} today. A short call means a lot.",
+    "checkInTitle": "Call or message {name}",
+    "overdue": "Overdue"
+  },
+  "games": {
+    "title": "Family Games",
+    "trivia": {
+      "title": "Family Trivia",
+      "desc": "Quiz questions made from your family's own memories.",
+      "start": "Start quiz",
+      "question": "Question {number}",
+      "correct": "Correct!",
+      "wrong": "Not quite.",
+      "next": "Next question",
+      "score": "You got {score} out of {total}",
+      "needMemories": "Add a few memories to the tree first, then come back to play.",
+      "finish": "See my score",
+      "loading": "Writing your questions…",
+      "playAgain": "Play again"
+    },
+    "story": {
+      "title": "Story Together",
+      "desc": "Take turns adding one sentence to build a story. The AI narrates.",
+      "start": "Start a story",
+      "yourTurn": "Your turn",
+      "waiting": "Waiting for {name}…",
+      "addSentence": "Add your sentence",
+      "narrator": "Narrator",
+      "askNarrator": "Ask the narrator to continue",
+      "empty": "No stories yet. Start one together.",
+      "noSentences": "No sentences yet. Write the first one.",
+      "sentencePlaceholder": "Write one sentence…",
+      "titleLabel": "Story title",
+      "waitOthers": "Waiting for someone else to add a sentence."
+    }
+  },
+  "premium": {
+    "title": "GENFUSE Premium Family",
+    "subtitle": "One plan for the whole family.",
+    "free": {
+      "name": "Free",
+      "features": [
+        "5 AI uses for the family",
+        "Memory Tree with up to 20 leaves",
+        "Scam Shield tips"
+      ]
+    },
+    "monthly": {
+      "name": "Monthly",
+      "price": "39,000 VND",
+      "period": "per month"
+    },
+    "yearly": {
+      "name": "Yearly",
+      "price": "390,000 VND",
+      "period": "per year",
+      "badge": "2 months free"
+    },
+    "features": [
+      "Unlimited AI companion, translator and message checks",
+      "Full empathetic mediation for family conflicts",
+      "Unlimited Memory Tree leaves",
+      "Senior Scam Shield alerts",
+      "Covers every member of your family"
+    ],
+    "payWithPayos": "Pay with VietQR / bank transfer",
+    "payHint": "Scan the QR code with any banking app. Premium activates automatically within moments.",
+    "success": "Thank you! Your family is now Premium.",
+    "pending": "Waiting for your payment…",
+    "cancelled": "Payment cancelled. You have not been charged.",
+    "checking": "Checking your payment…",
+    "choose": "Choose this plan",
+    "currentPlan": "Your family is Premium until {date}.",
+    "extend": "Add more time",
+    "openPaymentPage": "Open the payment page",
+    "scanQr": "Scan this code with your banking app",
+    "timeout": "We haven't received the payment yet. If you already paid, Premium will switch on automatically within a few minutes."
+  },
+  "settings": {
+    "language": "Language",
+    "uiMode": "Display mode",
+    "displayName": "Display name",
+    "saved": "Saved"
+  },
+  "voice": {
+    "unsupported": "Your browser doesn't support voice. Try Chrome or Safari.",
+    "permissionDenied": "Please allow microphone access to speak."
+  },
+  "errors": {
+    "BAD_REQUEST": "Something is wrong with the request.",
+    "UNAUTHENTICATED": "Please sign in again.",
+    "NO_FAMILY": "Join or create a family first.",
+    "NO_CREDITS": "Your free AI uses are finished. Go Premium to continue.",
+    "RATE_LIMITED": "Too many messages. Please wait a moment.",
+    "INPUT_TOO_LONG": "That message is too long. Please shorten it.",
+    "AI_NOT_CONFIGURED": "The AI is not set up yet. Please contact support.",
+    "AI_STREAM_ERROR": "Sorry, the AI could not finish. Please try again.",
+    "FREE_MEMORY_LIMIT_REACHED": "Your free tree is full. Go Premium for unlimited leaves.",
+    "INVALID_CODE": "That family code doesn't exist. Please check it.",
+    "ALREADY_IN_FAMILY": "You already belong to a family.",
+    "TOO_MANY_ATTEMPTS": "Too many wrong codes. Please try again in 15 minutes.",
+    "FAMILY_FULL": "This family is full.",
+    "GENERIC": "Something went wrong. Please try again.",
+    "DATE_IN_PAST": "Pick a date in the future.",
+    "FILE_TOO_LARGE": "That file is bigger than 10 MB.",
+    "NEED_MEMORIES": "Add a few written memories to the tree first.",
+    "NOT_FOUND": "That item could not be found.",
+    "NOT_YOUR_TURN": "Wait for someone else to add a sentence first.",
+    "STORY_TOO_SHORT": "Write at least two sentences before asking the narrator.",
+    "PAYMENT_CREATE_FAILED": "Could not start the payment. Please try again.",
+    "PAYOS_NOT_CONFIGURED": "Payments are not set up yet. Please contact support."
+  },
+  "home": {
+    "desc": {
+      "companion": "Talk, share a worry or ask for help, any time.",
+      "memoryTree": "Plant stories, photos and voice notes together.",
+      "translator": "Understand what young people mean.",
+      "scamShield": "Check suspicious messages before you reply.",
+      "reminders": "Medicine, check-ins and little nudges.",
+      "games": "Family trivia and stories written in turns."
+    },
+    "dueToday": "Due today",
+    "familyCode": "Family code",
+    "greeting": "Good to see you, {name}",
+    "jumpIn": "Jump in",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "nothingDue": "Nothing due today."
+  },
+  "landing": {
+    "cta": "Get started",
+    "signIn": "Sign in",
+    "gran": "Big text, a voice that listens, and a grandchild who always has time.",
+    "par": "Understand what your children mean, and find calm words to answer.",
+    "kid": "A private place to say hard things and be heard."
+  },
+  "pwa": {
+    "title": "Add GENFUSE to your home screen",
+    "body": "Open it like a real app: full screen, no browser bar.",
+    "install": "Install app",
+    "dismiss": "Not now",
+    "gotIt": "Got it",
+    "ios": {
+      "steps": [
+        "Tap the Share button at the bottom of Safari.",
+        "Scroll down and tap “Add to Home Screen”.",
+        "Tap “Add” in the top corner."
+      ]
+    },
+    "android": {
+      "steps": [
+        "Tap the menu button (three dots) in your browser.",
+        "Tap “Install app” or “Add to Home screen”.",
+        "Confirm with “Install”."
+      ]
+    }
+  }
+}

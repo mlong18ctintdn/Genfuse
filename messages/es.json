@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "title": "GENFUSE",
+    "tagline": "Un lugar para que tres generaciones guarden recuerdos, se entiendan y jueguen juntas.",
+    "description": "Un espacio familiar privado para abuelos, padres e hijos: Árbol de Recuerdos, Compañero Cariñoso, Traductor Generacional y Escudo Antiestafas."
+  },
+  "common": {
+    "loading": "Cargando…",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "send": "Enviar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "retry": "Reintentar",
+    "optional": "opcional",
+    "or": "o",
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "nav": {
+    "home": "Inicio",
+    "companion": "Compañero",
+    "memoryTree": "Árbol de Recuerdos",
+    "translator": "Traductor Generacional",
+    "scamShield": "Escudo Antiestafas",
+    "reminders": "Recordatorios de cuidado",
+    "games": "Juegos en familia",
+    "upgrade": "Hazte Premium",
+    "settings": "Ajustes",
+    "signOut": "Cerrar sesión"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "noAccount": "¿Eres nuevo en GENFUSE?",
+    "checkEmailTitle": "Revisa tu correo",
+    "checkEmailBody": "Te enviamos un enlace de confirmación. Ábrelo en este dispositivo para terminar el registro.",
+    "callbackError": "El enlace no funcionó o ha caducado. Inicia sesión de nuevo.",
+    "invalidCredentials": "Correo o contraseña incorrectos.",
+    "passwordHint": "Al menos 8 caracteres."
+  },
+  "onboarding": {
+    "welcome": "Bienvenido a GENFUSE",
+    "createFamily": "Crear una familia nueva",
+    "joinFamily": "Unirme a una familia",
+    "familyName": "Nombre de la familia",
+    "familyCode": "Código de familia",
+    "familyCodeHint": "6 letras o números, por ejemplo K9P3RZ",
+    "yourName": "¿Cómo te llamamos?",
+    "yourRole": "¿Quién eres en la familia?",
+    "uiMode": "¿Cómo quieres ver la aplicación?",
+    "create": "Crear familia",
+    "join": "Unirme",
+    "creating": "Creando…",
+    "joining": "Uniéndome…",
+    "yourFamilyCode": "El código de tu familia",
+    "shareCode": "Comparte este código con tu familia para que se una.",
+    "roles": {
+      "grandparent": "Abuelo / Abuela",
+      "parent": "Padre / Madre",
+      "child": "Hijo / Adolescente"
+    },
+    "uiModes": {
+      "standard": {
+        "title": "Estándar",
+        "desc": "Tamaño y aspecto habituales."
+      },
+      "senior": {
+        "title": "Modo Letra Grande para mayores",
+        "desc": "Texto más grande, alto contraste, botones grandes y ayuda por voz."
+      }
+    },
+    "openApp": "Ir a mi familia"
+  },
+  "credits": {
+    "left": "{count, plural, one {Te queda # uso gratis} other {Te quedan # usos gratis}}",
+    "unlimited": "Ilimitado",
+    "premiumBadge": "Premium",
+    "outOfCredits": "Ya usaron los 5 usos gratuitos de IA",
+    "outOfCreditsBody": "Hazte Premium para seguir conversando con tu compañero, entender la jerga de los jóvenes y revisar mensajes sospechosos sin límite.",
+    "upgradeCta": "Ver planes Premium"
+  },
+  "companion": {
+    "name": "Compañero Cariñoso",
+    "subtitle": "Siempre aquí para escucharte",
+    "placeholder": "Escribe un mensaje…",
+    "speak": "Hablar",
+    "listening": "Escuchando… habla ahora",
+    "stopListening": "Parar",
+    "readAloud": "Leer en voz alta",
+    "stopReading": "Dejar de leer",
+    "thinking": "Pensando…",
+    "clear": "Borrar conversación",
+    "clearConfirm": "¿Eliminar tu historial de chat con el compañero?",
+    "greeting": {
+      "grandparent": "¡Hola, {name}! Qué alegría verle. ¿Cómo se siente hoy?",
+      "parent": "Hola, {name}. Estoy aquí para ayudarle a entender y conectar mejor con su familia. ¿Qué tiene en mente?",
+      "child": "¡Hola, {name}! Este es tu espacio seguro. Lo que sientas, puedes decirlo aquí."
+    },
+    "chips": {
+      "grandparent": [
+        "Hoy me siento un poco solo",
+        "¿Qué tengo que hacer hoy?",
+        "Déjame contarte una historia de mi juventud",
+        "Ayúdame a hacer una videollamada a mi nieto"
+      ],
+      "parent": [
+        "Mi hijo adolescente no quiere hablar conmigo",
+        "Ayúdeme a mantener la calma en una discusión",
+        "¿Por qué mi hijo pasa tanto tiempo con el móvil?",
+        "¿Cómo le pido perdón a mi hijo?"
+      ],
+      "child": [
+        "Hoy me siento un poco triste",
+        "Ayúdame a contarle a mamá/papá mis notas",
+        "Tuve una discusión con mi familia",
+        "Quiero pedir un poco más de libertad"
+      ]
+    },
+    "autoRead": "Leer las respuestas en voz alta",
+    "privateNote": "Tus chats aquí son privados."
+  },
+  "memoryTree": {
+    "title": "Árbol de Recuerdos",
+    "subtitle": "Cada recuerdo es una hoja. Mira florecer el árbol de tu familia.",
+    "addLeaf": "Añadir una hoja de recuerdo",
+    "leafTypes": {
+      "text": "Historia",
+      "image": "Foto",
+      "audio": "Nota de voz"
+    },
+    "titleLabel": "Título",
+    "storyLabel": "Tu historia",
+    "uploadPhoto": "Subir una foto",
+    "recordVoice": "Grabar una nota de voz",
+    "stopRecording": "Detener grabación",
+    "dateLabel": "¿Cuándo ocurrió?",
+    "timeCapsule": "Cápsula del tiempo",
+    "timeCapsuleHint": "Sella este recuerdo hasta una fecha futura, como una graduación o un cumpleaños.",
+    "unlockOn": "Abrir el",
+    "locked": "Sellado",
+    "lockedUntil": "Sellado hasta el {date}",
+    "aiArchiving": "Tu compañero está preparando este recuerdo…",
+    "aiTitle": "Título sugerido",
+    "aiFollowUp": "Una pregunta para otra generación",
+    "reply": "Responder a este recuerdo",
+    "empty": "Tu árbol espera su primera hoja.",
+    "limitReached": "Tu árbol gratuito está lleno (20 hojas). Hazte Premium para hojas ilimitadas.",
+    "leavesCount": "{count, plural, one {# hoja} other {# hojas}}",
+    "by": "De {name}",
+    "publish": "Plantar esta hoja",
+    "replyTo": "En respuesta a «{title}»",
+    "savedNoAi": "Guardado. Se acabaron los usos gratuitos de IA, así que el compañero no pudo añadir título ni resumen.",
+    "titleHint": "Déjalo vacío y el compañero sugerirá uno.",
+    "uploadAudio": "Subir un archivo de audio"
+  },
+  "translator": {
+    "title": "Traductor Generacional",
+    "subtitle": "Entiende las palabras y el ánimo de la Generación Z y Alfa, y responde con cariño.",
+    "placeholder": "Escribe una palabra, tendencia o comportamiento…",
+    "examples": [
+      "cringe",
+      "flex",
+      "overthinking",
+      "vô tri",
+      "slay"
+    ],
+    "translate": "Explicar",
+    "cards": {
+      "meaning": "Significado sencillo",
+      "context": "Por qué lo hacen los jóvenes",
+      "script": "Lo que puedes decir"
+    },
+    "hint": "Prueba con una palabra que tu nieto haya dicho hace poco."
+  },
+  "scamShield": {
+    "title": "Escudo Antiestafas para mayores",
+    "subtitle": "Conoce los trucos. Mantente seguro. Ante la duda, pregunta a tu familia.",
+    "premiumNote": "Las familias Premium reciben las nuevas alertas de estafas en cuanto aparecen.",
+    "highAlert": "Alerta máxima",
+    "doLabel": "SÍ HAZ",
+    "dontLabel": "NO HAGAS",
+    "cards": {
+      "deepfake": {
+        "title": "Videollamadas con deepfake",
+        "summary": "Un estafador usa IA para copiar la cara y la voz de un ser querido y te pide dinero con urgencia.",
+        "do": [
+          "Cuelga y llama a tu familiar a su número de siempre",
+          "Acuerden en familia una pregunta o palabra clave secreta",
+          "Pregunta algo que solo la persona real sabría"
+        ],
+        "dont": [
+          "No envíes dinero solo por una videollamada",
+          "No te fíes de una cara o una voz solo porque parezcan reales",
+          "No actúes bajo presión de tiempo"
+        ]
+      },
+      "bank": {
+        "title": "SMS y enlaces falsos del banco",
+        "summary": "Un mensaje dice que tu cuenta está bloqueada o es sospechosa y envía un enlace para \"arreglarlo\".",
+        "do": [
+          "Abre tú mismo la app del banco o llama al número del reverso de tu tarjeta",
+          "Revisa bien el remitente y la dirección web",
+          "Enséñale el mensaje primero a un familiar"
+        ],
+        "dont": [
+          "No pulses enlaces de mensajes de texto",
+          "No compartas tu código OTP, PIN o contraseña con nadie, ni con \"el banco\"",
+          "No instales aplicaciones que te lleguen por mensaje"
+        ]
+      },
+      "police": {
+        "title": "Llamadas falsas de policía o del gobierno",
+        "summary": "Quien llama dice que estás implicado en un delito y exige que muevas dinero a una \"cuenta segura\".",
+        "do": [
+          "Cuelga y llama a la policía al número oficial",
+          "Recuerda: las autoridades reales nunca piden transferencias por teléfono",
+          "Díselo enseguida a un familiar"
+        ],
+        "dont": [
+          "No transfieras dinero a una \"cuenta segura\"",
+          "No des tu número de identidad ni datos bancarios por teléfono",
+          "No guardes la llamada en secreto"
+        ]
+      }
+    },
+    "scanner": {
+      "title": "Revisa un mensaje sospechoso con IA",
+      "placeholder": "Pega aquí el mensaje, el enlace o lo que te dijeron por teléfono…",
+      "check": "Revisar ahora",
+      "risk": {
+        "HIGH": "Riesgo alto: muy probablemente es una estafa",
+        "MEDIUM": "Riesgo medio: ten cuidado",
+        "LOW": "Riesgo bajo: parece seguro, pero mantente alerta",
+        "UNKNOWN": "No estoy seguro: pregunta a tu familia"
+      },
+      "why": "Por qué",
+      "whatToDo": "Qué hacer",
+      "whatNotToDo": "Qué no hacer"
+    }
+  },
+  "reminders": {
+    "title": "Recordatorios de cuidado",
+    "add": "Añadir recordatorio",
+    "reminderTitle": "Recordatorio",
+    "forWho": "Para",
+    "when": "Cuándo",
+    "medication": "Medicación",
+    "checkIn": "Saludo",
+    "done": "Hecho",
+    "empty": "Aún no hay recordatorios.",
+    "checkInNudge": "Hoy saluda a {name}. Una llamada corta significa mucho.",
+    "checkInTitle": "Llamar o escribir a {name}",
+    "overdue": "Vencido"
+  },
+  "games": {
+    "title": "Juegos en familia",
+    "trivia": {
+      "title": "Trivia familiar",
+      "desc": "Preguntas creadas a partir de los recuerdos de tu propia familia.",
+      "start": "Empezar el cuestionario",
+      "question": "Pregunta {number}",
+      "correct": "¡Correcto!",
+      "wrong": "No exactamente.",
+      "next": "Siguiente pregunta",
+      "score": "Acertaste {score} de {total}",
+      "needMemories": "Primero añade algunos recuerdos al árbol y luego vuelve a jugar.",
+      "finish": "Ver mi puntuación",
+      "loading": "Preparando tus preguntas…",
+      "playAgain": "Jugar otra vez"
+    },
+    "story": {
+      "title": "Historia entre todos",
+      "desc": "Por turnos, cada uno añade una frase para construir una historia. La IA hace de narrador.",
+      "start": "Empezar una historia",
+      "yourTurn": "Es tu turno",
+      "waiting": "Esperando a {name}…",
+      "addSentence": "Añade tu frase",
+      "narrator": "Narrador",
+      "askNarrator": "Pedir al narrador que continúe",
+      "empty": "Aún no hay historias. Empiecen una juntos.",
+      "noSentences": "Aún no hay frases. Escribe la primera.",
+      "sentencePlaceholder": "Escribe una frase…",
+      "titleLabel": "Título de la historia",
+      "waitOthers": "Esperando a que otra persona añada una frase."
+    }
+  },
+  "premium": {
+    "title": "GENFUSE Premium Familiar",
+    "subtitle": "Un solo plan para toda la familia.",
+    "free": {
+      "name": "Gratis",
+      "features": [
+        "5 usos de IA para la familia",
+        "Árbol de Recuerdos de hasta 20 hojas",
+        "Consejos del Escudo Antiestafas"
+      ]
+    },
+    "monthly": {
+      "name": "Mensual",
+      "price": "39.000 VND",
+      "period": "al mes"
+    },
+    "yearly": {
+      "name": "Anual",
+      "price": "390.000 VND",
+      "period": "al año",
+      "badge": "2 meses gratis"
+    },
+    "features": [
+      "Compañero, traductor y revisión de mensajes con IA sin límite",
+      "Mediación empática completa en los conflictos familiares",
+      "Hojas ilimitadas en el Árbol de Recuerdos",
+      "Alertas del Escudo Antiestafas para mayores",
+      "Incluye a todos los miembros de tu familia"
+    ],
+    "payWithPayos": "Pagar con VietQR / transferencia bancaria",
+    "payHint": "Escanea el código QR con cualquier app bancaria. Premium se activa solo en unos instantes.",
+    "success": "¡Gracias! Tu familia ya es Premium.",
+    "pending": "Esperando tu pago…",
+    "cancelled": "Pago cancelado. No se te ha cobrado nada.",
+    "checking": "Comprobando tu pago…",
+    "choose": "Elegir este plan",
+    "currentPlan": "Tu familia es Premium hasta el {date}.",
+    "extend": "Añadir más tiempo",
+    "openPaymentPage": "Abrir la página de pago",
+    "scanQr": "Escanea este código con la app de tu banco",
+    "timeout": "Todavía no hemos recibido el pago. Si ya pagaste, Premium se activará solo en unos minutos."
+  },
+  "settings": {
+    "language": "Idioma",
+    "uiMode": "Modo de pantalla",
+    "displayName": "Nombre visible",
+    "saved": "Guardado"
+  },
+  "voice": {
+    "unsupported": "Tu navegador no admite voz. Prueba con Chrome o Safari.",
+    "permissionDenied": "Permite el acceso al micrófono para poder hablar."
+  },
+  "errors": {
+    "BAD_REQUEST": "Hay un problema con la solicitud.",
+    "UNAUTHENTICATED": "Inicia sesión de nuevo.",
+    "NO_FAMILY": "Primero crea o únete a una familia.",
+    "NO_CREDITS": "Se acabaron tus usos gratuitos de IA. Hazte Premium para continuar.",
+    "RATE_LIMITED": "Demasiados mensajes. Espera un momento.",
+    "INPUT_TOO_LONG": "El mensaje es demasiado largo. Acórtalo, por favor.",
+    "AI_NOT_CONFIGURED": "La IA aún no está configurada. Contacta con soporte.",
+    "AI_STREAM_ERROR": "Lo siento, la IA no pudo terminar. Inténtalo de nuevo.",
+    "FREE_MEMORY_LIMIT_REACHED": "Tu árbol gratuito está lleno. Hazte Premium para hojas ilimitadas.",
+    "INVALID_CODE": "Ese código de familia no existe. Revísalo, por favor.",
+    "ALREADY_IN_FAMILY": "Ya perteneces a una familia.",
+    "TOO_MANY_ATTEMPTS": "Demasiados códigos incorrectos. Inténtalo de nuevo en 15 minutos.",
+    "FAMILY_FULL": "Esta familia está completa.",
+    "GENERIC": "Algo salió mal. Inténtalo de nuevo.",
+    "DATE_IN_PAST": "Elige una fecha futura.",
+    "FILE_TOO_LARGE": "Ese archivo pesa más de 10 MB.",
+    "NEED_MEMORIES": "Primero añade algunos recuerdos escritos al árbol.",
+    "NOT_FOUND": "No se encontró ese elemento.",
+    "NOT_YOUR_TURN": "Espera a que otra persona añada una frase.",
+    "STORY_TOO_SHORT": "Escriban al menos dos frases antes de pedirle al narrador que continúe.",
+    "PAYMENT_CREATE_FAILED": "No se pudo iniciar el pago. Inténtalo de nuevo.",
+    "PAYOS_NOT_CONFIGURED": "Los pagos aún no están configurados. Contacta con soporte."
+  },
+  "home": {
+    "desc": {
+      "companion": "Conversa, desahógate o pide ayuda en cualquier momento.",
+      "memoryTree": "Planten juntos historias, fotos y notas de voz.",
+      "translator": "Entiende lo que quieren decir los jóvenes.",
+      "scamShield": "Revisa los mensajes sospechosos antes de responder.",
+      "reminders": "Medicinas, saludos y pequeños recordatorios.",
+      "games": "Trivia familiar e historias escritas por turnos."
+    },
+    "dueToday": "Pendiente para hoy",
+    "familyCode": "Código de familia",
+    "greeting": "Qué alegría verte, {name}",
+    "jumpIn": "Empieza aquí",
+    "members": "{count, plural, one {# miembro} other {# miembros}}",
+    "nothingDue": "Nada pendiente para hoy."
+  },
+  "landing": {
+    "cta": "Empezar",
+    "signIn": "Iniciar sesión",
+    "gran": "Letra grande, una voz que escucha y un nieto que siempre tiene tiempo.",
+    "par": "Entiende lo que quieren decir tus hijos y encuentra palabras serenas para responder.",
+    "kid": "Un lugar privado para decir cosas difíciles y que te escuchen."
+  },
+  "pwa": {
+    "title": "Añade GENFUSE a tu pantalla de inicio",
+    "body": "Ábrela como una app de verdad: a pantalla completa y sin barra del navegador.",
+    "install": "Instalar la app",
+    "dismiss": "Ahora no",
+    "gotIt": "Entendido",
+    "ios": {
+      "steps": [
+        "Toca el botón Compartir en la parte inferior de Safari.",
+        "Desplázate y toca «Añadir a pantalla de inicio».",
+        "Toca «Añadir» en la esquina superior."
+      ]
+    },
+    "android": {
+      "steps": [
+        "Toca el botón de menú (tres puntos) del navegador.",
+        "Toca «Instalar app» o «Añadir a pantalla de inicio».",
+        "Confirma con «Instalar»."
+      ]
+    }
+  }
+}
