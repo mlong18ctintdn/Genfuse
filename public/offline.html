@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1E3A5F" />
+  <title>GENFUSE</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+      background: #FAF8F5; color: #14302a;
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.5;
+    }
+    main { max-width: 26rem; }
+    h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+    p { font-size: 1.15rem; margin: 0 0 1.5rem; }
+    button {
+      min-height: 3.25rem; padding: 0 1.75rem; border: 0; border-radius: .9rem;
+      background: #1E3A5F; color: #fff; font: inherit; font-weight: 700; font-size: 1.1rem; cursor: pointer;
+    }
+    button:focus-visible { outline: 3px solid #2f6fb0; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="/icon-192x192.png" width="72" height="72" alt="" />
+    <h1 id="title"></h1>
+    <p id="text"></p>
+    <button id="retry" type="button"></button>
+  </main>
+  <script>
+    var T = {
+      vi: ['Không có kết nối mạng', 'Hãy kiểm tra Wi-Fi hoặc dữ liệu di động rồi thử lại nhé.', 'Thử lại'],
+      en: ['You are offline', 'Check your Wi-Fi or mobile data, then try again.', 'Try again'],
+      zh: ['当前没有网络', '请检查 Wi-Fi 或移动数据，然后重试。', '重试'],
+      es: ['Sin conexión', 'Revisa tu Wi-Fi o tus datos móviles y vuelve a intentarlo.', 'Reintentar']
+    };
+    var code = (navigator.language || 'vi').slice(0, 2).toLowerCase();
+    var l = T[code] ? code : 'vi';
+    document.documentElement.lang = l === 'zh' ? 'zh-Hans' : l;
+    document.getElementById('title').textContent = T[l][0];
+    document.getElementById('text').textContent = T[l][1];
+    var b = document.getElementById('retry');
+    b.textContent = T[l][2];
+    b.addEventListener('click', function () { location.reload(); });
+  </script>
+</body>
+</html>
