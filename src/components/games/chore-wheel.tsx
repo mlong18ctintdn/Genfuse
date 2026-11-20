@@ -110,7 +110,7 @@ export function ChoreWheel({
 
   const rotRef = useRef(0);
   const lastSpin = useRef<string | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const supabase = useRef(createClient()).current;
 
   // New members appear ticked by default.
