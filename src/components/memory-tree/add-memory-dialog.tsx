@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Image as ImageIcon, Mic, PenLine, Sparkles, Square, Upload } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { useFamily } from '@/components/providers/family-provider';
 import { createMemory, type CreateMemoryResult } from '@/app/actions/memories';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
@@ -32,6 +33,7 @@ export function AddMemoryDialog({
   replyTo: { id: string; title: string } | null;
 }) {
   const t = useTranslations();
+  const { announce } = useFamily();
   const [kind, setKind] = useState<Kind>('text');
   const [title, setTitle] = useState('');
   const [story, setStory] = useState('');
@@ -166,6 +168,7 @@ export function AddMemoryDialog({
       return setError(t(`errors.${res.error}`));
     }
     setResult(res);
+    if (!(capsule && unlockAt)) announce('memory'); // sealed capsules stay secret
   }
 
   const tomorrow = new Date(Date.now() + 24 * 3600 * 1000).toISOString().slice(0, 16);

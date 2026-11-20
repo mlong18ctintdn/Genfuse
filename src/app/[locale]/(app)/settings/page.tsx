@@ -19,7 +19,7 @@ export default async function SettingsPage() {
       <SettingsForm
         initial={{ displayName: me.display_name, uiMode: me.ui_mode }}
         familyName={family?.name ?? ''}
-        familyCode={family?.family_code ?? ''}
+        inviteCode={family?.family_code ?? ''}
         premium={family ? isPremium(family) : false}
       />
     </div>

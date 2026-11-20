@@ -3,7 +3,7 @@ import { ArrowUpRight, BellRing, Gamepad2, Languages, MessageCircleHeart, Shield
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { getFamily, getSession } from '@/lib/session';
-import { CopyButton } from '@/components/ui/copy-button';
+import { FamilyRoomCard } from '@/components/family/family-room-card';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import type { Role } from '@/lib/ai/prompts';
@@ -41,7 +41,7 @@ export default async function HomePage() {
   const endOfToday = new Date();
   endOfToday.setHours(23, 59, 59, 999);
 
-  const [{ data: due }, { count: members }] = await Promise.all([
+  const [{ data: due }] = await Promise.all([
     supabase
       .from('reminders')
       .select('id, title, remind_time')
@@ -50,7 +50,6 @@ export default async function HomePage() {
       .lte('remind_time', endOfToday.toISOString())
       .order('remind_time', { ascending: true })
       .limit(5),
-    supabase.from('profiles').select('id', { count: 'exact', head: true }),
   ]);
 
   const order = ORDER[me.role];
@@ -61,19 +60,9 @@ export default async function HomePage() {
     <div className="space-y-8">
       <header className="space-y-2">
         <h1 className="text-3xl font-extrabold md:text-4xl">{t('home.greeting', { name: me.display_name })}</h1>
-        {family && (
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">
-            <span>
-              {family.name} · {t('home.members', { count: members ?? 1 })}
-            </span>
-            <span className="flex items-center gap-2">
-              {t('home.familyCode')}
-              <strong className="text-lg tracking-[0.2em] text-foreground">{family.family_code}</strong>
-              <CopyButton text={family.family_code} size="sm" variant="ghost" />
-            </span>
-          </div>
-        )}
       </header>
+
+      {family && <FamilyRoomCard familyName={family.name} inviteCode={family.family_code} />}
 
       <section aria-labelledby="jump" className="space-y-4">
         <h2 id="jump" className="text-xl font-bold">

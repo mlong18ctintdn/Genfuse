@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Check, HeartHandshake, Pill, Plus, Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { useFamily } from '@/components/providers/family-provider';
 import { Badge, roleTone } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
@@ -47,6 +48,7 @@ export function RemindersClient({
   const t = useTranslations();
   const locale = useLocale();
   const supabase = createClient();
+  const { announce } = useFamily();
 
   const [items, setItems] = useState<Reminder[]>(initial);
   const [title, setTitle] = useState('');
@@ -84,7 +86,9 @@ export function RemindersClient({
     if (err) {
       setItems((prev) => prev.map((x) => (x.id === r.id ? { ...x, is_completed: r.is_completed } : x)));
       setError(t('errors.GENERIC'));
+      return;
     }
+    if (next) announce('reminderDone');
   }
 
   async function remove(r: Reminder) {

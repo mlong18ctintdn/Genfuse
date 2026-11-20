@@ -5,15 +5,34 @@ import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { StoryGame, type Story } from './story-game';
 import { TriviaGame } from './trivia-game';
+import { ChoreWheel, type SpinRow, type WheelChore } from './chore-wheel';
+import { OAnQuan } from './o-an-quan';
 
-export function GamesClient({ familyId, myId, stories }: { familyId: string; myId: string; stories: Story[] }) {
+const TABS = ['trivia', 'story', 'chore', 'oaq'] as const;
+type Tab = (typeof TABS)[number];
+
+export function GamesClient({
+  familyId,
+  myId,
+  stories,
+  chores,
+  spins,
+  autoSpeak,
+}: {
+  familyId: string;
+  myId: string;
+  stories: Story[];
+  chores: WheelChore[];
+  spins: SpinRow[];
+  autoSpeak: boolean;
+}) {
   const t = useTranslations();
-  const [tab, setTab] = useState<'trivia' | 'story'>('trivia');
+  const [tab, setTab] = useState<Tab>('trivia');
 
   return (
     <div className="space-y-6">
-      <div role="tablist" aria-label={t('games.title')} className="inline-flex rounded-lg bg-muted p-1">
-        {(['trivia', 'story'] as const).map((k) => (
+      <div role="tablist" aria-label={t('games.title')} className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-1 sm:inline-grid sm:grid-cols-4">
+        {TABS.map((k) => (
           <button
             key={k}
             type="button"
@@ -22,7 +41,7 @@ export function GamesClient({ familyId, myId, stories }: { familyId: string; myI
             aria-selected={tab === k}
             aria-controls={`panel-${k}`}
             onClick={() => setTab(k)}
-            className={cn('min-h-12 rounded-md px-5 font-bold', tab === k ? 'bg-card shadow-sm' : 'text-muted-foreground')}
+            className={cn('min-h-12 rounded-md px-4 font-bold', tab === k ? 'bg-card shadow-sm' : 'text-muted-foreground')}
           >
             {t(`games.${k}.title`)}
           </button>
@@ -30,7 +49,10 @@ export function GamesClient({ familyId, myId, stories }: { familyId: string; myI
       </div>
 
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
-        {tab === 'trivia' ? <TriviaGame /> : <StoryGame familyId={familyId} myId={myId} initial={stories} />}
+        {tab === 'trivia' && <TriviaGame />}
+        {tab === 'story' && <StoryGame familyId={familyId} myId={myId} initial={stories} />}
+        {tab === 'chore' && <ChoreWheel initialChores={chores} initialHistory={spins} />}
+        {tab === 'oaq' && <OAnQuan myId={myId} autoSpeak={autoSpeak} />}
       </div>
     </div>
   );

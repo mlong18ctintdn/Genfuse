@@ -8,19 +8,19 @@ import { signOut, updateProfile } from '@/app/actions/profile';
 import { writeUiModeCookie, type UiMode } from '@/lib/ui-mode';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
-import { CopyButton } from '@/components/ui/copy-button';
+import { FamilyRoomCard } from '@/components/family/family-room-card';
 import { LanguageSwitcher } from '@/components/layout/language-switcher';
 import { Badge } from '@/components/ui/badge';
 
 export function SettingsForm({
   initial,
   familyName,
-  familyCode,
+  inviteCode,
   premium,
 }: {
   initial: { displayName: string; uiMode: UiMode };
   familyName: string;
-  familyCode: string;
+  inviteCode: string;
   premium: boolean;
 }) {
   const t = useTranslations();
@@ -102,15 +102,10 @@ export function SettingsForm({
         </div>
       </form>
 
-      <section className="space-y-2 rounded-lg border border-border bg-card p-5">
-        <h2 className="text-lg font-bold">{familyName}</h2>
-        <p className="flex flex-wrap items-center gap-3">
-          {t('home.familyCode')}
-          <strong className="text-xl tracking-[0.2em]">{familyCode}</strong>
-          <CopyButton text={familyCode} size="sm" />
-        </p>
+      <div className="space-y-3">
+        <FamilyRoomCard familyName={familyName} inviteCode={inviteCode} />
         <Badge tone={premium ? 'gran' : 'neutral'}>{premium ? t('credits.premiumBadge') : t('premium.free.name')}</Badge>
-      </section>
+      </div>
 
       <Button variant="outline" onClick={() => startTransition(() => signOut(locale))} disabled={pending}>
         <LogOut aria-hidden />

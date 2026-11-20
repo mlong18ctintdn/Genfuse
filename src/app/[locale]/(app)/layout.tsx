@@ -1,6 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import { redirect } from '@/i18n/navigation';
 import { getFamily, getSession, isPremium } from '@/lib/session';
+import { FamilyRealtimeProvider } from '@/components/providers/family-provider';
+import { ActivityToasts } from '@/components/family/activity-toasts';
+import { createClient } from '@/lib/supabase/server';
+import type { FamilyMember } from '@/components/providers/family-provider';
 import { CreditProvider } from '@/components/providers/credit-provider';
 import { AppHeader } from '@/components/layout/app-header';
 import { SideNav, TabBar } from '@/components/layout/app-nav';
@@ -24,6 +28,12 @@ export default async function AppLayout({
   if (!family) return redirect({ href: '/onboarding', locale });
 
   const t = await getTranslations();
+  const supabase = await createClient();
+  const { data: memberRows } = await supabase
+    .from('profiles')
+    .select('id, display_name, role')
+    .order('created_at', { ascending: true });
+  const members = (memberRows ?? []) as FamilyMember[];
 
   return (
     <CreditProvider
@@ -34,6 +44,7 @@ export default async function AppLayout({
         premiumExpiresAt: family.premium_expires_at,
       }}
     >
+      <FamilyRealtimeProvider familyId={family.id} meId={profile.id} meName={profile.display_name} members={members}>
       <UiModeSync mode={profile.ui_mode} />
       <a
         href="#main"
@@ -62,6 +73,8 @@ export default async function AppLayout({
 
       <TabBar />
       <FloatingCompanion role={profile.role} displayName={profile.display_name} autoSpeak={profile.ui_mode === 'senior'} />
+      <ActivityToasts />
+      </FamilyRealtimeProvider>
     </CreditProvider>
   );
 }
