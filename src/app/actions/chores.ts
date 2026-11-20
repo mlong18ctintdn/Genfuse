@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { SPIN_MS } from '@/lib/games/constants';
+import { canStartGame, consumeGameUse } from '@/lib/credits';
 
 type Ok<T> = { ok: true } & T;
 type Err = { ok: false; error: string };
@@ -88,6 +89,8 @@ export async function spinChoreWheel(memberIds: string[]): Promise<Ok<{ payload:
     return { ok: false, error: 'SPIN_BUSY' };
   }
 
+  if (!(await canStartGame(me.profile.family_id))) return { ok: false, error: 'NO_GAME_USES' };
+
   const index = randomInt(chores.length);
   const winner = chores[index];
   const person = pool[randomInt(pool.length)];
@@ -108,6 +111,13 @@ export async function spinChoreWheel(memberIds: string[]): Promise<Ok<{ payload:
     .select('id, created_at')
     .single();
   if (error || !row) return { ok: false, error: 'GENERIC' };
+
+  // Spend one free game use. If the family ran out in the meantime, undo the history row.
+  const spent = await consumeGameUse(me.profile.family_id);
+  if (!spent.ok) {
+    await createAdminClient().from('chore_spins').delete().eq('id', row.id);
+    return { ok: false, error: spent.reason === 'NO_GAME_USES' ? 'NO_GAME_USES' : 'GENERIC' };
+  }
 
   return {
     ok: true,

@@ -7,6 +7,8 @@ import { createClient } from '@/lib/supabase/client';
 import { createOaqGame, endOaqGame, joinOaqGame, playOaqMove } from '@/app/actions/oaq';
 import { safeErrorKey } from '@/lib/chat-utils';
 import { isValidState, playMove, type Dir, type Frame, type OaqState, type Player } from '@/lib/games/o-an-quan';
+import { useCredits } from '@/components/providers/credit-provider';
+import { UpgradeGate } from '@/components/premium/upgrade-gate';
 import { useFamily } from '@/components/providers/family-provider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -48,6 +50,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
   const locale = useLocale();
   const { members, on, send, announce, connected } = useFamily();
   const supabase = useRef(createClient()).current;
+  const { canPlayGame, refresh } = useCredits();
 
   const [rooms, setRooms] = useState<OaqRow[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -179,7 +182,10 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     setBusy(true);
     const res = await createOaqGame();
     setBusy(false);
-    if (!res.ok) return setError(t(`errors.${safeErrorKey(res.error)}`));
+    if (!res.ok) {
+      void refresh();
+      return setError(t(`errors.${safeErrorKey(res.error)}`));
+    }
     announce('oaqRoom');
     void send('oaq:update', {});
     await loadRooms();
@@ -193,8 +199,10 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     setBusy(false);
     if (!res.ok) {
       void loadRooms();
+      void refresh();
       return setError(t(`errors.${safeErrorKey(res.error)}`));
     }
+    void refresh(); // game started: header counter drops right away
     announce('oaqJoin');
     void send('oaq:update', {});
     await open(id);
@@ -250,7 +258,8 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
           <h2 className="text-xl font-bold">{t('games.oaq.title')}</h2>
           <p className="text-muted-foreground">{t('games.oaq.subtitle')}</p>
         </div>
-        <Button size="lg" onClick={create} disabled={busy || mine.some((r) => r.host_id === myId)}>
+        {!canPlayGame && <UpgradeGate kind="game" />}
+        <Button size="lg" onClick={create} disabled={!canPlayGame || busy || mine.some((r) => r.host_id === myId)}>
           <Plus aria-hidden />
           {t('games.oaq.create')}
         </Button>
@@ -279,7 +288,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
                     {t('games.oaq.resume')}
                   </Button>
                 ) : r.status === 'waiting' ? (
-                  <Button size="lg" onClick={() => join(r.id)} disabled={busy}>
+                  <Button size="lg" onClick={() => join(r.id)} disabled={busy || !canPlayGame}>
                     {t('games.oaq.join')}
                   </Button>
                 ) : (

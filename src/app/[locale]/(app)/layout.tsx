@@ -41,6 +41,7 @@ export default async function AppLayout({
       initial={{
         premium: isPremium(family),
         credits: family.credits_remaining,
+        gameUses: family.free_game_uses,
         premiumExpiresAt: family.premium_expires_at,
       }}
     >

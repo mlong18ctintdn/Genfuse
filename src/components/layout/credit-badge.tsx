@@ -23,7 +23,7 @@ export function CreditBadge() {
     );
   }
 
-  const low = access.credits <= 1;
+  const low = access.credits <= 1 || access.gameUses <= 1;
   return (
     <Link
       href="/premium"
@@ -34,7 +34,7 @@ export function CreditBadge() {
       )}
     >
       <Sparkles aria-hidden className="size-4" />
-      {t('credits.left', { count: access.credits })}
+      {t('credits.both', { ai: access.credits, games: access.gameUses })}
     </Link>
   );
 }

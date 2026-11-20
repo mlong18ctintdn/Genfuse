@@ -7,6 +7,8 @@ import { createClient } from '@/lib/supabase/client';
 import { addChore, removeChore, spinChoreWheel, type SpinPayload } from '@/app/actions/chores';
 import { SPIN_MS } from '@/lib/games/constants';
 import { safeErrorKey } from '@/lib/chat-utils';
+import { useCredits } from '@/components/providers/credit-provider';
+import { UpgradeGate } from '@/components/premium/upgrade-gate';
 import { useFamily } from '@/components/providers/family-provider';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
@@ -95,6 +97,7 @@ export function ChoreWheel({
 }) {
   const t = useTranslations();
   const locale = useLocale();
+  const { canPlayGame, refresh } = useCredits();
   const { members, online, on, send, connected, announce, meId } = useFamily();
 
   const [chores, setChores] = useState<WheelChore[]>(initialChores);
@@ -110,7 +113,7 @@ export function ChoreWheel({
 
   const rotRef = useRef(0);
   const lastSpin = useRef<string | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
   const supabase = useRef(createClient()).current;
 
   // New members appear ticked by default.
@@ -176,7 +179,11 @@ export function ChoreWheel({
     setBusy(true);
     const res = await spinChoreWheel([...picked]);
     setBusy(false);
-    if (!res.ok) return setError(t(`errors.${safeErrorKey(res.error)}`));
+    if (!res.ok) {
+      void refresh();
+      return setError(t(`errors.${safeErrorKey(res.error)}`));
+    }
+    void refresh(); // the counter in the header drops right away
     if (connected) await send('wheel:spin', res.payload as unknown as Record<string, unknown>);
     else handleSpin(res.payload);
   }
@@ -214,7 +221,7 @@ export function ChoreWheel({
     });
 
   const fmt = (iso: string) => new Intl.DateTimeFormat(locale, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(iso));
-  const canSpin = !spinning && !busy && chores.length >= 2 && picked.size >= 1;
+  const canSpin = canPlayGame && !spinning && !busy && chores.length >= 2 && picked.size >= 1;
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -228,6 +235,7 @@ export function ChoreWheel({
 
         <Wheel chores={chores.map((c) => ({ title: c.title, exempt: c.is_exempt }))} rotation={rotation} spinning={spinning} ms={ms} />
 
+        {!canPlayGame && <UpgradeGate kind="game" />}
         <Button size="lg" className="w-full text-xl" onClick={spin} disabled={!canSpin}>
           <RotateCw aria-hidden className={cn(spinning && 'animate-spin')} />
           {spinning ? t('games.chore.spinning') : t('games.chore.spin')}

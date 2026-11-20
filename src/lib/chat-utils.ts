@@ -46,6 +46,7 @@ const KNOWN_ERRORS = new Set([
   'OWN_ROOM',
   'ROOM_LIMIT',
   'CHORE_EXISTS',
+  'NO_GAME_USES',
   'GENERIC',
 ]);
 

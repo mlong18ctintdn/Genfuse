@@ -12,6 +12,8 @@ export type CreditResult = {
 export type FamilyAccess = {
   premium: boolean;
   creditsRemaining: number;
+  /** Free game starts left (chore wheel spin, Ô Ăn Quan game). */
+  gameUsesRemaining: number;
   premiumExpiresAt: string | null;
 };
 
@@ -20,7 +22,7 @@ export async function getFamilyAccess(familyId: string): Promise<FamilyAccess | 
   const admin = createAdminClient();
   const { data, error } = await admin
     .from('families')
-    .select('credits_remaining, subscription_tier, premium_expires_at')
+    .select('credits_remaining, free_game_uses, subscription_tier, premium_expires_at')
     .eq('id', familyId)
     .single();
 
@@ -33,6 +35,7 @@ export async function getFamilyAccess(familyId: string): Promise<FamilyAccess | 
   return {
     premium,
     creditsRemaining: data.credits_remaining,
+    gameUsesRemaining: data.free_game_uses,
     premiumExpiresAt: data.premium_expires_at,
   };
 }
@@ -64,4 +67,28 @@ export async function consumeCredit(familyId: string): Promise<CreditResult> {
     creditsRemaining: r.credits_remaining,
     reason: r.reason,
   };
+}
+
+export type GameUseResult = {
+  ok: boolean;
+  premium: boolean;
+  gameUsesRemaining: number | null;
+  reason?: 'NO_GAME_USES' | 'ERROR';
+};
+
+/** Atomically spends ONE free game use (SQL consume_family_game_use). Premium is not charged. */
+export async function consumeGameUse(familyId: string): Promise<GameUseResult> {
+  const { data, error } = await createAdminClient().rpc('consume_family_game_use', { p_family_id: familyId });
+  if (error || !data) {
+    console.error('[credits] consume_family_game_use failed', error);
+    return { ok: false, premium: false, gameUsesRemaining: null, reason: 'ERROR' };
+  }
+  const r = data as { ok: boolean; premium: boolean; free_game_uses: number | null; reason?: 'NO_GAME_USES' };
+  return { ok: r.ok, premium: r.premium, gameUsesRemaining: r.free_game_uses, reason: r.reason };
+}
+
+/** Read-only: may this family start a game right now? */
+export async function canStartGame(familyId: string): Promise<boolean> {
+  const a = await getFamilyAccess(familyId);
+  return !!a && (a.premium || a.gameUsesRemaining > 0);
 }

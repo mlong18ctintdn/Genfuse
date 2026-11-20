@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { canStartGame, consumeGameUse } from '@/lib/credits';
 import { isValidState, newGame, playMove, type OaqState } from '@/lib/games/o-an-quan';
 
 type Ok<T> = { ok: true } & T;
@@ -24,6 +25,7 @@ const uuid = z.string().uuid();
 export async function createOaqGame(): Promise<Ok<{ id: string }> | Err> {
   const me = await who();
   if (!me) return { ok: false, error: 'UNAUTHENTICATED' };
+  if (!(await canStartGame(me.familyId))) return { ok: false, error: 'NO_GAME_USES' };
   const admin = createAdminClient();
 
   const { data: open } = await admin
@@ -53,6 +55,7 @@ export async function joinOaqGame(gameId: string): Promise<Ok<object> | Err> {
   const { data: g } = await admin.from('oaq_games').select('id, host_id, guest_id, status').eq('id', gameId).eq('family_id', me.familyId).maybeSingle();
   if (!g) return { ok: false, error: 'NOT_FOUND' };
   if (g.host_id === me.user.id) return { ok: false, error: 'OWN_ROOM' };
+  if (!(await canStartGame(me.familyId))) return { ok: false, error: 'NO_GAME_USES' };
 
   // Atomic: only succeeds while the seat is still free.
   const { data: updated } = await admin
@@ -64,6 +67,17 @@ export async function joinOaqGame(gameId: string): Promise<Ok<object> | Err> {
     .is('guest_id', null)
     .select('id');
   if (!updated || updated.length === 0) return { ok: false, error: 'ROOM_TAKEN' };
+
+  // The game starts now: spend one free game use (the family shares the pool).
+  const spent = await consumeGameUse(me.familyId);
+  if (!spent.ok) {
+    await admin
+      .from('oaq_games')
+      .update({ guest_id: null, status: 'waiting', updated_at: new Date().toISOString() })
+      .eq('id', gameId)
+      .eq('guest_id', me.user.id);
+    return { ok: false, error: spent.reason === 'NO_GAME_USES' ? 'NO_GAME_USES' : 'GENERIC' };
+  }
   return { ok: true };
 }
 

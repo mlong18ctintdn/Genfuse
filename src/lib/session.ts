@@ -18,6 +18,7 @@ export type Family = {
   name: string;
   family_code: string;
   credits_remaining: number;
+  free_game_uses: number;
   subscription_tier: 'free' | 'premium';
   premium_expires_at: string | null;
 };
@@ -43,7 +44,7 @@ export const getFamily = cache(async (familyId: string) => {
   const supabase = await createClient();
   const { data } = await supabase
     .from('families')
-    .select('id, name, family_code, credits_remaining, subscription_tier, premium_expires_at')
+    .select('id, name, family_code, credits_remaining, free_game_uses, subscription_tier, premium_expires_at')
     .eq('id', familyId)
     .single();
   return data as Family | null;
