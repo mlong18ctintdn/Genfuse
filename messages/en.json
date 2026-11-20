@@ -85,7 +85,10 @@
     "premiumBadge": "Premium",
     "outOfCredits": "You've used all 5 free AI uses",
     "outOfCreditsBody": "Go Premium to keep chatting with your companion, translating slang and checking messages, as much as you like.",
-    "upgradeCta": "See Premium plans"
+    "upgradeCta": "See Premium plans",
+    "both": "{ai} AI • {games} Games left",
+    "outOfGames": "You've used all 10 free game plays",
+    "outOfGamesBody": "Go Premium to spin the wheel and play Ô Ăn Quan as much as you like with your family."
   },
   "companion": {
     "name": "Loving Companion",
@@ -456,7 +459,8 @@
     "STALE_STATE": "The board just changed. Reloading, please try again.",
     "ROOM_TAKEN": "Someone else already joined this room.",
     "OWN_ROOM": "This is your own room. Wait for someone else to join.",
-    "ROOM_LIMIT": "Limit reached. Remove something or finish an old game first."
+    "ROOM_LIMIT": "Limit reached. Remove something or finish an old game first.",
+    "NO_GAME_USES": "Your family has no free game plays left. Go Premium to keep playing."
   },
   "home": {
     "desc": {

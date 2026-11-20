@@ -16,7 +16,7 @@ Next.js 15 (App Router, RSC) + Supabase + Vercel AI SDK (Gemini 2.5 Flash) + nex
 genfuse/
 ├─ package.json  tsconfig.json  next.config.mjs  tailwind.config.ts  postcss.config.mjs  components.json
 ├─ .env.example
-├─ messages/{vi,en,zh,es}.json                    358 keys each, identical
+├─ messages/{vi,en,zh,es}.json                    362 keys each, identical
 ├─ supabase/migrations/
 │  ├─ 001_genfuse_schema.sql                      tables, RLS, triggers, credit + billing functions, storage
 │  ├─ 002_phase3_additions.sql                    memory replies, story game table + realtime
@@ -72,7 +72,7 @@ Node 20+.
 ## 3. Supabase
 
 1. Create a project (region near your users, e.g. Singapore).
-2. **SQL Editor:** run `001_genfuse_schema.sql`, `002_phase3_additions.sql`, then `003_family_and_games.sql`.
+2. **SQL Editor:** run `001_genfuse_schema.sql`, `002_phase3_additions.sql`, `003_family_and_games.sql`, then `004_free_game_uses.sql`.
 3. **Settings → API:** copy the Project URL, `anon` key and `service_role` key into `.env.local` (`service_role` is server-only).
 4. **Fix the `localhost:3000` verification email (you need both parts):**
    1. **Authentication → URL Configuration:** Site URL = `https://YOUR-APP.vercel.app`. Redirect URLs: `https://YOUR-APP.vercel.app/**`, `http://localhost:3000/**`, optionally `https://*-YOUR-TEAM.vercel.app/**` for previews.
@@ -157,3 +157,14 @@ Files: `src/app/manifest.ts`, `public/sw.js`, `public/offline.html`, `public/*.p
 - **Rule choices to confirm with your family:** a quan square is captured only with 5 or more pebbles on it; 1 quan = 10 pebbles; borrowed pebbles are repaid at the end. House rules vary, edit `o-an-quan.ts` if yours differ. The engine was run through 20,000 random games (pebbles always 50, quan always 2, every game ends).
 - **Not tested live:** like the rest of the project, none of this has been run against a real Supabase project or with two devices. Check first: two accounts in one family see each other online; a third account in another family receives nothing; a spin lands on the same segment on both phones.
 - Limitations: the member list refreshes when a new person appears online or on reload, not the moment someone leaves; "Allow public access" for Realtime must be off (see above).
+
+---
+
+## 12. Free uses: 5 AI + 10 games (migration 004)
+
+- Both counters live on `families` and are shared by the whole family. `credits_remaining` (default 5) is the AI counter, unchanged; `free_ai_uses` is a read-only generated alias of it. New column `free_game_uses` (default 10) also applies to existing families.
+- **AI** (Companion, Translator, Scam Shield, memory archiver, trivia, story narrator) spends 1 use as before; at 0 the server answers `NO_CREDITS` and the page shows the *See Premium plans* button.
+- **Games:** spinning the chore wheel and a Ô Ăn Quan game starting (when the second player joins, not when the room is created) each spend 1 use through `consume_family_game_use()` (atomic, `service_role` only). At 0 the buttons are disabled and `UpgradeGate` appears; the server refuses too (`NO_GAME_USES`). If the last use is taken by someone else at the same moment, the spin row or the join is rolled back, so nobody gets a free game or loses a use for nothing.
+- Premium families are never charged. Header badge: `5 AI • 10 Games left`, or `Premium`; it updates by Realtime and after each spend the provider calls `router.refresh()`.
+- Trivia and the story game are AI features, so they use the AI counter, not the game counter.
+- Run section 4 of the SQL (`revoke update on families`) only if your app never updates `families` from the browser; nothing in this code does.

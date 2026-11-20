@@ -85,7 +85,10 @@
     "premiumBadge": "Premium",
     "outOfCredits": "Gia đình đã dùng hết 5 lượt AI miễn phí",
     "outOfCreditsBody": "Nâng cấp Premium để thoải mái trò chuyện với Cháu Ngoan, hiểu tiếng lóng của giới trẻ và kiểm tra tin nhắn đáng ngờ.",
-    "upgradeCta": "Xem các gói Premium"
+    "upgradeCta": "Xem các gói Premium",
+    "both": "{ai} AI • {games} lượt game",
+    "outOfGames": "Bạn đã dùng hết 10 lượt chơi miễn phí",
+    "outOfGamesBody": "Nâng cấp Premium để quay vòng xoay và chơi Ô Ăn Quan không giới hạn cùng cả nhà."
   },
   "companion": {
     "name": "Cháu Ngoan",
@@ -456,7 +459,8 @@
     "STALE_STATE": "Bàn cờ vừa thay đổi. Đang tải lại, bạn thử lại nhé.",
     "ROOM_TAKEN": "Phòng này đã có người vào rồi.",
     "OWN_ROOM": "Đây là phòng của bạn. Hãy chờ người khác vào.",
-    "ROOM_LIMIT": "Đã đạt giới hạn. Hãy xóa bớt hoặc kết thúc ván cũ."
+    "ROOM_LIMIT": "Đã đạt giới hạn. Hãy xóa bớt hoặc kết thúc ván cũ.",
+    "NO_GAME_USES": "Gia đình bạn đã hết lượt chơi miễn phí. Hãy nâng cấp Premium để tiếp tục."
   },
   "home": {
     "desc": {

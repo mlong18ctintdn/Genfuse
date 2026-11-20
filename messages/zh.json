@@ -85,7 +85,10 @@
     "premiumBadge": "高级版",
     "outOfCredits": "全家 5 次免费 AI 已用完",
     "outOfCreditsBody": "升级高级版，即可不限次数地与小伙伴聊天、了解年轻人的流行语、检查可疑信息。",
-    "upgradeCta": "查看高级版方案"
+    "upgradeCta": "查看高级版方案",
+    "both": "AI 剩 {ai} 次 • 游戏剩 {games} 次",
+    "outOfGames": "你已用完 10 次免费游戏机会",
+    "outOfGamesBody": "升级 Premium，即可与家人无限次转转盘、下官棋。"
   },
   "companion": {
     "name": "贴心小伙伴",
@@ -456,7 +459,8 @@
     "STALE_STATE": "棋盘刚刚有变化，正在重新加载，请再试一次。",
     "ROOM_TAKEN": "这个房间已经有人加入了。",
     "OWN_ROOM": "这是你自己的房间，请等其他人加入。",
-    "ROOM_LIMIT": "已达上限，请先删除或结束旧的内容。"
+    "ROOM_LIMIT": "已达上限，请先删除或结束旧的内容。",
+    "NO_GAME_USES": "你们家的免费游戏次数已用完，升级 Premium 即可继续。"
   },
   "home": {
     "desc": {

@@ -85,7 +85,10 @@
     "premiumBadge": "Premium",
     "outOfCredits": "Ya usaron los 5 usos gratuitos de IA",
     "outOfCreditsBody": "Hazte Premium para seguir conversando con tu compañero, entender la jerga de los jóvenes y revisar mensajes sospechosos sin límite.",
-    "upgradeCta": "Ver planes Premium"
+    "upgradeCta": "Ver planes Premium",
+    "both": "{ai} IA • {games} juegos",
+    "outOfGames": "Has usado tus 10 juegos gratis",
+    "outOfGamesBody": "Pásate a Premium para girar la rueda y jugar Ô Ăn Quan sin límite con tu familia."
   },
   "companion": {
     "name": "Compañero Cariñoso",
@@ -456,7 +459,8 @@
     "STALE_STATE": "El tablero acaba de cambiar. Se recarga, inténtalo de nuevo.",
     "ROOM_TAKEN": "Alguien ya entró en esta sala.",
     "OWN_ROOM": "Esta es tu propia sala. Espera a que entre otra persona.",
-    "ROOM_LIMIT": "Límite alcanzado. Elimina algo o termina una partida antigua."
+    "ROOM_LIMIT": "Límite alcanzado. Elimina algo o termina una partida antigua.",
+    "NO_GAME_USES": "Tu familia no tiene juegos gratis. Pásate a Premium para seguir jugando."
   },
   "home": {
     "desc": {
