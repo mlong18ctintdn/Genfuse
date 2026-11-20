@@ -16,10 +16,11 @@ Next.js 15 (App Router, RSC) + Supabase + Vercel AI SDK (Gemini 2.5 Flash) + nex
 genfuse/
 ├─ package.json  tsconfig.json  next.config.mjs  tailwind.config.ts  postcss.config.mjs  components.json
 ├─ .env.example
-├─ messages/{vi,en,zh,es}.json                    261 keys each, identical
+├─ messages/{vi,en,zh,es}.json                    358 keys each, identical
 ├─ supabase/migrations/
 │  ├─ 001_genfuse_schema.sql                      tables, RLS, triggers, credit + billing functions, storage
-│  └─ 002_phase3_additions.sql                    memory replies, story game table + realtime
+│  ├─ 002_phase3_additions.sql                    memory replies, story game table + realtime
+│  └─ 003_family_and_games.sql                    invite code, switch family, Realtime auth, chore wheel, Ô Ăn Quan
 └─ src/
    ├─ middleware.ts                               next-intl routing + Supabase session refresh
    ├─ i18n/{routing,request,navigation}.ts
@@ -71,7 +72,7 @@ Node 20+.
 ## 3. Supabase
 
 1. Create a project (region near your users, e.g. Singapore).
-2. **SQL Editor:** run `001_genfuse_schema.sql`, then `002_phase3_additions.sql`.
+2. **SQL Editor:** run `001_genfuse_schema.sql`, `002_phase3_additions.sql`, then `003_family_and_games.sql`.
 3. **Settings → API:** copy the Project URL, `anon` key and `service_role` key into `.env.local` (`service_role` is server-only).
 4. **Fix the `localhost:3000` verification email (you need both parts):**
    1. **Authentication → URL Configuration:** Site URL = `https://YOUR-APP.vercel.app`. Redirect URLs: `https://YOUR-APP.vercel.app/**`, `http://localhost:3000/**`, optionally `https://*-YOUR-TEAM.vercel.app/**` for previews.
@@ -140,3 +141,19 @@ Files: `src/app/manifest.ts`, `public/sw.js`, `public/offline.html`, `public/*.p
 - The service worker caches only `/offline.html` and one icon. It never stores pages, API responses, photos or chats, because family data must not stay on shared devices.
 - `maximumScale: 1` is set as requested. Android Chrome then blocks pinch-zoom, which hurts low-vision users. The actual cause of iOS auto-zoom is text under 16px in fields, so all fields are now ≥16px (`globals.css`); if you want pinch-zoom back on Android, delete the `maximumScale: 1` line in `src/app/[locale]/layout.tsx`.
 - Theme colour is `#1E3A5F` (manifest and browser bar); background `#FAF8F5`. Regenerate icons by editing the circles in the script you used, or replace the PNGs in `public/` (192, 512, 512 maskable, 180 apple-touch).
+
+---
+
+## 11. Family room, chore wheel, Ô Ăn Quan (migration 003)
+
+**Run `003_family_and_games.sql` after 001 and 002.** It is additive: `families` and `profiles.family_id` already existed, so it adds to them instead of recreating them.
+
+- **`invite_code`** is a *generated alias* of the existing `family_code` (same 6 characters, no I/O/0/1, easy to read aloud). Renaming the column would have broken onboarding and the older code. `families.created_by` is new (backfilled with each family's earliest member).
+- **Create / join from `/home` and `/settings`** (`FamilyRoomCard`): RPCs `switch_to_family(code)` and `create_family_for_member(name)`. Limits: one change per 24 h, 30 members per family, 10 wrong codes per 15 min. The old family and its memories stay in place (the person can return with the old code); reminders addressed to the person are deleted.
+- **Realtime channel `family:{family_id}`** (`src/components/providers/family-provider.tsx`): Presence shows who is online, Broadcast carries activity toasts, wheel spins and Ô Ăn Quan moves. The channel is **private**: migration 003 adds `realtime.messages` policies so only members of that family can read or write it. If the migration prints "realtime.messages not found", enable Realtime in the dashboard and re-run section 3 of the file. In the Supabase dashboard, check *Realtime → Settings → "Allow public access"* is **off**, otherwise private channels are not enforced.
+- **Chore wheel** (`chore-wheel.tsx`): the *server* picks the chore and person (`crypto.randomInt`), saves the history row, and returns the payload; the client then broadcasts it, so every phone spins to the same spot. A second spin within about 5.5 s is refused. Defaults (including "Miễn việc hôm nay") are seeded in the family's language on first visit. Everyone can add or remove chores (max 20).
+- **Ô Ăn Quan** (`o-an-quan.tsx`, rules in `src/lib/games/o-an-quan.ts`): the same pure engine runs on the server (validates every move, turn and move number) and on both phones (animates step by step). The mover animates at once, the server confirms, then the move is broadcast; the other phone replays it. If a move is missed or the connection drops, the board reloads from the database.
+- **Boards are rotated per player:** each player sees their own side at the bottom, so the room creator is at the bottom and the joiner sees the board turned 180°. "Right" is the same direction for both. (Showing the joiner at the top, as first described, would make them play a mirrored board.)
+- **Rule choices to confirm with your family:** a quan square is captured only with 5 or more pebbles on it; 1 quan = 10 pebbles; borrowed pebbles are repaid at the end. House rules vary, edit `o-an-quan.ts` if yours differ. The engine was run through 20,000 random games (pebbles always 50, quan always 2, every game ends).
+- **Not tested live:** like the rest of the project, none of this has been run against a real Supabase project or with two devices. Check first: two accounts in one family see each other online; a third account in another family receives nothing; a spin lands on the same segment on both phones.
+- Limitations: the member list refreshes when a new person appears online or on reload, not the moment someone leaves; "Allow public access" for Realtime must be off (see above).

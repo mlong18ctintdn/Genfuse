@@ -290,6 +290,85 @@
       "sentencePlaceholder": "Write one sentence…",
       "titleLabel": "Story title",
       "waitOthers": "Waiting for someone else to add a sentence."
+    },
+    "chore": {
+      "title": "Chore wheel",
+      "subtitle": "Anyone can spin and the whole family sees it stop in the same place.",
+      "spin": "Spin!",
+      "spinning": "Spinning…",
+      "result": "{name}: {chore}",
+      "exemptResult": "{name} is off the hook today!",
+      "spunBy": "Spun by {name}",
+      "who": "Who is taking part?",
+      "all": "Select all",
+      "none": "Clear all",
+      "listTitle": "Chore list",
+      "addLabel": "Add a chore",
+      "add": "Add",
+      "history": "Spin history",
+      "historyEmpty": "No spins yet.",
+      "defaults": [
+        "Wash the dishes",
+        "Sweep the floor",
+        "Make tea for Grandma and Grandpa",
+        "Take out the trash",
+        "Pluck grandpa's grey hairs"
+      ],
+      "exemptDefault": "Free pass today"
+    },
+    "oaq": {
+      "title": "Ô Ăn Quan",
+      "subtitle": "A traditional Vietnamese game for 2 players, one phone each.",
+      "create": "Create a room",
+      "noRooms": "No rooms yet. Create one and invite a relative.",
+      "roomOf": "{name}'s room",
+      "status": {
+        "waiting": "Waiting for a player",
+        "playing": "Playing",
+        "finished": "Finished"
+      },
+      "join": "Join",
+      "watch": "Watch",
+      "resume": "Open room",
+      "waiting": "Waiting for a relative to join… You hold the bottom side.",
+      "cancelRoom": "Cancel room",
+      "leave": "Leave game",
+      "back": "Back",
+      "quan": "Quan",
+      "cellLabel": "Square with {count} pebbles",
+      "quanLabel": "Quan square, {count} pebbles, quan present: {alive}",
+      "captured": "Captured: {dan} pebbles, {quan} quan",
+      "yourTurn": "Your turn. Tap a square with pebbles on your row.",
+      "pickDirection": "Choose a direction: left or right?",
+      "left": "Left",
+      "right": "Right",
+      "waitFor": "Waiting for {name} to move…",
+      "watching": "{name} to move",
+      "hand": "Sowing, {count} pebbles in hand",
+      "step": {
+        "pick": "Picking up pebbles",
+        "sow": "Sowing",
+        "capture": "Capture!",
+        "reseed": "Out of pebbles: 5 are placed again",
+        "end": "Game over"
+      },
+      "youWin": "You win! Congratulations!",
+      "youLose": "You lost this one. Play again!",
+      "draw": "It is a draw!",
+      "winnerIs": "{name} wins!",
+      "opponentLeft": "Your opponent left. You win!",
+      "finishedBy": "The game has ended.",
+      "score": "Score: you {a} - opponent {b} (1 quan = 10 pebbles)",
+      "viewNote": "Each player sees their own side at the bottom. “Right” is right on both screens.",
+      "rulesTitle": "How to play",
+      "rules": [
+        "The board has 10 small squares (5 pebbles each) and 2 big quan squares at the ends. The room creator holds the bottom row.",
+        "On your turn pick one of your squares that has pebbles, then choose left or right. Drop 1 pebble per square.",
+        "After the last pebble, if the next square has pebbles, pick them up and keep going. If the next square is a quan square that still has its quan, your turn ends.",
+        "If the next square is empty, you capture everything in the square after it. A quan square can be captured only with 5 or more pebbles. After a capture, if an empty square is followed by a loaded one, capture again.",
+        "If all 5 of your squares are empty, place 1 pebble on each (from your captured pebbles, or borrowed from the opponent and repaid at the end).",
+        "The game ends when both quan are captured. Leftover pebbles go to the side they sit on. 1 quan counts as 10 pebbles; the higher score wins."
+      ]
     }
   },
   "premium": {
@@ -366,7 +445,18 @@
     "NOT_YOUR_TURN": "Wait for someone else to add a sentence first.",
     "STORY_TOO_SHORT": "Write at least two sentences before asking the narrator.",
     "PAYMENT_CREATE_FAILED": "Could not start the payment. Please try again.",
-    "PAYOS_NOT_CONFIGURED": "Payments are not set up yet. Please contact support."
+    "PAYOS_NOT_CONFIGURED": "Payments are not set up yet. Please contact support.",
+    "NEED_CHORES": "Add at least 2 chores to spin the wheel.",
+    "NEED_MEMBERS": "Pick at least 1 person to take part.",
+    "SPIN_BUSY": "The wheel is still spinning. Wait a moment and try again.",
+    "CHORE_EXISTS": "That chore is already on the list.",
+    "SAME_FAMILY": "You are already in this family.",
+    "FAMILY_CHANGE_TOO_SOON": "You changed family recently. Please try again after 24 hours.",
+    "ILLEGAL_MOVE": "That move is not allowed.",
+    "STALE_STATE": "The board just changed. Reloading, please try again.",
+    "ROOM_TAKEN": "Someone else already joined this room.",
+    "OWN_ROOM": "This is your own room. Wait for someone else to join.",
+    "ROOM_LIMIT": "Limit reached. Remove something or finish an old game first."
   },
   "home": {
     "desc": {
@@ -411,5 +501,30 @@
         "Confirm with “Install”."
       ]
     }
+  },
+  "family": {
+    "inviteHint": "Give this code to relatives so they can join your family.",
+    "shareText": "Join the {name} family on GENFUSE with code: {code}",
+    "share": "Share",
+    "you": "you",
+    "online": "Online",
+    "offline": "Offline",
+    "connecting": "Connecting live…",
+    "membersOnline": "Members: {online} of {total} online",
+    "changeTitle": "Join another family or create a new one",
+    "changeWarning": "Note: you will leave this family and stop seeing its memories and reminders (they stay safe; rejoin with the old code). You can change once every 24 hours.",
+    "understand": "I understand and want to continue",
+    "joinLabel": "Enter a family code (6 characters)",
+    "join": "Join",
+    "createLabel": "Or create a new family and name it",
+    "create": "Create"
+  },
+  "activity": {
+    "memory": "{name} just added a new memory.",
+    "reminderDone": "{name} just completed a reminder.",
+    "spin": "{name} spun the wheel: {who} gets “{chore}”.",
+    "oaqRoom": "{name} opened an Ô Ăn Quan room and is waiting for a player.",
+    "oaqJoin": "{name} joined an Ô Ăn Quan room.",
+    "chores": "{name} edited the chore list."
   }
 }

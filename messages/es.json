@@ -290,6 +290,85 @@
       "sentencePlaceholder": "Escribe una frase…",
       "titleLabel": "Título de la historia",
       "waitOthers": "Esperando a que otra persona añada una frase."
+    },
+    "chore": {
+      "title": "Rueda de tareas",
+      "subtitle": "Cualquiera puede girar y toda la familia ve que se detiene en el mismo lugar.",
+      "spin": "¡Girar!",
+      "spinning": "Girando…",
+      "result": "{name}: {chore}",
+      "exemptResult": "¡{name} se libra hoy!",
+      "spunBy": "Girada por {name}",
+      "who": "¿Quién participa?",
+      "all": "Seleccionar todo",
+      "none": "Quitar todo",
+      "listTitle": "Lista de tareas",
+      "addLabel": "Añadir tarea",
+      "add": "Añadir",
+      "history": "Historial de giros",
+      "historyEmpty": "Aún no hay giros.",
+      "defaults": [
+        "Lavar los platos",
+        "Barrer la casa",
+        "Preparar el té a los abuelos",
+        "Sacar la basura",
+        "Quitar canas a los abuelos"
+      ],
+      "exemptDefault": "Libre hoy"
+    },
+    "oaq": {
+      "title": "Ô Ăn Quan",
+      "subtitle": "Juego tradicional vietnamita para 2 personas, un móvil cada una.",
+      "create": "Crear sala",
+      "noRooms": "Aún no hay salas. Crea una e invita a un familiar.",
+      "roomOf": "Sala de {name}",
+      "status": {
+        "waiting": "Esperando jugador",
+        "playing": "Jugando",
+        "finished": "Terminada"
+      },
+      "join": "Unirme",
+      "watch": "Ver",
+      "resume": "Abrir sala",
+      "waiting": "Esperando a un familiar… Tú juegas el lado de abajo.",
+      "cancelRoom": "Cancelar sala",
+      "leave": "Salir de la partida",
+      "back": "Volver",
+      "quan": "Quan",
+      "cellLabel": "Casilla con {count} piedras",
+      "quanLabel": "Casilla quan, {count} piedras, quan presente: {alive}",
+      "captured": "Capturado: {dan} piedras, {quan} quan",
+      "yourTurn": "Tu turno. Toca una casilla con piedras de tu fila.",
+      "pickDirection": "Elige la dirección: ¿izquierda o derecha?",
+      "left": "Izquierda",
+      "right": "Derecha",
+      "waitFor": "Esperando a {name}…",
+      "watching": "Turno de {name}",
+      "hand": "Repartiendo, {count} piedras en la mano",
+      "step": {
+        "pick": "Recogiendo piedras",
+        "sow": "Repartiendo",
+        "capture": "¡Captura!",
+        "reseed": "Sin piedras: se reponen 5",
+        "end": "Fin de la partida"
+      },
+      "youWin": "¡Ganaste! ¡Felicidades!",
+      "youLose": "Perdiste esta. ¡Juega otra vez!",
+      "draw": "¡Empate!",
+      "winnerIs": "¡Gana {name}!",
+      "opponentLeft": "Tu rival se fue. ¡Ganas!",
+      "finishedBy": "La partida ha terminado.",
+      "score": "Puntos: tú {a} - rival {b} (1 quan = 10 piedras)",
+      "viewNote": "Cada jugador ve su lado abajo. “Derecha” es la derecha en ambas pantallas.",
+      "rulesTitle": "Cómo se juega",
+      "rules": [
+        "El tablero tiene 10 casillas pequeñas (5 piedras cada una) y 2 casillas quan en los extremos. Quien crea la sala juega la fila de abajo.",
+        "En tu turno elige una casilla tuya con piedras y la dirección: izquierda o derecha. Se deja 1 piedra por casilla.",
+        "Al terminar, si la siguiente casilla tiene piedras, recógelas y sigue. Si es una casilla quan que aún tiene su quan, termina tu turno.",
+        "Si la siguiente casilla está vacía, capturas todo lo de la casilla que le sigue. Una casilla quan solo se captura con 5 piedras o más. Tras capturar, si hay una vacía seguida de una con piedras, vuelves a capturar.",
+        "Si tus 5 casillas se quedan vacías, pones 1 piedra en cada una (de tus capturas, o prestadas del rival y devueltas al final).",
+        "La partida acaba cuando se capturan los 2 quan. Las piedras restantes van al lado donde están. 1 quan vale 10 piedras; gana quien tenga más puntos."
+      ]
     }
   },
   "premium": {
@@ -366,7 +445,18 @@
     "NOT_YOUR_TURN": "Espera a que otra persona añada una frase.",
     "STORY_TOO_SHORT": "Escriban al menos dos frases antes de pedirle al narrador que continúe.",
     "PAYMENT_CREATE_FAILED": "No se pudo iniciar el pago. Inténtalo de nuevo.",
-    "PAYOS_NOT_CONFIGURED": "Los pagos aún no están configurados. Contacta con soporte."
+    "PAYOS_NOT_CONFIGURED": "Los pagos aún no están configurados. Contacta con soporte.",
+    "NEED_CHORES": "Añade al menos 2 tareas para girar la rueda.",
+    "NEED_MEMBERS": "Elige al menos a 1 persona.",
+    "SPIN_BUSY": "La rueda sigue girando. Espera un momento e inténtalo de nuevo.",
+    "CHORE_EXISTS": "Esa tarea ya está en la lista.",
+    "SAME_FAMILY": "Ya estás en esta familia.",
+    "FAMILY_CHANGE_TOO_SOON": "Cambiaste de familia hace poco. Inténtalo de nuevo pasadas 24 horas.",
+    "ILLEGAL_MOVE": "Ese movimiento no está permitido.",
+    "STALE_STATE": "El tablero acaba de cambiar. Se recarga, inténtalo de nuevo.",
+    "ROOM_TAKEN": "Alguien ya entró en esta sala.",
+    "OWN_ROOM": "Esta es tu propia sala. Espera a que entre otra persona.",
+    "ROOM_LIMIT": "Límite alcanzado. Elimina algo o termina una partida antigua."
   },
   "home": {
     "desc": {
@@ -411,5 +501,30 @@
         "Confirma con «Instalar»."
       ]
     }
+  },
+  "family": {
+    "inviteHint": "Dale este código a tus familiares para que se unan.",
+    "shareText": "Únete a la familia {name} en GENFUSE con el código: {code}",
+    "share": "Compartir",
+    "you": "tú",
+    "online": "En línea",
+    "offline": "Sin conexión",
+    "connecting": "Conectando en vivo…",
+    "membersOnline": "Miembros: {online} de {total} en línea",
+    "changeTitle": "Unirse a otra familia o crear una nueva",
+    "changeWarning": "Atención: dejarás esta familia y no verás sus recuerdos ni recordatorios (siguen guardados; vuelve con el código anterior). Solo puedes cambiar una vez cada 24 horas.",
+    "understand": "Lo entiendo y quiero continuar",
+    "joinLabel": "Escribe un código de familia (6 caracteres)",
+    "join": "Unirme",
+    "createLabel": "O crea una familia nueva y ponle nombre",
+    "create": "Crear familia"
+  },
+  "activity": {
+    "memory": "{name} acaba de añadir un recuerdo.",
+    "reminderDone": "{name} acaba de completar un recordatorio.",
+    "spin": "{name} giró la rueda: a {who} le toca “{chore}”.",
+    "oaqRoom": "{name} abrió una sala de Ô Ăn Quan y espera jugador.",
+    "oaqJoin": "{name} entró en una sala de Ô Ăn Quan.",
+    "chores": "{name} editó la lista de tareas."
   }
 }

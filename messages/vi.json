@@ -290,6 +290,85 @@
       "sentencePlaceholder": "Viết một câu…",
       "titleLabel": "Tên câu chuyện",
       "waitOthers": "Đang chờ người khác thêm một câu."
+    },
+    "chore": {
+      "title": "Vòng xoay việc nhà",
+      "subtitle": "Ai bấm Quay, cả nhà cùng thấy bánh xe dừng ở một chỗ.",
+      "spin": "Quay!",
+      "spinning": "Đang quay…",
+      "result": "{name} làm: {chore}",
+      "exemptResult": "{name} được miễn việc hôm nay!",
+      "spunBy": "{name} đã quay",
+      "who": "Ai tham gia?",
+      "all": "Chọn tất cả",
+      "none": "Bỏ chọn hết",
+      "listTitle": "Danh sách việc nhà",
+      "addLabel": "Thêm việc nhà",
+      "add": "Thêm",
+      "history": "Lịch sử quay",
+      "historyEmpty": "Chưa có lần quay nào.",
+      "defaults": [
+        "Rửa bát",
+        "Quét nhà",
+        "Pha trà cho Ông Bà",
+        "Đổ rác",
+        "Nhổ tóc sâu"
+      ],
+      "exemptDefault": "Miễn việc hôm nay"
+    },
+    "oaq": {
+      "title": "Ô Ăn Quan",
+      "subtitle": "Trò chơi dân gian cho 2 người, mỗi người một điện thoại.",
+      "create": "Tạo phòng mới",
+      "noRooms": "Chưa có phòng nào. Hãy tạo phòng và mời người nhà vào.",
+      "roomOf": "Phòng của {name}",
+      "status": {
+        "waiting": "Đang chờ người chơi",
+        "playing": "Đang chơi",
+        "finished": "Đã kết thúc"
+      },
+      "join": "Vào chơi",
+      "watch": "Xem",
+      "resume": "Vào phòng",
+      "waiting": "Đang chờ người nhà vào phòng… Bạn cầm phía dưới bàn cờ.",
+      "cancelRoom": "Hủy phòng",
+      "leave": "Rời ván",
+      "back": "Quay lại",
+      "quan": "Quan",
+      "cellLabel": "Ô dân, {count} sỏi",
+      "quanLabel": "Ô quan, {count} sỏi, quan còn: {alive}",
+      "captured": "Đã ăn: {dan} sỏi, {quan} quan",
+      "yourTurn": "Đến lượt bạn. Chạm vào một ô có sỏi ở hàng dưới.",
+      "pickDirection": "Chọn hướng rải sỏi: trái hay phải?",
+      "left": "Rải trái",
+      "right": "Rải phải",
+      "waitFor": "Chờ {name} đi quân…",
+      "watching": "Lượt của {name}",
+      "hand": "Đang rải, còn {count} sỏi trên tay",
+      "step": {
+        "pick": "Bốc sỏi lên",
+        "sow": "Rải sỏi",
+        "capture": "Ăn quân!",
+        "reseed": "Hết dân: rải lại 5 sỏi mỗi ô",
+        "end": "Hết ván"
+      },
+      "youWin": "Bạn thắng! Chúc mừng!",
+      "youLose": "Bạn thua ván này. Chơi lại nhé!",
+      "draw": "Hòa nhau!",
+      "winnerIs": "{name} thắng!",
+      "opponentLeft": "Đối thủ đã rời ván. Bạn thắng!",
+      "finishedBy": "Ván chơi đã kết thúc.",
+      "score": "Điểm: bạn {a} - đối thủ {b} (1 quan = 10 sỏi)",
+      "viewNote": "Mỗi người thấy phía mình ở dưới bàn cờ. Cả hai đều rải sang phải khi bấm “Rải phải”.",
+      "rulesTitle": "Luật chơi",
+      "rules": [
+        "Bàn có 10 ô dân (mỗi ô 5 sỏi) và 2 ô quan ở hai đầu. Người tạo phòng cầm hàng dưới.",
+        "Đến lượt, chọn một ô dân của mình có sỏi, rồi chọn rải sang trái hoặc phải. Mỗi ô rải 1 sỏi.",
+        "Rải xong, nếu ô kế tiếp có sỏi thì bốc lên rải tiếp. Nếu ô kế tiếp là ô quan còn quan thì dừng lượt.",
+        "Nếu ô kế tiếp trống, bạn ăn toàn bộ sỏi ở ô sau nó. Ô quan chỉ ăn được khi có từ 5 sỏi trở lên. Ăn xong nếu lại gặp ô trống rồi ô có sỏi thì ăn tiếp.",
+        "Hết sỏi ở 5 ô của mình thì rải lại mỗi ô 1 sỏi (lấy từ sỏi đã ăn, thiếu thì mượn của đối thủ, cuối ván trả lại).",
+        "Hết cả 2 quan thì kết thúc. Sỏi còn lại về bên chủ ô. 1 quan tính bằng 10 sỏi, bên nhiều điểm hơn thắng."
+      ]
     }
   },
   "premium": {
@@ -366,7 +445,18 @@
     "NOT_YOUR_TURN": "Hãy chờ người khác thêm một câu trước.",
     "STORY_TOO_SHORT": "Hãy viết ít nhất hai câu trước khi nhờ người dẫn truyện.",
     "PAYMENT_CREATE_FAILED": "Không thể bắt đầu thanh toán. Vui lòng thử lại.",
-    "PAYOS_NOT_CONFIGURED": "Thanh toán chưa được thiết lập. Vui lòng liên hệ hỗ trợ."
+    "PAYOS_NOT_CONFIGURED": "Thanh toán chưa được thiết lập. Vui lòng liên hệ hỗ trợ.",
+    "NEED_CHORES": "Cần ít nhất 2 việc nhà để quay.",
+    "NEED_MEMBERS": "Hãy chọn ít nhất 1 người tham gia.",
+    "SPIN_BUSY": "Bánh xe đang quay. Đợi một chút rồi quay lại nhé.",
+    "CHORE_EXISTS": "Việc này đã có trong danh sách.",
+    "SAME_FAMILY": "Bạn đã ở trong gia đình này rồi.",
+    "FAMILY_CHANGE_TOO_SOON": "Bạn vừa đổi gia đình. Vui lòng thử lại sau 24 giờ.",
+    "ILLEGAL_MOVE": "Nước đi này không hợp lệ.",
+    "STALE_STATE": "Bàn cờ vừa thay đổi. Đang tải lại, bạn thử lại nhé.",
+    "ROOM_TAKEN": "Phòng này đã có người vào rồi.",
+    "OWN_ROOM": "Đây là phòng của bạn. Hãy chờ người khác vào.",
+    "ROOM_LIMIT": "Đã đạt giới hạn. Hãy xóa bớt hoặc kết thúc ván cũ."
   },
   "home": {
     "desc": {
@@ -411,5 +501,30 @@
         "Bấm “Cài đặt” để xác nhận."
       ]
     }
+  },
+  "family": {
+    "inviteHint": "Đưa mã này cho người nhà để cùng vào một gia đình.",
+    "shareText": "Vào gia đình {name} trên GENFUSE với mã: {code}",
+    "share": "Chia sẻ",
+    "you": "bạn",
+    "online": "Đang online",
+    "offline": "Ngoại tuyến",
+    "connecting": "Đang kết nối trực tiếp…",
+    "membersOnline": "Thành viên: {online}/{total} đang online",
+    "changeTitle": "Vào gia đình khác hoặc tạo gia đình mới",
+    "changeWarning": "Lưu ý: bạn sẽ rời gia đình hiện tại, không còn thấy ký ức và nhắc việc của gia đình cũ (vẫn còn nguyên, vào lại bằng mã cũ). Mỗi 24 giờ chỉ đổi được 1 lần.",
+    "understand": "Tôi hiểu và muốn tiếp tục",
+    "joinLabel": "Nhập mã gia đình (6 ký tự)",
+    "join": "Vào gia đình",
+    "createLabel": "Hoặc tạo gia đình mới, đặt tên",
+    "create": "Tạo gia đình"
+  },
+  "activity": {
+    "memory": "{name} vừa thêm một kỷ niệm mới.",
+    "reminderDone": "{name} vừa hoàn thành một nhắc việc.",
+    "spin": "{name} quay vòng xoay: {who} làm “{chore}”.",
+    "oaqRoom": "{name} mở phòng Ô Ăn Quan, đang chờ người chơi.",
+    "oaqJoin": "{name} vừa vào phòng Ô Ăn Quan.",
+    "chores": "{name} vừa sửa danh sách việc nhà."
   }
 }

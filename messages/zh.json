@@ -290,6 +290,85 @@
       "sentencePlaceholder": "写一句话…",
       "titleLabel": "故事标题",
       "waitOthers": "正在等其他人添加一句。"
+    },
+    "chore": {
+      "title": "家务转盘",
+      "subtitle": "任何人转动，全家人都会看到转盘停在同一处。",
+      "spin": "开始转！",
+      "spinning": "转动中…",
+      "result": "{name}：{chore}",
+      "exemptResult": "{name} 今天免做家务！",
+      "spunBy": "由 {name} 转动",
+      "who": "谁来参加？",
+      "all": "全选",
+      "none": "全不选",
+      "listTitle": "家务清单",
+      "addLabel": "添加家务",
+      "add": "添加",
+      "history": "转盘记录",
+      "historyEmpty": "还没有转动记录。",
+      "defaults": [
+        "洗碗",
+        "扫地",
+        "给爷爷奶奶泡茶",
+        "倒垃圾",
+        "帮爷爷拔白头发"
+      ],
+      "exemptDefault": "今天免做"
+    },
+    "oaq": {
+      "title": "官棋 (Ô Ăn Quan)",
+      "subtitle": "越南传统双人棋，每人一部手机。",
+      "create": "创建房间",
+      "noRooms": "还没有房间，创建一个并邀请家人吧。",
+      "roomOf": "{name} 的房间",
+      "status": {
+        "waiting": "等待玩家",
+        "playing": "对局中",
+        "finished": "已结束"
+      },
+      "join": "加入对局",
+      "watch": "观战",
+      "resume": "进入房间",
+      "waiting": "正在等家人加入…你执下方。",
+      "cancelRoom": "取消房间",
+      "leave": "离开对局",
+      "back": "返回",
+      "quan": "官",
+      "cellLabel": "民格，{count} 颗石子",
+      "quanLabel": "官格，{count} 颗石子，官棋在位：{alive}",
+      "captured": "已吃：{dan} 颗石子，{quan} 个官",
+      "yourTurn": "轮到你了。点按下方一行有石子的格子。",
+      "pickDirection": "选择撒子方向：左还是右？",
+      "left": "向左",
+      "right": "向右",
+      "waitFor": "等待 {name} 走棋…",
+      "watching": "轮到 {name}",
+      "hand": "正在撒子，手中还有 {count} 颗",
+      "step": {
+        "pick": "拿起石子",
+        "sow": "撒子",
+        "capture": "吃子！",
+        "reseed": "无子可走：重新各放 1 颗",
+        "end": "对局结束"
+      },
+      "youWin": "你赢了！恭喜！",
+      "youLose": "这局你输了，再来一局吧！",
+      "draw": "平局！",
+      "winnerIs": "{name} 获胜！",
+      "opponentLeft": "对手已离开，你赢了！",
+      "finishedBy": "对局已结束。",
+      "score": "得分：你 {a} - 对手 {b}（1 个官 = 10 颗）",
+      "viewNote": "每位玩家都把自己这一方显示在下方，“向右”在两边屏幕上都是右边。",
+      "rulesTitle": "玩法规则",
+      "rules": [
+        "棋盘有 10 个民格（每格 5 颗石子）和两端 2 个官格。创建房间的人执下方一行。",
+        "轮到你时，选一个有石子的自己的格子，再选向左或向右，每格撒 1 颗。",
+        "撒完后，如果下一格有石子，就拿起继续撒；如果下一格是仍有官棋的官格，本回合结束。",
+        "如果下一格是空的，就吃掉再下一格的所有石子。官格要有 5 颗以上石子才能吃。吃完后若又遇到空格接着有子的格子，可以继续吃。",
+        "自己 5 个格子都空了，就每格放 1 颗（先用已吃的石子，不够向对手借，终局归还）。",
+        "两个官棋都被吃掉时结束。剩下的石子归所在一方。1 个官算 10 颗，得分高者获胜。"
+      ]
     }
   },
   "premium": {
@@ -366,7 +445,18 @@
     "NOT_YOUR_TURN": "请先等其他人添加一句。",
     "STORY_TOO_SHORT": "请至少写两句话，再请讲述者继续。",
     "PAYMENT_CREATE_FAILED": "无法发起付款，请重试。",
-    "PAYOS_NOT_CONFIGURED": "付款功能尚未设置，请联系客服。"
+    "PAYOS_NOT_CONFIGURED": "付款功能尚未设置，请联系客服。",
+    "NEED_CHORES": "至少需要 2 项家务才能转动转盘。",
+    "NEED_MEMBERS": "请至少选择 1 位参与者。",
+    "SPIN_BUSY": "转盘还在转动，请稍等再试。",
+    "CHORE_EXISTS": "列表中已有这项家务。",
+    "SAME_FAMILY": "你已经在这个家庭里了。",
+    "FAMILY_CHANGE_TOO_SOON": "你刚刚更换过家庭，请 24 小时后再试。",
+    "ILLEGAL_MOVE": "这一步不符合规则。",
+    "STALE_STATE": "棋盘刚刚有变化，正在重新加载，请再试一次。",
+    "ROOM_TAKEN": "这个房间已经有人加入了。",
+    "OWN_ROOM": "这是你自己的房间，请等其他人加入。",
+    "ROOM_LIMIT": "已达上限，请先删除或结束旧的内容。"
   },
   "home": {
     "desc": {
@@ -411,5 +501,30 @@
         "点按“安装”确认。"
       ]
     }
+  },
+  "family": {
+    "inviteHint": "把这个代码告诉家人，他们就能加入你的家庭。",
+    "shareText": "用代码 {code} 加入 GENFUSE 上的“{name}”家庭",
+    "share": "分享",
+    "you": "你",
+    "online": "在线",
+    "offline": "离线",
+    "connecting": "正在建立实时连接…",
+    "membersOnline": "成员：{online}/{total} 在线",
+    "changeTitle": "加入其他家庭或创建新家庭",
+    "changeWarning": "注意：你将离开当前家庭，不再看到它的回忆和提醒（内容仍会保留，可用旧代码重新加入）。每 24 小时只能更换一次。",
+    "understand": "我明白，继续",
+    "joinLabel": "输入家庭代码（6 位）",
+    "join": "加入家庭",
+    "createLabel": "或创建新家庭并命名",
+    "create": "创建家庭"
+  },
+  "activity": {
+    "memory": "{name} 刚添加了一条新回忆。",
+    "reminderDone": "{name} 刚完成了一项提醒。",
+    "spin": "{name} 转了转盘：{who} 负责“{chore}”。",
+    "oaqRoom": "{name} 开了一个“官棋”房间，正在等人加入。",
+    "oaqJoin": "{name} 加入了“官棋”房间。",
+    "chores": "{name} 修改了家务清单。"
   }
 }
