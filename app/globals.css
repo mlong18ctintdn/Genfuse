@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Jade ink on a cool mist ground. Three generation colours: lantern gold,
+       river blue, lotus pink. They colour the Memory Tree leaves. */
+    --background: 160 20% 95%;
+    --foreground: 168 46% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 168 46% 13%;
+    --muted: 160 16% 90%;
+    --muted-foreground: 168 22% 30%;
+    --accent: 160 28% 88%;
+    --accent-foreground: 168 46% 13%;
+    --primary: 168 58% 18%;
+    --primary-foreground: 0 0% 100%;
+    --destructive: 0 72% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 62% 24%;
+    --border: 160 14% 80%;
+    --input: 160 14% 66%;
+    --ring: 212 66% 42%;
+
+    --gran: 41 92% 50%;
+    --gran-ink: 32 90% 22%;
+    --par: 212 62% 42%;
+    --par-ink: 212 70% 28%;
+    --kid: 338 68% 50%;
+    --kid-ink: 338 70% 32%;
+
+    --radius: 0.875rem;
+  }
+
+  /* Senior-Friendly Large Mode: everything sized in rem grows with the root,
+     contrast is raised, corners get friendlier. Set from a cookie in the root layout. */
+  html[data-ui='senior'] {
+    font-size: 20px;
+    --muted-foreground: 168 30% 20%;
+    --border: 168 20% 48%;
+    --input: 168 26% 36%;
+    --radius: 1.1rem;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    line-height: 1.55;
+  }
+
+  /* iOS Safari zooms the page when a field's text is smaller than 16px. Never go below it. */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  }
+}
