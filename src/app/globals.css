@@ -4,24 +4,25 @@
 
 @layer base {
   :root {
-    /* Jade ink on a cool mist ground. Three generation colours: lantern gold,
-       river blue, lotus pink. They colour the Memory Tree leaves. */
-    --background: 160 20% 95%;
-    --foreground: 168 46% 13%;
+    /* Standard mode: bright, friendly ocean blue on a clean sky-white ground.
+       Primary #0284C7, focus ring #0EA5E9, page #F0F9FF.
+       Three generation colours stay: lantern gold, river blue, lotus pink (Memory Tree). */
+    --background: 204 100% 97%;
+    --foreground: 215 50% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 168 46% 13%;
-    --muted: 160 16% 90%;
-    --muted-foreground: 168 22% 30%;
-    --accent: 160 28% 88%;
-    --accent-foreground: 168 46% 13%;
-    --primary: 168 58% 18%;
+    --card-foreground: 215 50% 12%;
+    --muted: 204 45% 92%;
+    --muted-foreground: 215 25% 30%;
+    --accent: 202 85% 90%;
+    --accent-foreground: 215 50% 12%;
+    --primary: 200 98% 39%;
     --primary-foreground: 0 0% 100%;
     --destructive: 0 72% 40%;
     --destructive-foreground: 0 0% 100%;
     --success: 152 62% 24%;
-    --border: 160 14% 80%;
-    --input: 160 14% 66%;
-    --ring: 212 66% 42%;
+    --border: 204 35% 82%;
+    --input: 204 25% 62%;
+    --ring: 199 89% 48%;
 
     --gran: 41 92% 50%;
     --gran-ink: 32 90% 22%;
@@ -33,13 +34,21 @@
     --radius: 0.875rem;
   }
 
-  /* Senior-Friendly Large Mode: everything sized in rem grows with the root,
-     contrast is raised, corners get friendlier. Set from a cookie in the root layout. */
+  /* Senior mode (Ông/Bà, or switched on in Settings): deep royal/navy blue, very high
+     contrast, soft cream ground, larger type and corners. Everything sized in rem grows
+     with the 20px root. Set from a cookie in the root layout, so there is no flash. */
   html[data-ui='senior'] {
     font-size: 20px;
-    --muted-foreground: 168 30% 20%;
-    --border: 168 20% 48%;
-    --input: 168 26% 36%;
+    --background: 40 40% 98%;
+    --foreground: 224 55% 7%;
+    --muted: 224 30% 92%;
+    --muted-foreground: 224 30% 20%;
+    --accent: 224 70% 92%;
+    --accent-foreground: 224 55% 7%;
+    --primary: 226 64% 33%; /* #1E3A8A */
+    --ring: 224 76% 48%; /* #1D4ED8 */
+    --border: 224 25% 50%;
+    --input: 224 30% 38%;
     --radius: 1.1rem;
   }
 

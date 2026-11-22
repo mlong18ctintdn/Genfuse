@@ -140,6 +140,7 @@ export async function playOaqMove(
     .from('oaq_games')
     .update({
       state: next,
+      last_move: { from: parsed.data.from, dir: parsed.data.dir },
       turn: next.turn,
       move_count: g.move_count + 1,
       status: next.over ? 'finished' : 'playing',

@@ -1,6 +1,7 @@
 import 'server-only';
 import { createClient } from '@/lib/supabase/server';
 import { getFamilyAccess } from '@/lib/credits';
+import { getChatModel } from '@/lib/ai/model';
 import type { Lang, Role } from '@/lib/ai/prompts';
 
 export type AiContext = {
@@ -33,6 +34,9 @@ export async function requireAiAccess(): Promise<{ ctx: AiContext; error?: undef
     .eq('id', user.id)
     .single();
   if (!profile) return { error: fail('NO_FAMILY', 403) };
+
+  // Missing key: tell the user clearly before anything else (nothing is spent).
+  if (!getChatModel()) return { error: fail('AI_NOT_CONFIGURED', 503) };
 
   const access = await getFamilyAccess(profile.family_id);
   if (!access) return { error: fail('NO_FAMILY', 403) };

@@ -16,7 +16,10 @@ export function errorCode(err: Error | undefined | null): string | null {
   } catch {
     /* not JSON */
   }
-  return err.message.includes('AI_STREAM_ERROR') ? 'AI_STREAM_ERROR' : 'GENERIC';
+  for (const c of ['AI_QUOTA', 'AI_KEY_INVALID', 'AI_NOT_CONFIGURED', 'AI_STREAM_ERROR']) {
+    if (err.message.includes(c)) return c;
+  }
+  return 'GENERIC';
 }
 
 const KNOWN_ERRORS = new Set([
@@ -28,6 +31,8 @@ const KNOWN_ERRORS = new Set([
   'INPUT_TOO_LONG',
   'AI_NOT_CONFIGURED',
   'AI_STREAM_ERROR',
+  'AI_QUOTA',
+  'AI_KEY_INVALID',
   'NEED_MEMORIES',
   'NOT_FOUND',
   'NOT_YOUR_TURN',
@@ -47,6 +52,8 @@ const KNOWN_ERRORS = new Set([
   'ROOM_LIMIT',
   'CHORE_EXISTS',
   'NO_GAME_USES',
+  'NO_MORE_HINTS',
+  'FEEDBACK_LIMIT',
   'GENERIC',
 ]);
 

@@ -54,7 +54,7 @@ export const viewport: Viewport = {
   // Prevents the browser from zooming when a text field is tapped.
   // Pinch-to-zoom is still allowed (userScalable is left on) on iOS; see the note in README.
   maximumScale: 1,
-  themeColor: '#1E3A5F',
+  themeColor: '#0284C7',
 };
 
 export default async function LocaleLayout({

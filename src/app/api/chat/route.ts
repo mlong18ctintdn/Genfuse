@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { consumeCredit, getFamilyAccess } from '@/lib/credits';
-import { getChatModel } from '@/lib/ai/model';
+import { aiErrorCode, getChatModel } from '@/lib/ai/model';
 import { buildSystemPrompt, type FeatureType, type Lang, type Role } from '@/lib/ai/prompts';
 
 export const runtime = 'nodejs';
@@ -211,6 +211,6 @@ export async function POST(req: Request) {
   });
 
   return result.toUIMessageStreamResponse({
-    onError: () => 'AI_STREAM_ERROR',
+    onError: (error) => aiErrorCode(error),
   });
 }

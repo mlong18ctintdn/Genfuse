@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getSession } from '@/lib/session';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { SpinRow, WheelChore } from '@/components/games/chore-wheel';
+import type { WordRow } from '@/components/games/word-game';
 import { GamesClient } from '@/components/games/games-client';
 import type { Story } from '@/components/games/story-game';
 
@@ -32,7 +33,15 @@ export default async function GamesPage() {
       .order('created_at', { ascending: false })
       .limit(20);
 
-  let [{ data: chores }, { data: spins }] = await Promise.all([readChores(), readSpins()]);
+  let [{ data: chores }, { data: spins }, { data: wordRows }] = await Promise.all([
+    readChores(),
+    readSpins(),
+    supabase
+      .from('word_games')
+      .select('id, host_id, category, clue, cells, guesses, hints, reveals, status, solution, solved_by, move_count, created_at')
+      .order('created_at', { ascending: false })
+      .limit(1),
+  ]);
 
   // First visit of a family: seed the friendly defaults in the family's language.
   if ((chores?.length ?? 0) === 0 && (spins?.length ?? 0) === 0) {
@@ -57,6 +66,7 @@ export default async function GamesPage() {
         chores={(chores ?? []) as WheelChore[]}
         spins={(spins ?? []) as SpinRow[]}
         autoSpeak={me.ui_mode === 'senior'}
+        word={((wordRows ?? [])[0] as WordRow | undefined) ?? null}
       />
     </div>
   );

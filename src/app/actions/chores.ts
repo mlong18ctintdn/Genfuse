@@ -1,6 +1,6 @@
 'use server';
 
-import { randomInt } from 'node:crypto';
+import { randomInt, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -98,42 +98,43 @@ export async function spinChoreWheel(memberIds: string[]): Promise<Ok<{ payload:
   const angle = index * seg + seg / 2 + (randomInt(-35, 36) / 100) * seg;
   const turns = randomInt(4, 7);
 
-  const { data: row, error } = await createAdminClient()
-    .from('chore_spins')
-    .insert({
-      family_id: me.profile.family_id,
-      spun_by: me.user.id,
-      chore_title: winner.title,
-      is_exempt: winner.is_exempt,
-      assigned_to: person.id,
-      assigned_name: person.display_name,
-    })
-    .select('id, created_at')
-    .single();
-  if (error || !row) return { ok: false, error: 'GENERIC' };
+  const spinId = randomUUID();
+  const at = new Date().toISOString();
+  const payload: SpinPayload = {
+    spinId,
+    chores: chores.map((c) => ({ id: c.id, title: c.title, exempt: c.is_exempt })),
+    index,
+    angle,
+    turns,
+    assignedId: person.id,
+    assignedName: person.display_name,
+    title: winner.title,
+    exempt: winner.is_exempt,
+    by: me.user.id,
+    byName: me.profile.display_name,
+    at,
+  };
+
+  // The whole spin is stored on the row: other phones replay it from the Realtime INSERT.
+  const { error } = await createAdminClient().from('chore_spins').insert({
+    id: spinId,
+    family_id: me.profile.family_id,
+    spun_by: me.user.id,
+    chore_title: winner.title,
+    is_exempt: winner.is_exempt,
+    assigned_to: person.id,
+    assigned_name: person.display_name,
+    created_at: at,
+    payload,
+  });
+  if (error) return { ok: false, error: 'GENERIC' };
 
   // Spend one free game use. If the family ran out in the meantime, undo the history row.
   const spent = await consumeGameUse(me.profile.family_id);
   if (!spent.ok) {
-    await createAdminClient().from('chore_spins').delete().eq('id', row.id);
+    await createAdminClient().from('chore_spins').delete().eq('id', spinId);
     return { ok: false, error: spent.reason === 'NO_GAME_USES' ? 'NO_GAME_USES' : 'GENERIC' };
   }
 
-  return {
-    ok: true,
-    payload: {
-      spinId: row.id,
-      chores: chores.map((c) => ({ id: c.id, title: c.title, exempt: c.is_exempt })),
-      index,
-      angle,
-      turns,
-      assignedId: person.id,
-      assignedName: person.display_name,
-      title: winner.title,
-      exempt: winner.is_exempt,
-      by: me.user.id,
-      byName: me.profile.display_name,
-      at: row.created_at,
-    },
-  };
+  return { ok: true, payload };
 }
