@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { NAV_ITEMS } from './nav-items';
+import { FeedbackButton } from '@/components/feedback/feedback-dialog';
 
 function useActive() {
   const pathname = usePathname();
@@ -17,18 +18,21 @@ export function SideNav() {
   return (
     <nav aria-label="Main" className="flex flex-col gap-1">
       {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => (
-        <Link
-          key={href}
-          href={href}
-          aria-current={isActive(href) ? 'page' : undefined}
-          className={cn(
-            'flex min-h-12 items-center gap-3 rounded-lg px-3 font-semibold transition-colors',
-            isActive(href) ? 'bg-primary text-primary-foreground' : 'hover:bg-accent',
-          )}
-        >
-          <Icon aria-hidden className="size-5 shrink-0" />
-          {t(labelKey)}
-        </Link>
+        <div key={href} className="contents">
+          {/* "Rate & feedback" sits right above the AI companion */}
+          {href === '/companion' && <FeedbackButton variant="side" />}
+          <Link
+            href={href}
+            aria-current={isActive(href) ? 'page' : undefined}
+            className={cn(
+              'flex min-h-12 items-center gap-3 rounded-lg px-3 font-semibold transition-colors',
+              isActive(href) ? 'bg-primary text-primary-foreground' : 'hover:bg-accent',
+            )}
+          >
+            <Icon aria-hidden className="size-5 shrink-0" />
+            {t(labelKey)}
+          </Link>
+        </div>
       ))}
     </nav>
   );

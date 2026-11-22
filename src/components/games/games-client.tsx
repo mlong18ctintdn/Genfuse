@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { StoryGame, type Story } from './story-game';
-import { TriviaGame } from './trivia-game';
+import { WordGame, type WordRow } from './word-game';
 import { ChoreWheel, type SpinRow, type WheelChore } from './chore-wheel';
 import { OAnQuan } from './o-an-quan';
 
-const TABS = ['trivia', 'story', 'chore', 'oaq'] as const;
+const TABS = ['oaq', 'chore', 'story', 'word'] as const;
 type Tab = (typeof TABS)[number];
 
 export function GamesClient({
@@ -18,6 +18,7 @@ export function GamesClient({
   chores,
   spins,
   autoSpeak,
+  word,
 }: {
   familyId: string;
   myId: string;
@@ -25,9 +26,10 @@ export function GamesClient({
   chores: WheelChore[];
   spins: SpinRow[];
   autoSpeak: boolean;
+  word: WordRow | null;
 }) {
   const t = useTranslations();
-  const [tab, setTab] = useState<Tab>('trivia');
+  const [tab, setTab] = useState<Tab>('oaq');
 
   return (
     <div className="space-y-6">
@@ -49,10 +51,10 @@ export function GamesClient({
       </div>
 
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
-        {tab === 'trivia' && <TriviaGame />}
         {tab === 'story' && <StoryGame familyId={familyId} myId={myId} initial={stories} />}
         {tab === 'chore' && <ChoreWheel initialChores={chores} initialHistory={spins} />}
         {tab === 'oaq' && <OAnQuan myId={myId} autoSpeak={autoSpeak} />}
+        {tab === 'word' && <WordGame initialGame={word} />}
       </div>
     </div>
   );

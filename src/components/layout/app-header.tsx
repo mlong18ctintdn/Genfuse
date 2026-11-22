@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { Badge, roleTone } from '@/components/ui/badge';
 import { CreditBadge } from './credit-badge';
 import { LanguageSwitcher } from './language-switcher';
+import { FeedbackButton } from '@/components/feedback/feedback-dialog';
 import { FuseMark } from '@/components/brand/fuse-mark';
 import type { Profile } from '@/lib/session';
 
@@ -22,6 +23,7 @@ export async function AppHeader({ profile }: { profile: Profile }) {
         </Badge>
         <CreditBadge />
         <LanguageSwitcher />
+        <FeedbackButton variant="icon" />
         <Link
           href="/settings"
           aria-label={t('nav.settings')}

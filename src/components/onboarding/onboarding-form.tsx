@@ -35,7 +35,7 @@ export function OnboardingForm() {
   function pickRole(r: Role) {
     setRole(r);
     // Grandparents most likely want the large mode: pre-select it, they can still change it.
-    if (r === 'grandparent') setUiMode('senior');
+    if (r === 'grandparent') previewMode('senior');
   }
 
   function previewMode(m: UiMode) {

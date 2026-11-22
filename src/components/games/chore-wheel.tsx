@@ -6,6 +6,7 @@ import { Plus, RotateCw, Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { addChore, removeChore, spinChoreWheel, type SpinPayload } from '@/app/actions/chores';
 import { SPIN_MS } from '@/lib/games/constants';
+import { useLiveSync } from '@/lib/hooks/use-live-sync';
 import { safeErrorKey } from '@/lib/chat-utils';
 import { useCredits } from '@/components/providers/credit-provider';
 import { UpgradeGate } from '@/components/premium/upgrade-gate';
@@ -98,7 +99,7 @@ export function ChoreWheel({
   const t = useTranslations();
   const locale = useLocale();
   const { canPlayGame, refresh } = useCredits();
-  const { members, online, on, send, connected, announce, meId } = useFamily();
+  const { members, online, on, send, connected, announce, meId, familyId } = useFamily();
 
   const [chores, setChores] = useState<WheelChore[]>(initialChores);
   const [history, setHistory] = useState<SpinRow[]>(initialHistory);
@@ -113,7 +114,8 @@ export function ChoreWheel({
 
   const rotRef = useRef(0);
   const lastSpin = useRef<string | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const spinningRef = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
   const supabase = useRef(createClient()).current;
 
   // New members appear ticked by default.
@@ -129,6 +131,7 @@ export function ChoreWheel({
   }, [members.length]);
 
   const reloadChores = useCallback(async () => {
+    if (spinningRef.current) return; // never change the segments while the wheel is turning
     const { data } = await supabase.from('chore_items').select('id, title, is_exempt').order('created_at', { ascending: true }).order('id');
     if (data) setChores(data as WheelChore[]);
   }, [supabase]);
@@ -151,10 +154,12 @@ export function ChoreWheel({
     setResult(null);
     setMs(dur);
     setSpinning(true);
+    spinningRef.current = true;
     // Two frames so the browser applies the new chore list before the rotation starts.
     requestAnimationFrame(() => requestAnimationFrame(() => setRotation(target)));
 
     timer.current = setTimeout(() => {
+      spinningRef.current = false;
       setSpinning(false);
       setResult(p);
       setHistory((h) =>
@@ -163,6 +168,32 @@ export function ChoreWheel({
       if (p.by === meId) announce('spin', { chore: p.title, who: p.assignedName });
     }, dur + 150);
   }, [announce, meId]);
+
+  // ---- Realtime rows (postgres_changes) + 3 s polling safety net ----
+  type SpinDbRow = SpinRow & { payload: SpinPayload | null };
+  const onSpinRow = useCallback(
+    (row: SpinDbRow) => {
+      if (!row.payload || row.id === lastSpin.current) return;
+      if (Math.abs(Date.now() - new Date(row.created_at).getTime()) < 30_000) handleSpin(row.payload);
+    },
+    [handleSpin],
+  );
+  const pollSpins = useCallback(async () => {
+    const { data } = await supabase
+      .from('chore_spins')
+      .select('id, spun_by, chore_title, is_exempt, assigned_name, created_at, payload')
+      .order('created_at', { ascending: false })
+      .limit(20);
+    const rows = (data ?? []) as SpinDbRow[];
+    if (rows.length === 0) return;
+    if (spinningRef.current) return;
+    const newest = rows[0];
+    const fresh = Math.abs(Date.now() - new Date(newest.created_at).getTime()) < 30_000;
+    if (newest.id !== lastSpin.current && newest.payload && fresh) return onSpinRow(newest);
+    setHistory(rows.map(({ payload: _p, ...r }) => r));
+  }, [supabase, onSpinRow]);
+  useLiveSync<SpinDbRow>({ table: 'chore_spins', familyId, onChange: onSpinRow, poll: pollSpins });
+  useLiveSync({ table: 'chore_items', familyId, onChange: () => void reloadChores(), poll: reloadChores });
 
   useEffect(() => {
     const offSpin = on('wheel:spin', (p) => handleSpin(p as SpinPayload));

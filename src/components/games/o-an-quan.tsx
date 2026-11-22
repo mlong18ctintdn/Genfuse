@@ -9,6 +9,7 @@ import { safeErrorKey } from '@/lib/chat-utils';
 import { isValidState, playMove, type Dir, type Frame, type OaqState, type Player } from '@/lib/games/o-an-quan';
 import { useCredits } from '@/components/providers/credit-provider';
 import { UpgradeGate } from '@/components/premium/upgrade-gate';
+import { useLiveSync } from '@/lib/hooks/use-live-sync';
 import { useFamily } from '@/components/providers/family-provider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -23,9 +24,10 @@ export type OaqRow = {
   status: 'waiting' | 'playing' | 'finished';
   winner: number | null;
   result: { scores?: [number, number]; quit?: boolean; by?: number } | null;
+  last_move: { from: number; dir: Dir } | null;
 };
 
-const COLS = 'id, host_id, guest_id, state, turn, move_count, status, winner, result';
+const COLS = 'id, host_id, guest_id, state, turn, move_count, status, winner, result, last_move';
 const STEP_MS: Record<Frame['type'], number> = { pick: 380, sow: 260, capture: 700, reseed: 800, end: 500 };
 
 type Shown = { dan: number[]; quan: number[]; stash: OaqState['stash']; hand: number; at: number; type: Frame['type'] };
@@ -48,7 +50,7 @@ function Pebbles({ n }: { n: number }) {
 export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean }) {
   const t = useTranslations();
   const locale = useLocale();
-  const { members, on, send, announce, connected } = useFamily();
+  const { members, on, send, announce, connected, familyId } = useFamily();
   const supabase = useRef(createClient()).current;
   const { canPlayGame, refresh } = useCredits();
 
@@ -65,6 +67,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
   const stateRef = useRef<OaqState | null>(null);
   const queue = useRef<Promise<void>>(Promise.resolve());
   const alive = useRef(true);
+  const animating = useRef(false);
   const activeRef = useRef<string | null>(null);
   activeRef.current = activeId;
   stateRef.current = state;
@@ -88,7 +91,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     const id = activeRef.current;
     if (!id) return;
     const { data } = await supabase.from('oaq_games').select(COLS).eq('id', id).maybeSingle();
-    if (!alive.current || !data || !isValidState(data.state)) return;
+    if (!alive.current || !data || !isValidState(data.state) || animating.current) return;
     const row = data as unknown as OaqRow;
     setGame(row);
     setState(row.state);
@@ -103,34 +106,84 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
 
   const animate = useCallback(async (frames: Frame[], final: OaqState) => {
     const quick = reducedMotion();
+    animating.current = true;
     for (const f of frames) {
       if (!alive.current) return;
       setShown({ dan: f.dan, quan: f.quan, stash: f.stash, hand: f.hand, at: f.at, type: f.type });
       await sleep(quick ? 0 : STEP_MS[f.type]);
     }
+    animating.current = false;
     if (!alive.current) return;
     setShown(null);
     setState(final);
     setGame((g) => (g ? { ...g, move_count: known.current, status: final.over ? 'finished' : g.status, winner: final.winner, state: final, turn: final.turn } : g));
   }, []);
 
-  // Live events
+  /** One entry point for "move number N was played": from Broadcast, postgres_changes or polling. Deduplicated by `known`. */
+  const applyMove = useCallback(
+    (moveNo: number, from: number, dir: Dir) => {
+      if (moveNo !== known.current + 1 || !stateRef.current) return false;
+      known.current = moveNo;
+      queue.current = queue.current.then(async () => {
+        const cur = stateRef.current;
+        if (!cur) return;
+        const r = playMove(cur, from, dir);
+        if (!r.ok) return reload();
+        stateRef.current = r.state;
+        await animate(r.frames, r.state);
+      });
+      return true;
+    },
+    [animate, reload],
+  );
+
+  /** A database row arrived (Realtime UPDATE or poll). */
+  const applyRow = useCallback(
+    (row: OaqRow) => {
+      if (row.id !== activeRef.current || !isValidState(row.state)) return;
+      if (row.move_count === known.current + 1 && row.last_move) {
+        if (applyMove(row.move_count, row.last_move.from, row.last_move.dir)) return;
+      }
+      if (row.move_count > known.current) {
+        // Missed more than one move (weak network, tab in background): jump to the saved board.
+        known.current = row.move_count;
+        stateRef.current = row.state;
+        setGame(row);
+        setState(row.state);
+        setShown(null);
+        setSelected(null);
+      } else if (row.move_count === known.current && !animating.current) {
+        // Same move: guest joined, someone left, or the game ended.
+        setGame((g) => (g ? { ...g, status: row.status, guest_id: row.guest_id, winner: row.winner, result: row.result } : g));
+      }
+    },
+    [applyMove],
+  );
+
+  const poll = useCallback(async () => {
+    if (activeRef.current) {
+      const { data } = await supabase.from('oaq_games').select(COLS).eq('id', activeRef.current).maybeSingle();
+      if (data) applyRow(data as unknown as OaqRow);
+    } else {
+      await loadRooms();
+    }
+  }, [supabase, applyRow, loadRooms]);
+
+  useLiveSync<OaqRow>({
+    table: 'oaq_games',
+    familyId,
+    onChange: (row) => {
+      if (row.id === activeRef.current) applyRow(row);
+      else void loadRooms();
+    },
+    poll,
+  });
+
+  // Live events (Broadcast is the fast path; the database path above is the safety net)
   useEffect(() => {
     const offMove = on('oaq:move', (p) => {
       if (!p || p.gameId !== activeRef.current) return;
-      if (p.moveNo === known.current + 1 && stateRef.current) {
-        known.current = p.moveNo;
-        queue.current = queue.current.then(async () => {
-          const cur = stateRef.current;
-          if (!cur) return;
-          const r = playMove(cur, Number(p.from), Number(p.dir) as Dir);
-          if (!r.ok) return reload();
-          stateRef.current = r.state;
-          await animate(r.frames, r.state);
-        });
-      } else if (p.moveNo > known.current + 1) {
-        void reload(); // missed a move: resync
-      }
+      if (!applyMove(p.moveNo, Number(p.from), Number(p.dir) as Dir) && p.moveNo > known.current + 1) void reload();
     });
     const offUpdate = on('oaq:update', () => {
       void loadRooms();
@@ -140,20 +193,12 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
       void loadRooms();
       void reload();
     });
-    const onVisible = () => {
-      if (document.visibilityState === 'visible') {
-        void loadRooms();
-        void reload();
-      }
-    };
-    document.addEventListener('visibilitychange', onVisible);
     return () => {
       offMove();
       offUpdate();
       offConn();
-      document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [on, animate, reload, loadRooms]);
+  }, [on, applyMove, reload, loadRooms]);
 
   const viewer: Player = game && game.guest_id === myId ? 1 : 0;
   const isPlayer = !!game && (game.host_id === myId || game.guest_id === myId);
