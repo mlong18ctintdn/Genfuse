@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { consumeCredit, getFamilyAccess } from '@/lib/credits';
 import { generateDemoReply } from '@/lib/ai/mock-data';
-import type { FeatureType } from '@/lib/ai/prompts';
+import type { FeatureType, Lang } from '@/lib/ai/prompts';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -45,6 +45,13 @@ function fail(code: string, status: number) {
   return Response.json({ error: code }, { status });
 }
 
+function detectLangFromReferer(req: Request, fallback: Lang): Lang {
+  const referer = req.headers.get('referer') ?? '';
+  const match = referer.match(/\/(vi|en|es|zh)(?:\/|$)/);
+  if (match) return match[1] as Lang;
+  return fallback;
+}
+
 export async function POST(req: Request) {
   const startedAt = new Date();
 
@@ -71,12 +78,13 @@ export async function POST(req: Request) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('family_id, display_name')
+    .select('family_id, display_name, preferred_lang')
     .eq('id', user.id)
     .single();
   if (!profile) return fail('NO_FAMILY', 403);
 
   const familyId = profile.family_id as string;
+  const activeLang = detectLangFromReferer(req, (profile.preferred_lang as Lang) || 'vi');
 
   // 3. Soft rate limit
   const { count: recent } = await supabase
@@ -92,28 +100,28 @@ export async function POST(req: Request) {
   if (!access) return fail('NO_FAMILY', 403);
   if (!access.premium && access.creditsRemaining <= 0) return fail('NO_CREDITS', 402);
 
-  // 5. Consume 1 credit in Supabase (keeps real credit deduction working)
+  // 5. Consume 1 credit in Supabase
   const creditRes = await consumeCredit(familyId);
   if (!creditRes.ok) return fail('NO_CREDITS', 402);
 
-  // 6. Generate curated response & stream smoothly like real AI
-  const replyText = generateDemoReply(feature, userText, profile.display_name);
+  // 6. Generate curated response & stream with full UIMessageStream lifecycle
+  const replyText = generateDemoReply(feature, userText, activeLang, profile.display_name);
   const textId = crypto.randomUUID();
 
   const stream = createUIMessageStream({
     execute: async ({ writer }) => {
+      writer.write({ type: 'start' });
       writer.write({ type: 'text-start', id: textId });
 
-      // Split into small chunks for natural typing animation
-      const chunks = replyText.match(/.{1,18}/gs) ?? [replyText];
+      const chunks = replyText.match(/.{1,24}/gs) ?? [replyText];
       for (const chunk of chunks) {
         writer.write({ type: 'text-delta', id: textId, delta: chunk });
-        await new Promise((r) => setTimeout(r, 15));
+        await new Promise((r) => setTimeout(r, 12));
       }
 
       writer.write({ type: 'text-end', id: textId });
+      writer.write({ type: 'finish' });
 
-      // Persist conversation history to Supabase
       const admin = createAdminClient();
       const { error } = await admin.from('ai_messages').insert([
         {
