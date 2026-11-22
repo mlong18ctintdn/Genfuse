@@ -2,7 +2,7 @@
   "meta": {
     "title": "GENFUSE",
     "tagline": "Nơi ba thế hệ cùng lưu giữ kỷ niệm, thấu hiểu nhau và vui chơi.",
-    "description": "Không gian riêng tư cho ông bà, cha mẹ và con cháu: Cây Ký Ức, Cháu Ngoan, Phiên dịch thế hệ và Lá chắn chống lừa đảo."
+    "description": "Không gian riêng tư cho ông bà, cha mẹ và con cháu: Cây Ký Ức, Cháu Ngoan, Từ điển Gen Z và Cảnh báo lừa đảo."
   },
   "common": {
     "loading": "Đang tải…",
@@ -25,13 +25,14 @@
     "home": "Trang chủ",
     "companion": "Cháu Ngoan",
     "memoryTree": "Cây Ký Ức",
-    "translator": "Phiên dịch thế hệ",
-    "scamShield": "Lá chắn lừa đảo",
+    "translator": "Từ điển Gen Z",
+    "scamShield": "Cảnh báo lừa đảo",
     "reminders": "Nhắc nhở chăm sóc",
-    "games": "Trò chơi gia đình",
+    "games": "Khu vui chơi số hóa",
     "upgrade": "Nâng cấp Premium",
     "settings": "Cài đặt",
-    "signOut": "Đăng xuất"
+    "signOut": "Đăng xuất",
+    "feedback": "Đánh giá & Góp ý"
   },
   "auth": {
     "signIn": "Đăng nhập",
@@ -165,7 +166,7 @@
     "uploadAudio": "Tải tệp ghi âm lên"
   },
   "translator": {
-    "title": "Phiên dịch thế hệ",
+    "title": "Từ điển Gen Z",
     "subtitle": "Hiểu lời nói và tâm trạng của Gen Z, Gen Alpha, rồi đáp lại bằng tình thương.",
     "placeholder": "Nhập một từ, xu hướng hoặc hành vi…",
     "examples": [
@@ -184,7 +185,7 @@
     "hint": "Thử một từ mà con cháu bạn vừa dùng."
   },
   "scamShield": {
-    "title": "Lá chắn chống lừa đảo cho người cao tuổi",
+    "title": "Cảnh báo lừa đảo cho người cao tuổi",
     "subtitle": "Biết chiêu trò. Giữ an toàn. Có điều nghi ngờ hãy hỏi người nhà.",
     "premiumNote": "Gia đình Premium nhận cảnh báo lừa đảo mới ngay khi xuất hiện.",
     "highAlert": "Cảnh báo cao",
@@ -264,7 +265,7 @@
     "overdue": "Quá hạn"
   },
   "games": {
-    "title": "Trò chơi gia đình",
+    "title": "Khu vui chơi số hóa",
     "trivia": {
       "title": "Đố vui gia đình",
       "desc": "Câu hỏi được tạo từ chính những kỷ niệm của gia đình bạn.",
@@ -372,6 +373,37 @@
         "Hết sỏi ở 5 ô của mình thì rải lại mỗi ô 1 sỏi (lấy từ sỏi đã ăn, thiếu thì mượn của đối thủ, cuối ván trả lại).",
         "Hết cả 2 quan thì kết thúc. Sỏi còn lại về bên chủ ô. 1 quan tính bằng 10 sỏi, bên nhiều điểm hơn thắng."
       ]
+    },
+    "word": {
+      "title": "Đố chữ gia đình",
+      "subtitle": "Cả nhà cùng đoán một từ khóa, ai ở xa cũng thấy lượt đoán của nhau ngay.",
+      "cat": {
+        "idiom": "Thành ngữ",
+        "genz": "Từ Gen Z",
+        "family": "Gia đình & Tết"
+      },
+      "catDesc": {
+        "idiom": "Câu thành ngữ, tục ngữ quen thuộc.",
+        "genz": "Tiếng lóng của giới trẻ, ông bà thử đoán nhé.",
+        "family": "Món ăn, đồ vật và người thân quen."
+      },
+      "pick": "Chọn chủ đề để bắt đầu",
+      "another": "Chơi ván mới",
+      "costNote": "Mỗi ván mới tốn 1 lượt game của gia đình.",
+      "blanks": "Từ khóa có {count} chữ cái",
+      "guessLabel": "Nhập từ khóa bạn đoán",
+      "guess": "Đoán",
+      "guesses": "Các lượt đoán",
+      "right": "đúng",
+      "wrong": "sai",
+      "reveal": "Mở một chữ cái (miễn phí)",
+      "aiHint": "Gợi ý từ khóa bằng AI",
+      "aiCost": "-1 lượt AI, còn {left}",
+      "thinking": "AI đang nghĩ…",
+      "hintBy": "Gợi ý do {name} nhờ AI",
+      "giveUp": "Xem đáp án",
+      "solved": "{name} đoán đúng rồi: “{answer}”!",
+      "gaveUp": "Đáp án là: “{answer}”"
     }
   },
   "premium": {
@@ -397,7 +429,7 @@
       "badge": "Tặng 2 tháng"
     },
     "features": [
-      "Cháu Ngoan, phiên dịch thế hệ và kiểm tra tin nhắn không giới hạn",
+      "Cháu Ngoan, Từ điển Gen Z và kiểm tra tin nhắn không giới hạn",
       "Hòa giải thấu cảm đầy đủ khi gia đình có xung đột",
       "Thêm lá vào Cây Ký Ức không giới hạn",
       "Cảnh báo lừa đảo cho người cao tuổi",
@@ -433,7 +465,7 @@
     "NO_CREDITS": "Lượt dùng AI miễn phí đã hết. Nâng cấp Premium để tiếp tục.",
     "RATE_LIMITED": "Bạn gửi quá nhanh. Vui lòng chờ một chút.",
     "INPUT_TOO_LONG": "Tin nhắn quá dài. Vui lòng rút gọn.",
-    "AI_NOT_CONFIGURED": "AI chưa được thiết lập. Vui lòng liên hệ hỗ trợ.",
+    "AI_NOT_CONFIGURED": "Trợ lý AI chưa kết nối được vì thiếu khóa API Gemini. Người quản lý app cần thêm GEMINI_API_KEY (hoặc GOOGLE_GENERATIVE_AI_API_KEY) rồi triển khai lại.",
     "AI_STREAM_ERROR": "Xin lỗi, AI chưa trả lời xong. Vui lòng thử lại.",
     "FREE_MEMORY_LIMIT_REACHED": "Cây miễn phí đã đầy. Nâng cấp Premium để thêm không giới hạn.",
     "INVALID_CODE": "Mã gia đình không tồn tại. Vui lòng kiểm tra lại.",
@@ -460,7 +492,11 @@
     "ROOM_TAKEN": "Phòng này đã có người vào rồi.",
     "OWN_ROOM": "Đây là phòng của bạn. Hãy chờ người khác vào.",
     "ROOM_LIMIT": "Đã đạt giới hạn. Hãy xóa bớt hoặc kết thúc ván cũ.",
-    "NO_GAME_USES": "Gia đình bạn đã hết lượt chơi miễn phí. Hãy nâng cấp Premium để tiếp tục."
+    "NO_GAME_USES": "Gia đình bạn đã hết lượt chơi miễn phí. Hãy nâng cấp Premium để tiếp tục.",
+    "FEEDBACK_LIMIT": "Hôm nay bạn đã gửi nhiều góp ý rồi. Mai gửi tiếp nhé.",
+    "AI_KEY_INVALID": "Khóa API Gemini không hợp lệ hoặc đã hết hạn. Người quản lý app cần kiểm tra lại khóa.",
+    "AI_QUOTA": "AI đang quá tải hoặc đã hết hạn mức miễn phí. Bạn thử lại sau ít phút nhé. Lượt dùng của bạn chưa bị trừ.",
+    "NO_MORE_HINTS": "Ván này hết gợi ý rồi. Cứ thử đoán nhé!"
   },
   "home": {
     "desc": {
@@ -469,7 +505,7 @@
       "translator": "Hiểu những điều giới trẻ muốn nói.",
       "scamShield": "Kiểm tra tin nhắn đáng ngờ trước khi trả lời.",
       "reminders": "Uống thuốc, hỏi thăm và những lời nhắc nhỏ.",
-      "games": "Đố vui gia đình và câu chuyện viết nối từng người."
+      "games": "Ô ăn quan, vòng xoay việc nhà, đố chữ và kể chuyện nối cùng cả nhà."
     },
     "dueToday": "Việc cần làm hôm nay",
     "familyCode": "Mã gia đình",
@@ -530,5 +566,23 @@
     "oaqRoom": "{name} mở phòng Ô Ăn Quan, đang chờ người chơi.",
     "oaqJoin": "{name} vừa vào phòng Ô Ăn Quan.",
     "chores": "{name} vừa sửa danh sách việc nhà."
+  },
+  "feedback": {
+    "title": "Đánh giá & Góp ý",
+    "subtitle": "Cho GENFUSE biết bạn thấy thế nào. Mỗi ý kiến đều giúp app tốt hơn.",
+    "rating": "Bạn chấm mấy sao?",
+    "stars": "{count} sao",
+    "category": "Bạn muốn góp ý về",
+    "cat": {
+      "ui": "Giao diện",
+      "games": "Trò chơi",
+      "ai": "AI",
+      "other": "Góp ý khác"
+    },
+    "message": "Lời nhắn (không bắt buộc)",
+    "send": "Gửi đánh giá",
+    "needRating": "Hãy chọn số sao trước nhé.",
+    "thanks": "Cảm ơn bạn rất nhiều!",
+    "thanksBody": "Ý kiến của bạn đã được gửi đến đội ngũ GENFUSE."
   }
 }

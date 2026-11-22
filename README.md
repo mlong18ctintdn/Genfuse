@@ -16,7 +16,7 @@ Next.js 15 (App Router, RSC) + Supabase + Vercel AI SDK (Gemini 2.5 Flash) + nex
 genfuse/
 ├─ package.json  tsconfig.json  next.config.mjs  tailwind.config.ts  postcss.config.mjs  components.json
 ├─ .env.example
-├─ messages/{vi,en,zh,es}.json                    362 keys each, identical
+├─ messages/{vi,en,zh,es}.json                    406 keys each, identical
 ├─ supabase/migrations/
 │  ├─ 001_genfuse_schema.sql                      tables, RLS, triggers, credit + billing functions, storage
 │  ├─ 002_phase3_additions.sql                    memory replies, story game table + realtime
@@ -72,7 +72,7 @@ Node 20+.
 ## 3. Supabase
 
 1. Create a project (region near your users, e.g. Singapore).
-2. **SQL Editor:** run `001_genfuse_schema.sql`, `002_phase3_additions.sql`, `003_family_and_games.sql`, then `004_free_game_uses.sql`.
+2. **SQL Editor:** run `001_genfuse_schema.sql`, `002_phase3_additions.sql`, `003_family_and_games.sql`, then `004_free_game_uses.sql`, `005_app_feedback.sql`, then `006_realtime_sync_and_word_game.sql`.
 3. **Settings → API:** copy the Project URL, `anon` key and `service_role` key into `.env.local` (`service_role` is server-only).
 4. **Fix the `localhost:3000` verification email (you need both parts):**
    1. **Authentication → URL Configuration:** Site URL = `https://YOUR-APP.vercel.app`. Redirect URLs: `https://YOUR-APP.vercel.app/**`, `http://localhost:3000/**`, optionally `https://*-YOUR-TEAM.vercel.app/**` for previews.
@@ -140,7 +140,7 @@ Files: `src/app/manifest.ts`, `public/sw.js`, `public/offline.html`, `public/*.p
 - **Needs HTTPS** (Vercel provides it). Test on a real deployment, not `next dev` (the service worker is off in dev).
 - The service worker caches only `/offline.html` and one icon. It never stores pages, API responses, photos or chats, because family data must not stay on shared devices.
 - `maximumScale: 1` is set as requested. Android Chrome then blocks pinch-zoom, which hurts low-vision users. The actual cause of iOS auto-zoom is text under 16px in fields, so all fields are now ≥16px (`globals.css`); if you want pinch-zoom back on Android, delete the `maximumScale: 1` line in `src/app/[locale]/layout.tsx`.
-- Theme colour is `#1E3A5F` (manifest and browser bar); background `#FAF8F5`. Regenerate icons by editing the circles in the script you used, or replace the PNGs in `public/` (192, 512, 512 maskable, 180 apple-touch).
+- Theme colour is `#0284C7` (manifest and browser bar); background `#F0F9FF`. The PNG icons still use the old colours until you replace them. Regenerate icons by editing the circles in the script you used, or replace the PNGs in `public/` (192, 512, 512 maskable, 180 apple-touch).
 
 ---
 
@@ -168,3 +168,17 @@ Files: `src/app/manifest.ts`, `public/sw.js`, `public/offline.html`, `public/*.p
 - Premium families are never charged. Header badge: `5 AI • 10 Games left`, or `Premium`; it updates by Realtime and after each spend the provider calls `router.refresh()`.
 - Trivia and the story game are AI features, so they use the AI counter, not the game counter.
 - Run section 4 of the SQL (`revoke update on families`) only if your app never updates `families` from the browser; nothing in this code does.
+
+---
+
+## 13. Round 3 changes (migrations 005 and 006)
+
+- **Auth callback** (`src/app/auth/callback/route.ts`): the session cookies are written onto the redirect response itself, so the user lands signed in. No family yet -> `/onboarding` (localised); already has one -> `/home`. It also accepts the `token_hash` + `type` email link format. If the confirmation link is opened in a *different browser* than the one that signed up, PKCE cannot complete (the code verifier lives in the first browser); the user then lands on the login page with a clear message, which is how Supabase is designed.
+- **AI connection:** the key is read from `GOOGLE_GENERATIVE_AI_API_KEY` or `GEMINI_API_KEY`; models `gemini-2.5-flash`, then `gemini-2.0-flash` (env `GEMINI_MODEL`, `GEMINI_FALLBACK_MODEL`). Non-streaming calls (word hints, story narrator, memory archiver, trivia route) really retry on the fallback model. The **streaming chat does not fail over mid-stream**: if 2.5-flash fails, the user gets the friendly error and can retry. Missing key, invalid key and quota each have their own Vietnamese message. If you still see "AI chưa được thiết lập", the variable is not reaching the server: set it in Vercel for the right environment and **redeploy**.
+- **Companion prompt** (`prompts.ts`): three pillars (slang and trend decoder, behaviour and context explainer, positive communication coach) added to every role's prompt; address rules and safety rules are unchanged.
+- **Renamed:** Từ điển Gen Z, Cảnh báo lừa đảo, Khu vui chơi số hóa (also in en/zh/es). Routes (`/translator`, `/scam-shield`, `/games`) are unchanged so links keep working.
+- **Blue theme:** standard = `#0284C7` primary, `#0EA5E9` focus ring, `#F0F9FF` page; senior = navy `#1E3A8A` / `#1D4ED8` on cream with 20px base text. Choosing the Grandparent role in onboarding pre-selects senior mode (previewed live). Note: white text on `#0284C7` is about 4.1:1, a little under the 4.5:1 WCAG AA target for small text; if that matters to you, change `--primary` to `201 96% 32%` (`#0369A1`).
+- **Games (Khu vui chơi số hóa):** Ô ăn quan, Vòng xoay việc nhà, Kể chuyện tiếp nối, and the new **Đố chữ gia đình**. The old Trivia tab is gone from the page (its component and `/api/trivia` are still in the repo, unused).
+- **Realtime sync:** Ô ăn quan, the chore wheel and Đố chữ now listen to `postgres_changes` on their tables filtered by `family_id`, plus a 3 s poll while the tab is visible (`src/lib/hooks/use-live-sync.ts`). Broadcast stays as the fast path; the database path replays moves and spins on the other phone, and jumps to the saved board if several moves were missed. Migration 006 adds `chore_spins.payload`, `oaq_games.last_move` and adds the tables to the Realtime publication.
+- **Đố chữ:** 5 puzzles x 3 topics x 4 languages in `word-bank.ts` (add your own there). The answer is stored in `word_secrets`, which clients cannot read, so Realtime never leaks it. Starting a puzzle spends 1 **game** use; each AI hint spends 1 **AI** use (max 3 per puzzle, the reply is checked so it does not contain the answer); revealing a letter is free (up to half the letters). Everyone in the family sees guesses and hints live.
+- **Feedback:** table `app_feedback` (RLS: insert your own row only, nobody can read it from the app; read it in the Supabase dashboard). The *Đánh giá & Góp ý* entry is in the sidebar right above the AI companion; on phones it is an icon in the header.

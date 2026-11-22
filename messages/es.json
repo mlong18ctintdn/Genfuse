@@ -2,7 +2,7 @@
   "meta": {
     "title": "GENFUSE",
     "tagline": "Un lugar para que tres generaciones guarden recuerdos, se entiendan y jueguen juntas.",
-    "description": "Un espacio familiar privado para abuelos, padres e hijos: Árbol de Recuerdos, Compañero Cariñoso, Traductor Generacional y Escudo Antiestafas."
+    "description": "Un espacio familiar privado para abuelos, padres e hijos: Árbol de Recuerdos, Compañero Cariñoso, Diccionario Gen Z y Alerta de Estafas."
   },
   "common": {
     "loading": "Cargando…",
@@ -25,13 +25,14 @@
     "home": "Inicio",
     "companion": "Compañero",
     "memoryTree": "Árbol de Recuerdos",
-    "translator": "Traductor Generacional",
-    "scamShield": "Escudo Antiestafas",
+    "translator": "Diccionario Gen Z",
+    "scamShield": "Alerta de Estafas",
     "reminders": "Recordatorios de cuidado",
-    "games": "Juegos en familia",
+    "games": "Zona de Juegos Digital",
     "upgrade": "Hazte Premium",
     "settings": "Ajustes",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "feedback": "Valorar y opinar"
   },
   "auth": {
     "signIn": "Iniciar sesión",
@@ -165,7 +166,7 @@
     "uploadAudio": "Subir un archivo de audio"
   },
   "translator": {
-    "title": "Traductor Generacional",
+    "title": "Diccionario Gen Z",
     "subtitle": "Entiende las palabras y el ánimo de la Generación Z y Alfa, y responde con cariño.",
     "placeholder": "Escribe una palabra, tendencia o comportamiento…",
     "examples": [
@@ -184,7 +185,7 @@
     "hint": "Prueba con una palabra que tu nieto haya dicho hace poco."
   },
   "scamShield": {
-    "title": "Escudo Antiestafas para mayores",
+    "title": "Alerta de Estafas para mayores",
     "subtitle": "Conoce los trucos. Mantente seguro. Ante la duda, pregunta a tu familia.",
     "premiumNote": "Las familias Premium reciben las nuevas alertas de estafas en cuanto aparecen.",
     "highAlert": "Alerta máxima",
@@ -264,7 +265,7 @@
     "overdue": "Vencido"
   },
   "games": {
-    "title": "Juegos en familia",
+    "title": "Zona de Juegos Digital",
     "trivia": {
       "title": "Trivia familiar",
       "desc": "Preguntas creadas a partir de los recuerdos de tu propia familia.",
@@ -372,6 +373,37 @@
         "Si tus 5 casillas se quedan vacías, pones 1 piedra en cada una (de tus capturas, o prestadas del rival y devueltas al final).",
         "La partida acaba cuando se capturan los 2 quan. Las piedras restantes van al lado donde están. 1 quan vale 10 piedras; gana quien tenga más puntos."
       ]
+    },
+    "word": {
+      "title": "Acertijo de palabras en familia",
+      "subtitle": "Adivinad juntos la palabra oculta; todos ven cada intento al instante, estén donde estén.",
+      "cat": {
+        "idiom": "Refranes",
+        "genz": "Palabras Gen Z",
+        "family": "Vida familiar"
+      },
+      "catDesc": {
+        "idiom": "Refranes y dichos conocidos.",
+        "genz": "La jerga de los jóvenes. ¿Acertarán los abuelos?",
+        "family": "Comidas, objetos y parientes conocidos."
+      },
+      "pick": "Elige un tema para empezar",
+      "another": "Jugar otra",
+      "costNote": "Cada acertijo nuevo usa 1 juego gratis de la familia.",
+      "blanks": "La palabra tiene {count} letras",
+      "guessLabel": "Escribe tu respuesta",
+      "guess": "Adivinar",
+      "guesses": "Intentos",
+      "right": "correcto",
+      "wrong": "incorrecto",
+      "reveal": "Mostrar una letra (gratis)",
+      "aiHint": "Pista con IA",
+      "aiCost": "-1 uso de IA, quedan {left}",
+      "thinking": "La IA está pensando…",
+      "hintBy": "Pista de IA pedida por {name}",
+      "giveUp": "Rendirse",
+      "solved": "¡{name} acertó: “{answer}”!",
+      "gaveUp": "La respuesta era: “{answer}”"
     }
   },
   "premium": {
@@ -382,7 +414,7 @@
       "features": [
         "5 usos de IA para la familia",
         "Árbol de Recuerdos de hasta 20 hojas",
-        "Consejos del Escudo Antiestafas"
+        "Consejos del Alerta de Estafas"
       ]
     },
     "monthly": {
@@ -400,7 +432,7 @@
       "Compañero, traductor y revisión de mensajes con IA sin límite",
       "Mediación empática completa en los conflictos familiares",
       "Hojas ilimitadas en el Árbol de Recuerdos",
-      "Alertas del Escudo Antiestafas para mayores",
+      "Alertas del Alerta de Estafas para mayores",
       "Incluye a todos los miembros de tu familia"
     ],
     "payWithPayos": "Pagar con VietQR / transferencia bancaria",
@@ -433,7 +465,7 @@
     "NO_CREDITS": "Se acabaron tus usos gratuitos de IA. Hazte Premium para continuar.",
     "RATE_LIMITED": "Demasiados mensajes. Espera un momento.",
     "INPUT_TOO_LONG": "El mensaje es demasiado largo. Acórtalo, por favor.",
-    "AI_NOT_CONFIGURED": "La IA aún no está configurada. Contacta con soporte.",
+    "AI_NOT_CONFIGURED": "La IA aún no está conectada: falta la clave de API de Gemini. El administrador debe añadir GEMINI_API_KEY (o GOOGLE_GENERATIVE_AI_API_KEY) y volver a desplegar.",
     "AI_STREAM_ERROR": "Lo siento, la IA no pudo terminar. Inténtalo de nuevo.",
     "FREE_MEMORY_LIMIT_REACHED": "Tu árbol gratuito está lleno. Hazte Premium para hojas ilimitadas.",
     "INVALID_CODE": "Ese código de familia no existe. Revísalo, por favor.",
@@ -460,7 +492,11 @@
     "ROOM_TAKEN": "Alguien ya entró en esta sala.",
     "OWN_ROOM": "Esta es tu propia sala. Espera a que entre otra persona.",
     "ROOM_LIMIT": "Límite alcanzado. Elimina algo o termina una partida antigua.",
-    "NO_GAME_USES": "Tu familia no tiene juegos gratis. Pásate a Premium para seguir jugando."
+    "NO_GAME_USES": "Tu familia no tiene juegos gratis. Pásate a Premium para seguir jugando.",
+    "FEEDBACK_LIMIT": "Hoy has enviado muchas opiniones. Inténtalo mañana.",
+    "AI_KEY_INVALID": "La clave de API de Gemini no es válida o ha caducado. El administrador debe revisarla.",
+    "AI_QUOTA": "La IA está saturada o se agotó su cuota gratuita. Inténtalo en unos minutos. No se descontó tu uso gratis.",
+    "NO_MORE_HINTS": "No quedan más pistas. ¡Atrévete a adivinar!"
   },
   "home": {
     "desc": {
@@ -469,7 +505,7 @@
       "translator": "Entiende lo que quieren decir los jóvenes.",
       "scamShield": "Revisa los mensajes sospechosos antes de responder.",
       "reminders": "Medicinas, saludos y pequeños recordatorios.",
-      "games": "Trivia familiar e historias escritas por turnos."
+      "games": "Ô Ăn Quan, la rueda de tareas, acertijos de palabras e historias en cadena con toda la familia."
     },
     "dueToday": "Pendiente para hoy",
     "familyCode": "Código de familia",
@@ -530,5 +566,23 @@
     "oaqRoom": "{name} abrió una sala de Ô Ăn Quan y espera jugador.",
     "oaqJoin": "{name} entró en una sala de Ô Ăn Quan.",
     "chores": "{name} editó la lista de tareas."
+  },
+  "feedback": {
+    "title": "Valorar y opinar",
+    "subtitle": "Cuéntanos qué tal va. Cada comentario nos ayuda a mejorar.",
+    "rating": "¿Cuántas estrellas?",
+    "stars": "{count} estrellas",
+    "category": "Tu opinión trata sobre",
+    "cat": {
+      "ui": "Diseño",
+      "games": "Juegos",
+      "ai": "IA",
+      "other": "Otra opinión"
+    },
+    "message": "Mensaje (opcional)",
+    "send": "Enviar",
+    "needRating": "Elige primero las estrellas.",
+    "thanks": "¡Muchas gracias!",
+    "thanksBody": "Tu opinión ha llegado al equipo de GENFUSE."
   }
 }

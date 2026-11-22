@@ -2,7 +2,7 @@
   "meta": {
     "title": "GENFUSE",
     "tagline": "让三代人一起珍藏回忆、彼此理解、共享欢乐的地方。",
-    "description": "为祖辈、父母和孩子打造的私密家庭空间：记忆树、贴心小伙伴、代际翻译官和防骗盾牌。"
+    "description": "为祖辈、父母和孩子打造的私密家庭空间：记忆树、贴心小伙伴、Z世代词典和防骗提醒。"
   },
   "common": {
     "loading": "加载中…",
@@ -25,13 +25,14 @@
     "home": "首页",
     "companion": "贴心小伙伴",
     "memoryTree": "记忆树",
-    "translator": "代际翻译官",
-    "scamShield": "防骗盾牌",
+    "translator": "Z世代词典",
+    "scamShield": "防骗提醒",
     "reminders": "关爱提醒",
-    "games": "家庭游戏",
+    "games": "数字游乐场",
     "upgrade": "升级高级版",
     "settings": "设置",
-    "signOut": "退出登录"
+    "signOut": "退出登录",
+    "feedback": "评价与反馈"
   },
   "auth": {
     "signIn": "登录",
@@ -165,7 +166,7 @@
     "uploadAudio": "上传音频文件"
   },
   "translator": {
-    "title": "代际翻译官",
+    "title": "Z世代词典",
     "subtitle": "读懂 Z 世代和 α 世代的用语与心情，再用爱回应他们。",
     "placeholder": "输入一个词、潮流或行为…",
     "examples": [
@@ -184,7 +185,7 @@
     "hint": "试试孩子最近说过的一个词。"
   },
   "scamShield": {
-    "title": "长辈防骗盾牌",
+    "title": "长辈防骗提醒",
     "subtitle": "了解骗局套路，保持安全。有疑问，先问家人。",
     "premiumNote": "高级版家庭可第一时间收到最新诈骗预警。",
     "highAlert": "高度警惕",
@@ -264,7 +265,7 @@
     "overdue": "已过期"
   },
   "games": {
-    "title": "家庭游戏",
+    "title": "数字游乐场",
     "trivia": {
       "title": "家庭问答",
       "desc": "根据您家人自己的回忆生成的问答题。",
@@ -372,6 +373,37 @@
         "自己 5 个格子都空了，就每格放 1 颗（先用已吃的石子，不够向对手借，终局归还）。",
         "两个官棋都被吃掉时结束。剩下的石子归所在一方。1 个官算 10 颗，得分高者获胜。"
       ]
+    },
+    "word": {
+      "title": "家庭猜字谜",
+      "subtitle": "全家一起猜一个词，无论多远都能立刻看到彼此的猜测。",
+      "cat": {
+        "idiom": "成语俗语",
+        "genz": "Z世代用语",
+        "family": "家庭生活"
+      },
+      "catDesc": {
+        "idiom": "耳熟能详的成语和谚语。",
+        "genz": "年轻人的流行语，长辈也来猜猜。",
+        "family": "熟悉的食物、物品和亲人。"
+      },
+      "pick": "选择主题开始",
+      "another": "再来一局",
+      "costNote": "每开一局消耗家庭 1 次免费游戏机会。",
+      "blanks": "这个词有 {count} 个字",
+      "guessLabel": "输入你的答案",
+      "guess": "猜",
+      "guesses": "已猜过的答案",
+      "right": "正确",
+      "wrong": "错误",
+      "reveal": "揭开一个字（免费）",
+      "aiHint": "AI 提示",
+      "aiCost": "扣 1 次 AI，剩 {left} 次",
+      "thinking": "AI 正在想…",
+      "hintBy": "{name} 请求的 AI 提示",
+      "giveUp": "看答案",
+      "solved": "{name} 猜对了：“{answer}”！",
+      "gaveUp": "答案是：“{answer}”"
     }
   },
   "premium": {
@@ -400,7 +432,7 @@
       "不限次数的贴心小伙伴、代际翻译和信息检查",
       "完整的共情调解，化解家庭矛盾",
       "记忆树无限添加叶子",
-      "长辈防骗盾牌预警",
+      "长辈防骗提醒预警",
       "全家每位成员都能使用"
     ],
     "payWithPayos": "使用 VietQR / 银行转账支付",
@@ -433,7 +465,7 @@
     "NO_CREDITS": "免费 AI 次数已用完，请升级高级版继续使用。",
     "RATE_LIMITED": "消息发送太频繁，请稍等片刻。",
     "INPUT_TOO_LONG": "消息太长，请精简一下。",
-    "AI_NOT_CONFIGURED": "AI 尚未设置，请联系客服。",
+    "AI_NOT_CONFIGURED": "AI 暂时无法连接：缺少 Gemini API 密钥。应用管理员需要添加 GEMINI_API_KEY（或 GOOGLE_GENERATIVE_AI_API_KEY）并重新部署。",
     "AI_STREAM_ERROR": "抱歉，AI 没能完成回复，请重试。",
     "FREE_MEMORY_LIMIT_REACHED": "免费的树已满，升级高级版可无限添加。",
     "INVALID_CODE": "该家庭码不存在，请检查后重试。",
@@ -460,7 +492,11 @@
     "ROOM_TAKEN": "这个房间已经有人加入了。",
     "OWN_ROOM": "这是你自己的房间，请等其他人加入。",
     "ROOM_LIMIT": "已达上限，请先删除或结束旧的内容。",
-    "NO_GAME_USES": "你们家的免费游戏次数已用完，升级 Premium 即可继续。"
+    "NO_GAME_USES": "你们家的免费游戏次数已用完，升级 Premium 即可继续。",
+    "FEEDBACK_LIMIT": "你今天已发送很多反馈了，请明天再试。",
+    "AI_KEY_INVALID": "Gemini API 密钥无效或已过期，管理员需要检查密钥。",
+    "AI_QUOTA": "AI 正忙或免费额度已用完，请几分钟后再试。你的免费次数没有被扣除。",
+    "NO_MORE_HINTS": "这一题没有更多提示了，大胆猜吧！"
   },
   "home": {
     "desc": {
@@ -469,7 +505,7 @@
       "translator": "读懂年轻人想表达的意思。",
       "scamShield": "回复之前，先检查可疑信息。",
       "reminders": "吃药、问候和小小的提醒。",
-      "games": "家庭问答，以及轮流接龙的故事。"
+      "games": "和全家一起玩官棋、家务转盘、猜字谜和接龙故事。"
     },
     "dueToday": "今天要做的事",
     "familyCode": "家庭码",
@@ -530,5 +566,23 @@
     "oaqRoom": "{name} 开了一个“官棋”房间，正在等人加入。",
     "oaqJoin": "{name} 加入了“官棋”房间。",
     "chores": "{name} 修改了家务清单。"
+  },
+  "feedback": {
+    "title": "评价与反馈",
+    "subtitle": "告诉我们你的感受，每条意见都能让应用更好。",
+    "rating": "你打几颗星？",
+    "stars": "{count} 星",
+    "category": "你想反馈的是",
+    "cat": {
+      "ui": "界面",
+      "games": "游戏",
+      "ai": "AI",
+      "other": "其他意见"
+    },
+    "message": "留言（可选）",
+    "send": "发送反馈",
+    "needRating": "请先选择星级。",
+    "thanks": "非常感谢！",
+    "thanksBody": "你的反馈已送达 GENFUSE 团队。"
   }
 }

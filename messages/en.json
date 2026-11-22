@@ -2,7 +2,7 @@
   "meta": {
     "title": "GENFUSE",
     "tagline": "A place for three generations to keep memories, understand each other, and play.",
-    "description": "A private family space for grandparents, parents and children: Memory Tree, Loving Companion, Generational Translator and Scam Shield."
+    "description": "A private family space for grandparents, parents and children: Memory Tree, Loving Companion, Generational Translator and Scam Alert."
   },
   "common": {
     "loading": "Loading…",
@@ -25,13 +25,14 @@
     "home": "Home",
     "companion": "Companion",
     "memoryTree": "Memory Tree",
-    "translator": "Generation Translator",
-    "scamShield": "Scam Shield",
+    "translator": "Gen Z Dictionary",
+    "scamShield": "Scam Alert",
     "reminders": "Care Reminders",
-    "games": "Family Games",
+    "games": "Digital Playground",
     "upgrade": "Go Premium",
     "settings": "Settings",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "feedback": "Rate & Feedback"
   },
   "auth": {
     "signIn": "Sign in",
@@ -165,7 +166,7 @@
     "uploadAudio": "Upload an audio file"
   },
   "translator": {
-    "title": "Generation Translator",
+    "title": "Gen Z Dictionary",
     "subtitle": "Understand Gen Z & Gen Alpha words and moods, then reply with love.",
     "placeholder": "Type a word, trend or behavior…",
     "examples": [
@@ -184,7 +185,7 @@
     "hint": "Try a word your grandchild used recently."
   },
   "scamShield": {
-    "title": "Senior Scam Shield",
+    "title": "Senior Scam Alert",
     "subtitle": "Know the tricks. Stay safe. Ask your family when in doubt.",
     "premiumNote": "Premium families get new scam alerts as they appear.",
     "highAlert": "High alert",
@@ -264,7 +265,7 @@
     "overdue": "Overdue"
   },
   "games": {
-    "title": "Family Games",
+    "title": "Digital Playground",
     "trivia": {
       "title": "Family Trivia",
       "desc": "Quiz questions made from your family's own memories.",
@@ -372,6 +373,37 @@
         "If all 5 of your squares are empty, place 1 pebble on each (from your captured pebbles, or borrowed from the opponent and repaid at the end).",
         "The game ends when both quan are captured. Leftover pebbles go to the side they sit on. 1 quan counts as 10 pebbles; the higher score wins."
       ]
+    },
+    "word": {
+      "title": "Family word puzzle",
+      "subtitle": "Guess the hidden word together; everyone sees each guess instantly, wherever they are.",
+      "cat": {
+        "idiom": "Sayings",
+        "genz": "Gen Z words",
+        "family": "Family life"
+      },
+      "catDesc": {
+        "idiom": "Well-known sayings and proverbs.",
+        "genz": "Young people's slang. Can the grandparents guess?",
+        "family": "Familiar foods, objects and relatives."
+      },
+      "pick": "Pick a topic to start",
+      "another": "Play another",
+      "costNote": "Each new puzzle uses 1 of the family's free game plays.",
+      "blanks": "The word has {count} letters",
+      "guessLabel": "Type your guess",
+      "guess": "Guess",
+      "guesses": "Guesses so far",
+      "right": "correct",
+      "wrong": "wrong",
+      "reveal": "Reveal a letter (free)",
+      "aiHint": "AI hint",
+      "aiCost": "-1 AI use, {left} left",
+      "thinking": "AI is thinking…",
+      "hintBy": "AI hint asked by {name}",
+      "giveUp": "Give up",
+      "solved": "{name} got it: “{answer}”!",
+      "gaveUp": "The answer was: “{answer}”"
     }
   },
   "premium": {
@@ -382,7 +414,7 @@
       "features": [
         "5 AI uses for the family",
         "Memory Tree with up to 20 leaves",
-        "Scam Shield tips"
+        "Scam Alert tips"
       ]
     },
     "monthly": {
@@ -400,7 +432,7 @@
       "Unlimited AI companion, translator and message checks",
       "Full empathetic mediation for family conflicts",
       "Unlimited Memory Tree leaves",
-      "Senior Scam Shield alerts",
+      "Senior Scam Alert alerts",
       "Covers every member of your family"
     ],
     "payWithPayos": "Pay with VietQR / bank transfer",
@@ -433,7 +465,7 @@
     "NO_CREDITS": "Your free AI uses are finished. Go Premium to continue.",
     "RATE_LIMITED": "Too many messages. Please wait a moment.",
     "INPUT_TOO_LONG": "That message is too long. Please shorten it.",
-    "AI_NOT_CONFIGURED": "The AI is not set up yet. Please contact support.",
+    "AI_NOT_CONFIGURED": "The AI is not connected yet: the Gemini API key is missing. The app owner needs to add GEMINI_API_KEY (or GOOGLE_GENERATIVE_AI_API_KEY) and redeploy.",
     "AI_STREAM_ERROR": "Sorry, the AI could not finish. Please try again.",
     "FREE_MEMORY_LIMIT_REACHED": "Your free tree is full. Go Premium for unlimited leaves.",
     "INVALID_CODE": "That family code doesn't exist. Please check it.",
@@ -460,7 +492,11 @@
     "ROOM_TAKEN": "Someone else already joined this room.",
     "OWN_ROOM": "This is your own room. Wait for someone else to join.",
     "ROOM_LIMIT": "Limit reached. Remove something or finish an old game first.",
-    "NO_GAME_USES": "Your family has no free game plays left. Go Premium to keep playing."
+    "NO_GAME_USES": "Your family has no free game plays left. Go Premium to keep playing.",
+    "FEEDBACK_LIMIT": "You have sent a lot of feedback today. Please try again tomorrow.",
+    "AI_KEY_INVALID": "The Gemini API key is invalid or expired. The app owner needs to check the key.",
+    "AI_QUOTA": "The AI is busy or its free quota is used up. Please try again in a few minutes. Your free use was not spent.",
+    "NO_MORE_HINTS": "No more hints for this puzzle. Take a guess!"
   },
   "home": {
     "desc": {
@@ -469,7 +505,7 @@
       "translator": "Understand what young people mean.",
       "scamShield": "Check suspicious messages before you reply.",
       "reminders": "Medicine, check-ins and little nudges.",
-      "games": "Family trivia and stories written in turns."
+      "games": "Ô Ăn Quan, the chore wheel, word puzzles and shared stories with the whole family."
     },
     "dueToday": "Due today",
     "familyCode": "Family code",
@@ -530,5 +566,23 @@
     "oaqRoom": "{name} opened an Ô Ăn Quan room and is waiting for a player.",
     "oaqJoin": "{name} joined an Ô Ăn Quan room.",
     "chores": "{name} edited the chore list."
+  },
+  "feedback": {
+    "title": "Rate & Feedback",
+    "subtitle": "Tell GENFUSE how it is going. Every comment helps us improve.",
+    "rating": "How many stars?",
+    "stars": "{count} stars",
+    "category": "Your feedback is about",
+    "cat": {
+      "ui": "Look and feel",
+      "games": "Games",
+      "ai": "AI",
+      "other": "Other"
+    },
+    "message": "Message (optional)",
+    "send": "Send feedback",
+    "needRating": "Please choose a star rating first.",
+    "thanks": "Thank you so much!",
+    "thanksBody": "Your feedback has reached the GENFUSE team."
   }
 }
