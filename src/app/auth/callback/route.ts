@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
       getAll: () => request.cookies.getAll(),
-      setAll: (list) => {
+      setAll: (list: Array<{ name: string; value: string; options?: Record<string, unknown> }>) => {
         for (const c of list) pending.push({ name: c.name, value: c.value, options: c.options });
       },
     },
