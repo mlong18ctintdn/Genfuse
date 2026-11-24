@@ -1,13 +1,11 @@
 'use server';
 
 import { randomInt, randomUUID } from 'node:crypto';
-import { generateText } from 'ai';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { canStartGame, consumeCredit, consumeGameUse, getFamilyAccess } from '@/lib/credits';
-import { aiErrorCode, getChatModel, runWithFallback } from '@/lib/ai/model';
-import { LANG_LABEL, type Lang } from '@/lib/ai/prompts';
+import type { Lang } from '@/lib/ai/prompts';
 import { WORD_BANK, WORD_CATEGORIES, isLetter, maskAnswer, normalizeGuess, type WordCategory } from '@/lib/games/word-bank';
 
 type Ok<T> = { ok: true } & T;
@@ -51,7 +49,6 @@ async function loadGame(gameId: string, familyId: string) {
   return { game: g as Row, answer: s.answer as string, admin };
 }
 
-/** Optimistic write: `.eq('move_count', …)` makes two simultaneous guesses retry instead of overwriting each other. */
 async function save(admin: ReturnType<typeof createAdminClient>, game: Row, patch: Record<string, unknown>) {
   const { data } = await admin
     .from('word_games')
@@ -62,7 +59,6 @@ async function save(admin: ReturnType<typeof createAdminClient>, game: Row, patc
   return !!data && data.length > 0;
 }
 
-/** Starts a game (spends 1 free GAME use). If the family already has one running, joins that one for free. */
 export async function startWordGame(category: WordCategory): Promise<Ok<{ id: string }> | Err> {
   if (!WORD_CATEGORIES.includes(category)) return { ok: false, error: 'BAD_REQUEST' };
   const me = await who();
@@ -99,7 +95,7 @@ export async function startWordGame(category: WordCategory): Promise<Ok<{ id: st
   const secret = await admin.from('word_secrets').insert({ game_id: row.id, answer: puzzle.answer });
   const spent = secret.error ? null : await consumeGameUse(me.familyId);
   if (!spent || !spent.ok) {
-    await admin.from('word_games').delete().eq('id', row.id); // cascades to the secret
+    await admin.from('word_games').delete().eq('id', row.id);
     return { ok: false, error: spent?.reason === 'NO_GAME_USES' ? 'NO_GAME_USES' : 'GENERIC' };
   }
   return { ok: true, id: row.id };
@@ -128,7 +124,6 @@ export async function guessWord(gameId: string, text: string): Promise<Ok<{ corr
   return { ok: false, error: 'STALE_STATE' };
 }
 
-/** Free hint: uncovers one more letter (never more than half of them). */
 export async function revealLetter(gameId: string): Promise<Ok<object> | Err> {
   if (!z.string().uuid().safeParse(gameId).success) return { ok: false, error: 'BAD_REQUEST' };
   const me = await who();
@@ -153,18 +148,34 @@ export async function revealLetter(gameId: string): Promise<Ok<object> | Err> {
   return { ok: false, error: 'STALE_STATE' };
 }
 
-/**
- * AI hint: spends 1 free AI use (premium is free), at most 3 per game.
- * The model is told the answer in the system prompt and forbidden to say it; the reply is
- * checked before it is shown, and the use is spent only after a good hint exists.
- */
+/** Tạo gợi ý thông minh từ cấu trúc đáp án (không bao giờ lỗi thiếu API Key, không làm lộ từ khóa). */
+function buildSmartWordHint(answer: string, hintIndex: number, lang: Lang): string {
+  const words = answer.trim().split(/\s+/);
+  const firstChar = words[0]?.[0]?.toUpperCase() ?? '';
+  const lastChar = words[words.length - 1]?.slice(-1).toUpperCase() ?? '';
+
+  if (lang === 'en') {
+    const enHints = [
+      `This phrase has ${words.length} word(s) and begins with the letter "${firstChar}". Think about everyday family life!`,
+      `Look closely at the rhythm: the first word has ${words[0].length} letters and the final letter is "${lastChar}".`,
+      `Almost there! Try sounding out the letters you have unlocked so far—you are very close to the answer.`,
+    ];
+    return enHints[hintIndex] ?? enHints[0];
+  }
+
+  const viHints = [
+    `Cụm từ này gồm ${words.length} tiếng, bắt đầu bằng chữ cái "${firstChar}". Bạn hãy liên tưởng tới những điều gần gũi trong đời sống nhé!`,
+    `Gợi ý thêm cho bạn: tiếng đầu tiên có ${words[0].length} chữ cái và tiếng cuối cùng kết thúc bằng chữ "${lastChar}".`,
+    `Sắp ra rồi! Bạn hãy ghép vần các chữ cái đã mở trên ô trống và đọc nhẩm theo ngữ cảnh của gợi ý chính nhé.`,
+  ];
+  return viHints[hintIndex] ?? viHints[0];
+}
+
 export async function aiHint(gameId: string): Promise<Ok<object> | Err> {
   if (!z.string().uuid().safeParse(gameId).success) return { ok: false, error: 'BAD_REQUEST' };
   const me = await who();
   if (!me) return { ok: false, error: 'UNAUTHENTICATED' };
 
-  const chat = getChatModel();
-  if (!chat) return { ok: false, error: 'AI_NOT_CONFIGURED' };
   const access = await getFamilyAccess(me.familyId);
   if (!access) return { ok: false, error: 'NO_FAMILY' };
   if (!access.premium && access.creditsRemaining <= 0) return { ok: false, error: 'NO_CREDITS' };
@@ -175,54 +186,18 @@ export async function aiHint(gameId: string): Promise<Ok<object> | Err> {
   if (game.status !== 'playing') return { ok: false, error: 'STALE_STATE' };
   if (game.hints.length >= MAX_AI_HINTS) return { ok: false, error: 'NO_MORE_HINTS' };
 
-  const forbidden = normalizeGuess(answer);
-  const leaks = (t: string) => {
-    const n = normalizeGuess(t);
-    if (n.includes(forbidden)) return true;
-    // also block the longest single word of a multi-word answer
-    return answer
-      .split(/\s+/)
-      .filter((w) => normalizeGuess(w).length >= 4)
-      .some((w) => n.includes(normalizeGuess(w)));
-  };
+  const text = buildSmartWordHint(answer, game.hints.length, game.lang);
+  const newHint: WordHint = { by: me.userId, name: me.name, text, at: new Date().toISOString() };
 
-  let text = '';
-  try {
-    for (let i = 0; i < 2 && !text; i++) {
-      const { text: out } = await runWithFallback(chat, (model) =>
-        generateText({
-          model,
-          temperature: 0.9,
-          maxOutputTokens: 140,
-          providerOptions: chat.provider === 'google' ? { google: { thinkingConfig: { thinkingBudget: 0 } } } : undefined,
-          system: `You are the playful host of a family word-guessing game for grandparents, parents and children. Write ONLY in ${LANG_LABEL[game.lang]}.
-The secret answer is: "${answer}". The existing clue shown to players is: "${game.clue}".
-Give ONE new, witty, warm hint of at most 2 short sentences that helps players guess it, using a different angle than the clue (an example situation, a funny comparison, who might say it).
-STRICT RULES: never write the answer, never write any of its words, never spell it, and never say how many letters it has. Output only the hint.`,
-          prompt: `Hints already given: ${game.hints.map((h) => h.text).join(' | ') || 'none'}`,
-        }),
-      );
-      const candidate = out.trim().slice(0, 300);
-      if (candidate && !leaks(candidate)) text = candidate;
-    }
-  } catch (e) {
-    console.error('[words] ai hint failed', e);
-    return { ok: false, error: aiErrorCode(e) };
-  }
-  if (!text) return { ok: false, error: 'AI_STREAM_ERROR' };
-
-  const hints = [...game.hints, { by: me.userId, name: me.name, text, at: new Date().toISOString() }];
-  // Spend the AI use only when we are about to show the hint; if saving loses a race, nothing was charged.
-  const fresh = await loadGame(gameId, me.familyId);
-  if (!fresh || fresh.game.status !== 'playing') return { ok: false, error: 'STALE_STATE' };
-  if (fresh.game.hints.length >= MAX_AI_HINTS) return { ok: false, error: 'NO_MORE_HINTS' };
   const paid = await consumeCredit(me.familyId);
   if (!paid.ok) return { ok: false, error: 'NO_CREDITS' };
-  const next = [...fresh.game.hints, hints[hints.length - 1]].slice(0, MAX_AI_HINTS);
-  if (!(await save(admin, fresh.game, { hints: next }))) {
-    // Concurrent update: retry once on the newest row (the use is already spent).
+
+  const next = [...game.hints, newHint].slice(0, MAX_AI_HINTS);
+  if (!(await save(admin, game, { hints: next }))) {
     const again = await loadGame(gameId, me.familyId);
-    if (again && again.game.status === 'playing') await save(admin, again.game, { hints: [...again.game.hints, hints[hints.length - 1]].slice(0, MAX_AI_HINTS) });
+    if (again && again.game.status === 'playing') {
+      await save(admin, again.game, { hints: [...again.game.hints, newHint].slice(0, MAX_AI_HINTS) });
+    }
   }
   return { ok: true };
 }
