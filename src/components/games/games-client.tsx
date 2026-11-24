@@ -1,61 +1,47 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { cn } from '@/lib/utils';
-import { StoryGame, type Story } from './story-game';
-import { WordGame, type WordRow } from './word-game';
-import { ChoreWheel, type SpinRow, type WheelChore } from './chore-wheel';
-import { OAnQuan } from './o-an-quan';
+import { OAnQuanGame } from './o-an-quan';
+import { CoCaNguaGame } from './co-ca-ngua';
+import { WordGame } from './word-game';
 
-const TABS = ['oaq', 'chore', 'story', 'word'] as const;
-type Tab = (typeof TABS)[number];
+type Tab = 'oaq' | 'cangua' | 'word';
 
-export function GamesClient({
-  familyId,
-  myId,
-  stories,
-  chores,
-  spins,
-  autoSpeak,
-  word,
-}: {
-  familyId: string;
-  myId: string;
-  stories: Story[];
-  chores: WheelChore[];
-  spins: SpinRow[];
-  autoSpeak: boolean;
-  word: WordRow | null;
-}) {
-  const t = useTranslations();
+export function GamesClient({ familyId }: { familyId: string }) {
   const [tab, setTab] = useState<Tab>('oaq');
+
+  const tabs: { id: Tab; label: string; desc: string }[] = [
+    { id: 'oaq', label: '🪨 Ô Ăn Quan', desc: 'Trò chơi dân gian rèn trí nhớ & tính nhẩm' },
+    { id: 'cangua', label: '🐴 Cờ Cá Ngựa', desc: 'Tung xúc xắc realtime cùng người thân' },
+    { id: 'word', label: '🔤 Đố Chữ Gia Đình', desc: 'Nối từ & giải ô chữ có AI gợi ý' },
+  ];
 
   return (
     <div className="space-y-6">
-      <div role="tablist" aria-label={t('games.title')} className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-1 sm:inline-grid sm:grid-cols-4">
-        {TABS.map((k) => (
-          <button
-            key={k}
-            type="button"
-            role="tab"
-            id={`tab-${k}`}
-            aria-selected={tab === k}
-            aria-controls={`panel-${k}`}
-            onClick={() => setTab(k)}
-            className={cn('min-h-12 rounded-md px-4 font-bold', tab === k ? 'bg-card shadow-sm' : 'text-muted-foreground')}
-          >
-            {t(`games.${k}.title`)}
-          </button>
-        ))}
+      <div className="grid gap-3 sm:grid-cols-3">
+        {tabs.map((item) => {
+          const active = tab === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setTab(item.id)}
+              className={`rounded-xl border-2 p-4 text-left transition ${
+                active
+                  ? 'border-primary bg-primary/10 shadow-sm'
+                  : 'border-border bg-card hover:bg-accent/50'
+              }`}
+            >
+              <div className="text-lg font-extrabold">{item.label}</div>
+              <p className="mt-1 text-xs text-muted-foreground">{item.desc}</p>
+            </button>
+          );
+        })}
       </div>
 
-      <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
-        {tab === 'story' && <StoryGame familyId={familyId} myId={myId} initial={stories} />}
-        {tab === 'chore' && <ChoreWheel initialChores={chores} initialHistory={spins} />}
-        {tab === 'oaq' && <OAnQuan myId={myId} autoSpeak={autoSpeak} />}
-        {tab === 'word' && <WordGame initialGame={word} />}
-      </div>
+      {tab === 'oaq' && <OAnQuanGame familyId={familyId} />}
+      {tab === 'cangua' && <CoCaNguaGame familyId={familyId} />}
+      {tab === 'word' && <WordGame familyId={familyId} />}
     </div>
   );
 }
