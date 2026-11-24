@@ -1,6 +1,9 @@
 import 'server-only';
 import { createAdminClient } from '@/lib/supabase/admin';
 
+export const FREE_MEMORY_LIMIT = 15;
+export const SEATS_PER_PRO_PLAN = 6;
+
 export type CreditResult = {
   ok: boolean;
   premium: boolean;
@@ -11,32 +14,64 @@ export type CreditResult = {
 
 export type FamilyAccess = {
   premium: boolean;
+  rawProSeats: number;
+  memberCount: number;
+  requiredSeats: number;
+  needsExtraSeat: boolean;
   creditsRemaining: number;
   /** Free game starts left (chore wheel spin, Ô Ăn Quan game). */
   gameUsesRemaining: number;
   premiumExpiresAt: string | null;
+  memoriesCount: number;
+  canAddMemory: boolean;
 };
 
-/** Read-only check used BEFORE starting an AI stream. Does not consume anything. */
+/** Read-only check used BEFORE starting an AI stream or adding a memory. Does not consume anything. */
 export async function getFamilyAccess(familyId: string): Promise<FamilyAccess | null> {
   const admin = createAdminClient();
-  const { data, error } = await admin
-    .from('families')
-    .select('credits_remaining, free_game_uses, subscription_tier, premium_expires_at')
-    .eq('id', familyId)
-    .single();
+
+  const [{ data, error }, { count: memberCount }, { count: memoriesCount }] = await Promise.all([
+    admin
+      .from('families')
+      .select('credits_remaining, free_game_uses, subscription_tier, premium_expires_at, pro_seats')
+      .eq('id', familyId)
+      .single(),
+    admin
+      .from('profiles')
+      .select('id', { count: 'exact', head: true })
+      .eq('family_id', familyId),
+    admin
+      .from('memories')
+      .select('id', { count: 'exact', head: true })
+      .eq('family_id', familyId),
+  ]);
 
   if (error || !data) return null;
 
-  const premium =
-    data.subscription_tier === 'premium' &&
-    (data.premium_expires_at === null || new Date(data.premium_expires_at).getTime() > Date.now());
+  const isNotExpired =
+    data.premium_expires_at === null || new Date(data.premium_expires_at).getTime() > Date.now();
+  const isTierPremium = data.subscription_tier === 'premium' && isNotExpired;
+
+  const activeSeats = isTierPremium ? Math.max(data.pro_seats ?? 0, 1) : 0;
+  const members = memberCount ?? 1;
+  const memories = memoriesCount ?? 0;
+
+  // Cứ 1 gói Pro bao phủ tối đa 6 thành viên; từ người thứ 7 trở đi cần thêm 1 gói Pro
+  const requiredSeats = Math.max(1, Math.ceil(members / SEATS_PER_PRO_PLAN));
+  const premium = activeSeats >= requiredSeats;
+  const needsExtraSeat = activeSeats > 0 && activeSeats < requiredSeats;
 
   return {
     premium,
+    rawProSeats: activeSeats,
+    memberCount: members,
+    requiredSeats,
+    needsExtraSeat,
     creditsRemaining: data.credits_remaining,
     gameUsesRemaining: data.free_game_uses,
     premiumExpiresAt: data.premium_expires_at,
+    memoriesCount: memories,
+    canAddMemory: premium || memories < FREE_MEMORY_LIMIT,
   };
 }
 
