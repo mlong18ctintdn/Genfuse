@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { ArrowLeft, ArrowRight, DoorOpen, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, DoorOpen, Plus, Sparkles } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { createOaqGame, endOaqGame, joinOaqGame, playOaqMove } from '@/app/actions/oaq';
 import { safeErrorKey } from '@/lib/chat-utils';
@@ -35,6 +35,41 @@ type Shown = { dan: number[]; quan: number[]; stash: OaqState['stash']; hand: nu
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const reducedMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+function suggestOaqMove(state: OaqState, viewer: Player, t: ReturnType<typeof useTranslations>): string {
+  const mySlots = [0, 1, 2, 3, 4].map((s) => (s + 6 * viewer) % 12).filter((L) => state.dan[L] > 0);
+  if (mySlots.length === 0) {
+    return 'Hiện các ô dân của bạn đang hết sỏi, hệ thống sẽ tự động rải lại quân cho bạn!';
+  }
+
+  let bestScore = -1;
+  let bestSlot = mySlots[0];
+  let bestDir: Dir = 1;
+
+  for (const L of mySlots) {
+    for (const dir of [-1, 1] as Dir[]) {
+      const sim = playMove(state, L, dir);
+      if (sim.ok) {
+        const gained =
+          sim.state.stash[viewer].dan -
+          state.stash[viewer].dan +
+          (sim.state.stash[viewer].quan - state.stash[viewer].quan) * 10;
+        if (gained > bestScore) {
+          bestScore = gained;
+          bestSlot = L;
+          bestDir = dir;
+        }
+      }
+    }
+  }
+
+  const visualPos = ((bestSlot - 6 * viewer + 12) % 12) + 1;
+  const dirLabel = bestDir === 1 ? t('games.oaq.right') : t('games.oaq.left');
+  if (bestScore > 0) {
+    return `Bạn nên chọn ô dân số ${visualPos} (tính từ trái sang) và bấm "${dirLabel}" — nước đi này giúp bạn ăn được ${bestScore} điểm!`;
+  }
+  return `Bạn nên chọn ô dân số ${visualPos} (tính từ trái sang) và bấm "${dirLabel}" để rải đều sỏi và tạo thế ăn quân ở lượt sau!`;
+}
+
 function Pebbles({ n }: { n: number }) {
   const shown = Math.min(n, 12);
   return (
@@ -62,8 +97,9 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
   const [selected, setSelected] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [aiHint, setAiHint] = useState<string | null>(null);
 
-  const known = useRef(0); // highest move number applied or in flight
+  const known = useRef(0);
   const stateRef = useRef<OaqState | null>(null);
   const queue = useRef<Promise<void>>(Promise.resolve());
   const alive = useRef(true);
@@ -82,11 +118,15 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
   }, []);
 
   const loadRooms = useCallback(async () => {
-    const { data } = await supabase.from('oaq_games').select(COLS).in('status', ['waiting', 'playing']).order('created_at', { ascending: false }).limit(10);
+    const { data } = await supabase
+      .from('oaq_games')
+      .select(COLS)
+      .in('status', ['waiting', 'playing'])
+      .order('created_at', { ascending: false })
+      .limit(10);
     if (alive.current && data) setRooms(data as unknown as OaqRow[]);
   }, [supabase]);
 
-  /** Re-read the active game from the database (no animation). */
   const reload = useCallback(async () => {
     const id = activeRef.current;
     if (!id) return;
@@ -97,6 +137,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     setState(row.state);
     setShown(null);
     setSelected(null);
+    setAiHint(null);
     known.current = row.move_count;
   }, [supabase]);
 
@@ -116,14 +157,25 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     if (!alive.current) return;
     setShown(null);
     setState(final);
-    setGame((g) => (g ? { ...g, move_count: known.current, status: final.over ? 'finished' : g.status, winner: final.winner, state: final, turn: final.turn } : g));
+    setGame((g) =>
+      g
+        ? {
+            ...g,
+            move_count: known.current,
+            status: final.over ? 'finished' : g.status,
+            winner: final.winner,
+            state: final,
+            turn: final.turn,
+          }
+        : g,
+    );
   }, []);
 
-  /** One entry point for "move number N was played": from Broadcast, postgres_changes or polling. Deduplicated by `known`. */
   const applyMove = useCallback(
     (moveNo: number, from: number, dir: Dir) => {
       if (moveNo !== known.current + 1 || !stateRef.current) return false;
       known.current = moveNo;
+      setAiHint(null);
       queue.current = queue.current.then(async () => {
         const cur = stateRef.current;
         if (!cur) return;
@@ -137,7 +189,6 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     [animate, reload],
   );
 
-  /** A database row arrived (Realtime UPDATE or poll). */
   const applyRow = useCallback(
     (row: OaqRow) => {
       if (row.id !== activeRef.current || !isValidState(row.state)) return;
@@ -145,16 +196,17 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
         if (applyMove(row.move_count, row.last_move.from, row.last_move.dir)) return;
       }
       if (row.move_count > known.current) {
-        // Missed more than one move (weak network, tab in background): jump to the saved board.
         known.current = row.move_count;
         stateRef.current = row.state;
         setGame(row);
         setState(row.state);
         setShown(null);
         setSelected(null);
+        setAiHint(null);
       } else if (row.move_count === known.current && !animating.current) {
-        // Same move: guest joined, someone left, or the game ended.
-        setGame((g) => (g ? { ...g, status: row.status, guest_id: row.guest_id, winner: row.winner, result: row.result } : g));
+        setGame((g) =>
+          g ? { ...g, status: row.status, guest_id: row.guest_id, winner: row.winner, result: row.result } : g,
+        );
       }
     },
     [applyMove],
@@ -179,7 +231,6 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     poll,
   });
 
-  // Live events (Broadcast is the fast path; the database path above is the safety net)
   useEffect(() => {
     const offMove = on('oaq:move', (p) => {
       if (!p || p.gameId !== activeRef.current) return;
@@ -204,10 +255,17 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
   const isPlayer = !!game && (game.host_id === myId || game.guest_id === myId);
   const myTurn = !!game && !!state && game.status === 'playing' && isPlayer && state.turn === viewer && !shown && !busy;
 
-  // Speak "your turn" in senior mode.
   const wasMyTurn = useRef(false);
   useEffect(() => {
-    if (autoSpeak && myTurn && !wasMyTurn.current && typeof speechSynthesis !== 'undefined' && (state?.over ?? false) === false && game && game.move_count > 0) {
+    if (
+      autoSpeak &&
+      myTurn &&
+      !wasMyTurn.current &&
+      typeof speechSynthesis !== 'undefined' &&
+      (state?.over ?? false) === false &&
+      game &&
+      game.move_count > 0
+    ) {
       const u = new SpeechSynthesisUtterance(t('games.oaq.yourTurn'));
       u.lang = locale === 'zh' ? 'zh-CN' : locale === 'vi' ? 'vi-VN' : locale === 'es' ? 'es-ES' : 'en-US';
       speechSynthesis.speak(u);
@@ -219,6 +277,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     setActiveId(id);
     activeRef.current = id;
     setError(null);
+    setAiHint(null);
     await reload();
   }
 
@@ -247,7 +306,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
       void refresh();
       return setError(t(`errors.${safeErrorKey(res.error)}`));
     }
-    void refresh(); // game started: header counter drops right away
+    void refresh();
     announce('oaqJoin');
     void send('oaq:update', {});
     await open(id);
@@ -264,6 +323,7 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     setActiveId(null);
     setGame(null);
     setState(null);
+    setAiHint(null);
     void loadRooms();
   }
 
@@ -273,13 +333,14 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
     const r = playMove(state, from, dir);
     if (!r.ok) return;
     setError(null);
+    setAiHint(null);
     setSelected(null);
     setBusy(true);
     const no = known.current + 1;
     known.current = no;
     stateRef.current = r.state;
     const server = playOaqMove(game.id, from, dir, no - 1);
-    const anim = animate(r.frames, r.state); // start animating while the server confirms
+    const anim = animate(r.frames, r.state);
     const res = await server;
     if (!res.ok) {
       setBusy(false);
@@ -484,7 +545,14 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
 
       {stashLine(viewer, nameOf(youId), true)}
 
-      <div role="status" aria-live="polite" className={cn('rounded-lg p-4 text-center text-xl font-extrabold', over ? 'bg-gran/30' : myTurn ? 'bg-success/15 text-success' : 'bg-muted')}>
+      <div
+        role="status"
+        aria-live="polite"
+        className={cn(
+          'rounded-lg p-4 text-center text-xl font-extrabold',
+          over ? 'bg-gran/30' : myTurn ? 'bg-success/15 text-success' : 'bg-muted',
+        )}
+      >
         {banner}
         {over && state.scores && (
           <span className="mt-1 block text-base font-semibold">
@@ -493,16 +561,38 @@ export function OAnQuan({ myId, autoSpeak }: { myId: string; autoSpeak: boolean 
         )}
       </div>
 
-      {myTurn && selected !== null && (
-        <div className="grid grid-cols-2 gap-3">
-          <Button size="lg" className="min-h-20 text-2xl" onClick={() => move(-1)}>
-            <ArrowLeft aria-hidden className="!size-8" />
-            {t('games.oaq.left')}
-          </Button>
-          <Button size="lg" className="min-h-20 text-2xl" onClick={() => move(1)}>
-            {t('games.oaq.right')}
-            <ArrowRight aria-hidden className="!size-8" />
-          </Button>
+      {myTurn && (
+        <div className="space-y-3">
+          <div className="flex justify-center">
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              onClick={() => setAiHint(suggestOaqMove(state, viewer, t))}
+            >
+              <Sparkles aria-hidden className="mr-2 size-5 text-amber-500" />
+              AI gợi ý nước đi
+            </Button>
+          </div>
+
+          {aiHint && (
+            <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm font-medium text-amber-950">
+              💡 <strong>Gợi ý từ AI:</strong> {aiHint}
+            </div>
+          )}
+
+          {selected !== null && (
+            <div className="grid grid-cols-2 gap-3">
+              <Button size="lg" className="min-h-20 text-2xl" onClick={() => move(-1)}>
+                <ArrowLeft aria-hidden className="!size-8" />
+                {t('games.oaq.left')}
+              </Button>
+              <Button size="lg" className="min-h-20 text-2xl" onClick={() => move(1)}>
+                {t('games.oaq.right')}
+                <ArrowRight aria-hidden className="!size-8" />
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
