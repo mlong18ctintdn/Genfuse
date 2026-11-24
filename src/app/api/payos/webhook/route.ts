@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     const { data: orderRow } = await admin
-      .from('payment_orders')
+     .from('transactions')
       .select('family_id')
       .eq('order_code', data.orderCode)
       .maybeSingle();
