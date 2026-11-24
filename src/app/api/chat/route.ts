@@ -15,7 +15,6 @@ const MAX_INPUT_CHARS: Record<FeatureType, number> = {
   translator: 500,
   scam_check: 4000,
 };
-const RATE_LIMIT_PER_MINUTE = 20;
 
 const bodySchema = z.object({
   feature: z.enum(['companion', 'translator', 'scam_check']).default('companion'),
@@ -55,7 +54,6 @@ function detectLangFromReferer(req: Request, fallback: Lang): Lang {
 export async function POST(req: Request) {
   const startedAt = new Date();
 
-  // 1. Validate input
   let body: z.infer<typeof bodySchema>;
   try {
     body = bodySchema.parse(await req.json());
@@ -69,7 +67,6 @@ export async function POST(req: Request) {
   if (last.role !== 'user' || !userText) return fail('BAD_REQUEST', 400);
   if (userText.length > MAX_INPUT_CHARS[feature]) return fail('INPUT_TOO_LONG', 413);
 
-  // 2. Authenticate + resolve family
   const supabase = await createClient();
   const {
     data: { user },
@@ -86,26 +83,51 @@ export async function POST(req: Request) {
   const familyId = profile.family_id as string;
   const activeLang = detectLangFromReferer(req, (profile.preferred_lang as Lang) || 'vi');
 
-  // 3. Soft rate limit
-  const { count: recent } = await supabase
-    .from('ai_messages')
-    .select('id', { count: 'exact', head: true })
-    .eq('user_id', user.id)
-    .eq('role', 'user')
-    .gte('created_at', new Date(Date.now() - 60_000).toISOString());
-  if ((recent ?? 0) >= RATE_LIMIT_PER_MINUTE) return fail('RATE_LIMITED', 429);
-
-  // 4. Pre-flight credit check
   const access = await getFamilyAccess(familyId);
   if (!access) return fail('NO_FAMILY', 403);
-  if (!access.premium && access.creditsRemaining <= 0) return fail('NO_CREDITS', 402);
 
-  // 5. Consume 1 credit in Supabase
-  const creditRes = await consumeCredit(familyId);
-  if (!creditRes.ok) return fail('NO_CREDITS', 402);
+  // Phân tầng quyền lợi thực dụng:
+  // 1. Cảnh báo lừa đảo (scam_check): LUÔN MIỄN PHÍ 100%
+  // 2. Từ điển Gen Z (translator): Luôn cho tra nghĩa cơ bản, nếu hết lượt free thì khóa phần giải thích sâu & gợi ý câu đáp
+  // 3. Trò chuyện AI (companion): Free 3 lượt/ngày, Pro không giới hạn
+  let isDeepUnlocked = access.premium;
 
-  // 6. Generate curated response & stream with full UIMessageStream lifecycle
-  const replyText = generateDemoReply(feature, userText, activeLang, profile.display_name);
+  if (feature === 'companion') {
+    if (!access.premium) {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const { count: todayChats } = await supabase
+        .from('ai_messages')
+        .select('id', { count: 'exact', head: true })
+        .eq('family_id', familyId)
+        .eq('feature_type', 'companion')
+        .eq('role', 'user')
+        .gte('created_at', startOfDay.toISOString());
+
+      if ((todayChats ?? 0) >= 3) {
+        return fail('NO_CREDITS', 402);
+      }
+    }
+  } else if (feature === 'translator') {
+    if (!access.premium && access.creditsRemaining > 0) {
+      await consumeCredit(familyId);
+      isDeepUnlocked = true;
+    }
+  }
+
+  let replyText = generateDemoReply(feature, userText, activeLang, profile.display_name);
+
+  // Nếu ở Từ điển Gen Z bản Free đã hết lượt giải thích sâu -> giữ nguyên MEANING, khóa CONTEXT & SCRIPT
+  if (feature === 'translator' && !isDeepUnlocked) {
+    const meaningMatch = replyText.match(/MEANING:\n([\s\S]*?)\n\nCONTEXT:/);
+    const plainMeaning = meaningMatch ? meaningMatch[1].trim() : replyText;
+    const lockMsg =
+      activeLang === 'vi'
+        ? '🔒 Nâng cấp gói Gia Đình Pro (79k/tháng cho cả 6 người) để mở khóa phân tích tâm lý giới trẻ & gợi ý câu trả lời tình cảm!'
+        : '🔒 Upgrade to Family Pro (79k/mo for up to 6 members) to unlock deep context & loving reply scripts!';
+    replyText = `MEANING:\n${plainMeaning}\n\nCONTEXT:\n${lockMsg}\n\nSCRIPT:\n${lockMsg}`;
+  }
+
   const textId = crypto.randomUUID();
 
   const stream = createUIMessageStream({
@@ -116,14 +138,14 @@ export async function POST(req: Request) {
       const chunks = replyText.match(/.{1,24}/gs) ?? [replyText];
       for (const chunk of chunks) {
         writer.write({ type: 'text-delta', id: textId, delta: chunk });
-        await new Promise((r) => setTimeout(r, 12));
+        await new Promise((r) => setTimeout(r, 10));
       }
 
       writer.write({ type: 'text-end', id: textId });
       writer.write({ type: 'finish' });
 
       const admin = createAdminClient();
-      const { error } = await admin.from('ai_messages').insert([
+      await admin.from('ai_messages').insert([
         {
           family_id: familyId,
           user_id: user.id,
@@ -141,7 +163,6 @@ export async function POST(req: Request) {
           created_at: new Date().toISOString(),
         },
       ]);
-      if (error) console.error('[chat] failed to persist messages', error);
     },
   });
 
