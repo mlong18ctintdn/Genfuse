@@ -26,7 +26,7 @@ type Props = {
 export function ChatBox({ role, displayName, initialMessages, autoSpeak = false, className }: Props) {
   const t = useTranslations();
   const locale = useLocale() as Lang;
-  const { refresh, canUseAi } = useCredits();
+  const { refresh, access } = useCredits();
   const speech = useSpeech(locale);
 
   const transport = useMemo(
@@ -36,7 +36,6 @@ export function ChatBox({ role, displayName, initialMessages, autoSpeak = false,
   const { messages, sendMessage, status, error } = useChat({
     transport,
     messages: initialMessages,
-    // Realtime already pushes the new balance; this re-read is a safety net.
     onFinish: () => void refresh(),
   });
 
@@ -51,7 +50,6 @@ export function ChatBox({ role, displayName, initialMessages, autoSpeak = false,
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages, status]);
 
-  // Read the finished reply aloud (seniors can switch this off).
   useEffect(() => {
     if (prevStatus.current === 'streaming' && status === 'ready' && autoRead && speech.canSpeak) {
       const last = [...messages].reverse().find((m) => m.role === 'assistant');
@@ -60,9 +58,13 @@ export function ChatBox({ role, displayName, initialMessages, autoSpeak = false,
     prevStatus.current = status;
   }, [status, autoRead, messages, speech]);
 
+  const showGreeting = messages.length === 0;
+  const code = errorCode(error);
+  const dailyLimitReached = !access.premium && code === 'NO_CREDITS';
+
   function send(text: string) {
     const value = text.trim();
-    if (!value || busy || !canUseAi) return;
+    if (!value || busy || dailyLimitReached) return;
     speech.stopSpeaking();
     void sendMessage({ text: value });
     setInput('');
@@ -77,11 +79,16 @@ export function ChatBox({ role, displayName, initialMessages, autoSpeak = false,
     });
   }
 
-  const showGreeting = messages.length === 0;
-  const code = errorCode(error);
-
   return (
     <div className={cn('flex min-h-0 flex-1 flex-col gap-3', className)}>
+      {!access.premium && (
+        <div className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+          {locale === 'vi'
+            ? '🎁 Miễn phí 3 lượt trò chuyện AI mỗi ngày • Nâng cấp Pro để chat không giới hạn'
+            : '🎁 3 free AI chats daily • Upgrade to Family Pro for unlimited chats'}
+        </div>
+      )}
+
       <div
         role="log"
         aria-live="polite"
@@ -134,7 +141,7 @@ export function ChatBox({ role, displayName, initialMessages, autoSpeak = false,
         <div ref={endRef} />
       </div>
 
-      {!canUseAi || code === 'NO_CREDITS' ? (
+      {dailyLimitReached ? (
         <UpgradeGate />
       ) : (
         <>
