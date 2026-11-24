@@ -5,7 +5,6 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import type { SpinRow, WheelChore } from '@/components/games/chore-wheel';
 import type { WordRow } from '@/components/games/word-game';
 import { GamesClient } from '@/components/games/games-client';
-import type { Story } from '@/components/games/story-game';
 
 export async function generateMetadata() {
   const t = await getTranslations();
@@ -17,12 +16,6 @@ export default async function GamesPage() {
   const { profile } = await getSession();
   const me = profile!;
   const supabase = await createClient();
-
-  const { data } = await supabase
-    .from('story_games')
-    .select('id, title, sentences, status, created_at')
-    .order('created_at', { ascending: false })
-    .limit(20);
 
   const readChores = () =>
     supabase.from('chore_items').select('id, title, is_exempt').order('created_at', { ascending: true }).order('id');
@@ -43,7 +36,6 @@ export default async function GamesPage() {
       .limit(1),
   ]);
 
-  // First visit of a family: seed the friendly defaults in the family's language.
   if ((chores?.length ?? 0) === 0 && (spins?.length ?? 0) === 0) {
     const seed = (t.raw('games.chore.defaults') as string[]).map((title) => ({
       family_id: me.family_id,
@@ -52,7 +44,7 @@ export default async function GamesPage() {
       created_by: null,
     }));
     seed.push({ family_id: me.family_id, title: t('games.chore.exemptDefault'), is_exempt: true, created_by: null });
-    await createAdminClient().from('chore_items').insert(seed); // a concurrent seed loses on the unique index: harmless
+    await createAdminClient().from('chore_items').insert(seed);
     chores = (await readChores()).data;
   }
 
@@ -62,7 +54,6 @@ export default async function GamesPage() {
       <GamesClient
         familyId={me.family_id}
         myId={me.id}
-        stories={(data ?? []) as Story[]}
         chores={(chores ?? []) as WheelChore[]}
         spins={(spins ?? []) as SpinRow[]}
         autoSpeak={me.ui_mode === 'senior'}
