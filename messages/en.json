@@ -407,46 +407,47 @@
     }
   },
   "premium": {
-    "title": "GENFUSE Premium Family",
-    "subtitle": "One plan for the whole family.",
+    "title": "GENFUSE Family Pro",
+    "subtitle": "One plan covers up to 6 family members. Add extra seats anytime for larger families.",
     "free": {
-      "name": "Free",
+      "name": "Free Plan",
       "features": [
-        "5 AI uses for the family",
-        "Memory Tree with up to 20 leaves",
-        "Scam Alert tips"
+        "Memory Tree up to 15 leaves",
+        "Scam Shield free forever",
+        "3 daily AI chats & basic Gen Z dictionary",
+        "3 free family game sessions"
       ]
     },
     "monthly": {
-      "name": "Monthly",
-      "price": "39,000 VND",
-      "period": "per month"
+      "name": "Monthly Pro",
+      "price": "79,000 VND",
+      "period": "per month (up to 6 members)"
     },
     "yearly": {
-      "name": "Yearly",
-      "price": "390,000 VND",
-      "period": "per year",
-      "badge": "2 months free"
+      "name": "Yearly Pro",
+      "price": "799,000 VND",
+      "period": "per year (up to 6 members)",
+      "badge": "Save 150,000 VND"
     },
     "features": [
-      "Unlimited AI companion, translator and message checks",
-      "Full empathetic mediation for family conflicts",
-      "Unlimited Memory Tree leaves",
-      "Senior Scam Alert alerts",
-      "Covers every member of your family"
+      "Covers up to 6 family members per Pro seat (7+ members simply add 1 extra seat)",
+      "Unlimited Memory Tree leaves (beyond the 15-leaf free limit)",
+      "Deep Gen Z & Alpha cultural context + warm reply scripts",
+      "Unlimited daily AI companion chats",
+      "Unlimited Ô Ăn Quan, Cờ Cá Ngựa & Word Games with AI move hints"
     ],
     "payWithPayos": "Pay with VietQR / bank transfer",
-    "payHint": "Scan the QR code with any banking app. Premium activates automatically within moments.",
-    "success": "Thank you! Your family is now Premium.",
+    "payHint": "Scan the QR code with any banking app. Pro activates automatically for your whole family.",
+    "success": "Thank you! Your family has been upgraded to Pro.",
     "pending": "Waiting for your payment…",
-    "cancelled": "Payment cancelled. You have not been charged.",
-    "checking": "Checking your payment…",
-    "choose": "Choose this plan",
-    "currentPlan": "Your family is Premium until {date}.",
-    "extend": "Add more time",
-    "openPaymentPage": "Open the payment page",
+    "cancelled": "Payment cancelled. You were not charged.",
+    "checking": "Checking payment…",
+    "choose": "Upgrade to Pro",
+    "currentPlan": "Your family is on Pro until {date}.",
+    "extend": "Extend / Add Seat for +6 Members",
+    "openPaymentPage": "Open payment page",
     "scanQr": "Scan this code with your banking app",
-    "timeout": "We haven't received the payment yet. If you already paid, Premium will switch on automatically within a few minutes."
+    "timeout": "We have not received payment confirmation yet. If you paid, Pro will activate within a few minutes."
   },
   "settings": {
     "language": "Language",
