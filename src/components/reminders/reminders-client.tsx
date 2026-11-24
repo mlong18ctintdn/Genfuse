@@ -21,7 +21,6 @@ export type Reminder = {
   is_completed: boolean;
 };
 
-/** yyyy-MM-ddTHH:mm in the user's own time zone, as <input type="datetime-local"> expects. */
 function localInput(d: Date) {
   const pad = (n: number) => String(n).padStart(2, '0');
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -81,7 +80,7 @@ export function RemindersClient({
 
   async function toggle(r: Reminder) {
     const next = !r.is_completed;
-    setItems((prev) => prev.map((x) => (x.id === r.id ? { ...x, is_completed: next } : x))); // optimistic
+    setItems((prev) => prev.map((x) => (x.id === r.id ? { ...x, is_completed: next } : x)));
     const { error: err } = await supabase.from('reminders').update({ is_completed: next }).eq('id', r.id);
     if (err) {
       setItems((prev) => prev.map((x) => (x.id === r.id ? { ...x, is_completed: r.is_completed } : x)));
@@ -143,6 +142,22 @@ export function RemindersClient({
           <Button type="button" size="sm" variant="secondary" onClick={() => setTitle(t('reminders.medication'))}>
             <Pill aria-hidden />
             {t('reminders.medication')}
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="secondary"
+            onClick={() => setTitle('Tập thể dục nhẹ nhàng & vươn vai 10 phút')}
+          >
+            🚶 Tập thể dục nhẹ
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="secondary"
+            onClick={() => setTitle('Uống thuốc huyết áp & đo chỉ số sức khỏe buổi sáng')}
+          >
+            🩺 Đo huyết áp & uống thuốc
           </Button>
           {grandparents[0] && (
             <Button
