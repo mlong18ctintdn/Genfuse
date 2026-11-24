@@ -3,7 +3,9 @@ export const PLAN_IDS: PlanId[] = ['monthly', 'yearly'];
 
 export interface Plan {
   id: PlanId;
-  amountVnd: number;
+  amount: number;
+  label: string;
+  itemName: string;
   durationDays: number;
   seatsIncluded: number;
   badge?: string;
@@ -12,15 +14,19 @@ export interface Plan {
 export const PLANS: Record<PlanId, Plan> = {
   monthly: {
     id: 'monthly',
-    amountVnd: 79_000,
+    amount: 79_000,
+    label: 'Gói Gia Đình Pro - 1 Tháng (6 thành viên)',
+    itemName: 'GENFUSE Gia Dinh Pro 1 Thang',
     durationDays: 30,
     seatsIncluded: 6,
   },
   yearly: {
     id: 'yearly',
-    amountVnd: 799_000,
+    amount: 799_000,
+    label: 'Gói Gia Đình Pro - 1 Năm (6 thành viên)',
+    itemName: 'GENFUSE Gia Dinh Pro 1 Nam',
     durationDays: 365,
     seatsIncluded: 6,
-    badge: 'Tiết kiệm 16%',
+    badge: 'Tiết kiệm 150.000đ',
   },
 };
