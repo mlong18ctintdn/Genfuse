@@ -58,7 +58,7 @@ export function GamesClient({
       {tab === 'oaq' && <OAnQuan myId={myId} autoSpeak={autoSpeak} />}
       {tab === 'cangua' && <CoCaNguaGame familyId={familyId} />}
       {tab === 'word' && <WordGame initialGame={word} />}
-      {tab === 'chore' && <ChoreWheel initialChores={chores} initialSpins={spins} />}
+      {tab === 'chore' && <ChoreWheel initialChores={chores} initialHistory={spins} />}
     </div>
   );
 }
