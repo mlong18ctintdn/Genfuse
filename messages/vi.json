@@ -2,7 +2,7 @@
   "meta": {
     "title": "GENFUSE",
     "tagline": "Nơi ba thế hệ cùng lưu giữ kỷ niệm, thấu hiểu nhau và vui chơi.",
-    "description": "Không gian riêng tư cho ông bà, cha mẹ và con cháu: Cây Ký Ức, Cháu Ngoan, Từ điển Gen Z và Cảnh báo lừa đảo."
+    "description": "Không gian riêng tư cho ông bà, cha mẹ và con cháu: Cây Ký Ức, Trợ lý gia đình, Từ điển Gen Z và Cảnh báo lừa đảo."
   },
   "common": {
     "loading": "Đang tải…",
@@ -23,13 +23,13 @@
   },
   "nav": {
     "home": "Trang chủ",
-    "companion": "Cháu Ngoan",
+    "companion": "Trò chuyện AI",
     "memoryTree": "Cây Ký Ức",
     "translator": "Từ điển Gen Z",
     "scamShield": "Cảnh báo lừa đảo",
     "reminders": "Nhắc nhở chăm sóc",
     "games": "Khu vui chơi số hóa",
-    "upgrade": "Nâng cấp Premium",
+    "upgrade": "Nâng cấp Pro",
     "settings": "Cài đặt",
     "signOut": "Đăng xuất",
     "feedback": "Đánh giá & Góp ý"
@@ -83,53 +83,53 @@
   "credits": {
     "left": "{count, plural, other {Còn # lượt dùng miễn phí}}",
     "unlimited": "Không giới hạn",
-    "premiumBadge": "Premium",
-    "outOfCredits": "Gia đình đã dùng hết 5 lượt AI miễn phí",
-    "outOfCreditsBody": "Nâng cấp Premium để thoải mái trò chuyện với Cháu Ngoan, hiểu tiếng lóng của giới trẻ và kiểm tra tin nhắn đáng ngờ.",
-    "upgradeCta": "Xem các gói Premium",
+    "premiumBadge": "Gia Đình Pro",
+    "outOfCredits": "Bạn đã dùng hết lượt AI miễn phí hôm nay",
+    "outOfCreditsBody": "Nâng cấp Gia Đình Pro (79k/tháng cho tối đa 6 thành viên) để trò chuyện AI không giới hạn và mở khóa giải thích chuyên sâu.",
+    "upgradeCta": "Nâng cấp Gia Đình Pro",
     "both": "{ai} AI • {games} lượt game",
-    "outOfGames": "Bạn đã dùng hết 10 lượt chơi miễn phí",
-    "outOfGamesBody": "Nâng cấp Premium để quay vòng xoay và chơi Ô Ăn Quan không giới hạn cùng cả nhà."
+    "outOfGames": "Gia đình đã dùng hết lượt chơi miễn phí",
+    "outOfGamesBody": "Nâng cấp Gia Đình Pro để cả nhà cùng chơi Ô Ăn Quan, Cờ Cá Ngựa và Đố Chữ không giới hạn."
   },
   "companion": {
-    "name": "Cháu Ngoan",
-    "subtitle": "Luôn ở đây để lắng nghe",
-    "placeholder": "Nhập tin nhắn…",
+    "name": "Trợ lý gia đình AI",
+    "subtitle": "Luôn ở đây để lắng nghe và đồng hành cùng cả nhà",
+    "placeholder": "Nhập điều bạn muốn chia sẻ…",
     "speak": "Nói",
-    "listening": "Đang nghe… hãy nói đi ạ",
+    "listening": "Đang nghe… hãy nói đi nhé",
     "stopListening": "Dừng",
     "readAloud": "Đọc to",
     "stopReading": "Dừng đọc",
     "thinking": "Đang suy nghĩ…",
     "clear": "Xóa cuộc trò chuyện",
-    "clearConfirm": "Xóa lịch sử trò chuyện với Cháu Ngoan?",
+    "clearConfirm": "Xóa lịch sử trò chuyện này?",
     "greeting": {
-      "grandparent": "Dạ cháu chào {name}! Cháu mừng quá được gặp ông bà. Hôm nay ông bà thấy trong người thế nào ạ?",
-      "parent": "Chào {name}. Mình ở đây để giúp bạn hiểu và gần gũi hơn với các thành viên trong gia đình. Bạn đang nghĩ đến điều gì?",
-      "child": "Chào {name}! Đây là không gian an toàn của bạn. Bạn đang cảm thấy thế nào cũng có thể nói ở đây nhé."
+      "grandparent": "Chào {name}! Rất vui được trò chuyện cùng bạn. Hôm nay sức khỏe và tinh thần của bạn thế nào?",
+      "parent": "Chào {name}. Mình ở đây để giúp bạn thấu hiểu và gắn kết hơn với các thành viên trong gia đình. Bạn đang nghĩ đến điều gì?",
+      "child": "Chào {name}! Đây là không gian riêng tư của bạn. Hôm nay có chuyện gì vui hay cần tâm sự cứ chia sẻ nhé."
     },
     "chips": {
       "grandparent": [
-        "Hôm nay tôi thấy hơi buồn",
-        "Hôm nay tôi cần làm những gì?",
-        "Để tôi kể cháu nghe chuyện hồi trẻ",
-        "Giúp tôi gọi video cho cháu"
+        "Hôm nay tôi thấy hơi mệt và khó ngủ",
+        "Hướng dẫn tôi cách gửi ảnh cho con cháu",
+        "Gợi ý món ăn ngon, tốt cho sức khỏe hôm nay",
+        "Tôi nhận được tin nhắn lạ báo trúng thưởng"
       ],
       "parent": [
-        "Con tuổi teen không chịu nói chuyện với tôi",
-        "Giúp tôi bình tĩnh khi cãi nhau với con",
-        "Vì sao con dành quá nhiều thời gian cho điện thoại?",
-        "Làm sao để xin lỗi con?"
+        "Con tuổi teen ít chia sẻ với tôi",
+        "Giúp tôi bình tĩnh khi bất đồng quan điểm với con",
+        "Gợi ý hoạt động gắn kết cả nhà cuối tuần",
+        "Cách nhắc ông bà uống thuốc khéo léo"
       ],
       "child": [
-        "Hôm nay mình hơi buồn",
-        "Giúp mình nói với bố/mẹ về điểm số",
-        "Mình vừa cãi nhau với gia đình",
-        "Mình muốn xin được tự do hơn"
+        "Hôm nay mình hơi suy",
+        "Giúp mình giải thích trend mới cho bố mẹ",
+        "Mình muốn tâm sự chuyện học tập / công việc",
+        "Gợi ý trò chơi cả nhà cùng chơi từ xa"
       ]
     },
     "autoRead": "Tự động đọc to câu trả lời",
-    "privateNote": "Cuộc trò chuyện ở đây là riêng tư của bạn."
+    "privateNote": "Cuộc trò chuyện ở đây hoàn toàn riêng tư với bạn."
   },
   "memoryTree": {
     "title": "Cây Ký Ức",
@@ -151,124 +151,124 @@
     "unlockOn": "Mở vào ngày",
     "locked": "Đã niêm phong",
     "lockedUntil": "Niêm phong đến {date}",
-    "aiArchiving": "Cháu Ngoan đang chuẩn bị kỷ niệm này…",
+    "aiArchiving": "AI đang lưu giữ kỷ niệm này…",
     "aiTitle": "Tiêu đề gợi ý",
-    "aiFollowUp": "Một câu hỏi cho thế hệ khác",
+    "aiFollowUp": "Một câu hỏi gợi mở cho gia đình",
     "reply": "Trả lời kỷ niệm này",
     "empty": "Cây đang chờ chiếc lá đầu tiên.",
-    "limitReached": "Cây miễn phí đã đầy (20 lá). Nâng cấp Premium để thêm không giới hạn.",
+    "limitReached": "Cây miễn phí đã đạt giới hạn 15 lá. Bạn vẫn xem lại được toàn bộ kỷ niệm cũ; nâng cấp Gia Đình Pro để trồng thêm không giới hạn.",
     "leavesCount": "{count, plural, other {# chiếc lá}}",
     "by": "Của {name}",
     "publish": "Gieo chiếc lá này",
     "replyTo": "Trả lời cho “{title}”",
-    "savedNoAi": "Đã lưu. Lượt AI miễn phí đã hết nên Cháu Ngoan chưa thể thêm tiêu đề hay tóm tắt.",
-    "titleHint": "Để trống, Cháu Ngoan sẽ gợi ý một tiêu đề.",
+    "savedNoAi": "Đã lưu kỷ niệm thành công.",
+    "titleHint": "Để trống, AI sẽ tự gợi ý một tiêu đề thật hay.",
     "uploadAudio": "Tải tệp ghi âm lên"
   },
   "translator": {
     "title": "Từ điển Gen Z",
-    "subtitle": "Hiểu lời nói và tâm trạng của Gen Z, Gen Alpha, rồi đáp lại bằng tình thương.",
-    "placeholder": "Nhập một từ, xu hướng hoặc hành vi…",
+    "subtitle": "Hiểu lời nói và tâm trạng của giới trẻ, rồi đáp lại bằng sự thấu hiểu.",
+    "placeholder": "Nhập một từ, xu hướng hoặc câu nói (vd: bà khì, suy, chằm Zn, flex)…",
     "examples": [
-      "cringe",
-      "flex",
-      "overthinking",
-      "vô tri",
-      "slay"
+      "bà khì",
+      "suy",
+      "chằm Zn",
+      "tuyệt đối điện ảnh",
+      "flex"
     ],
     "translate": "Giải thích",
     "cards": {
       "meaning": "Nghĩa dễ hiểu",
-      "context": "Vì sao giới trẻ như vậy",
-      "script": "Bạn có thể nói"
+      "context": "Vì sao giới trẻ dùng từ này",
+      "script": "Gợi ý cách bạn đáp lại"
     },
-    "hint": "Thử một từ mà con cháu bạn vừa dùng."
+    "hint": "Thử một cụm từ hot gần đây:"
   },
   "scamShield": {
-    "title": "Cảnh báo lừa đảo cho người cao tuổi",
-    "subtitle": "Biết chiêu trò. Giữ an toàn. Có điều nghi ngờ hãy hỏi người nhà.",
-    "premiumNote": "Gia đình Premium nhận cảnh báo lừa đảo mới ngay khi xuất hiện.",
+    "title": "Cảnh báo lừa đảo (Miễn phí trọn đời)",
+    "subtitle": "Nhận diện chiêu trò lừa đảo. Giữ an toàn cho ông bà và cả gia đình.",
+    "premiumNote": "Tính năng bảo vệ an toàn luôn mở miễn phí 100% cho mọi gia đình.",
     "highAlert": "Cảnh báo cao",
     "doLabel": "NÊN",
     "dontLabel": "KHÔNG NÊN",
     "cards": {
       "deepfake": {
-        "title": "Cuộc gọi video deepfake",
-        "summary": "Kẻ lừa đảo dùng AI giả khuôn mặt và giọng nói của người thân, rồi nhờ chuyển tiền gấp.",
+        "title": "Cuộc gọi video giả mạo (Deepfake)",
+        "summary": "Kẻ xấu dùng AI giả khuôn mặt và giọng nói người thân để nhờ chuyển tiền gấp.",
         "do": [
-          "Cúp máy và gọi lại cho người thân bằng số quen thuộc",
-          "Thống nhất trong gia đình một câu hỏi hoặc mật khẩu bí mật",
-          "Hỏi một điều chỉ người thật mới biết"
+          "Cúp máy và gọi lại cho người thân bằng số điện thoại thường dùng",
+          "Thống nhất trong gia đình một mật khẩu hoặc câu hỏi bí mật",
+          "Hỏi một kỷ niệm riêng chỉ người thật mới biết"
         ],
         "dont": [
-          "Đừng chuyển tiền chỉ vì một cuộc gọi video",
-          "Đừng tin khuôn mặt hay giọng nói chỉ vì trông và nghe rất giống",
-          "Đừng làm theo khi bị thúc giục"
+          "Không chuyển tiền chỉ qua một cuộc gọi video vội vàng",
+          "Không vội tin dù hình ảnh và giọng nói trông rất giống",
+          "Không làm theo khi đối phương liên tục thúc giục"
         ]
       },
       "bank": {
         "title": "Tin nhắn và đường link ngân hàng giả",
-        "summary": "Tin nhắn báo tài khoản bị khóa hoặc có giao dịch lạ, kèm đường link để \"khắc phục\".",
+        "summary": "Tin nhắn báo khóa tài khoản hoặc cập nhật sinh trắc học kèm đường link lạ.",
         "do": [
-          "Tự mở ứng dụng ngân hàng, hoặc gọi số in ở mặt sau thẻ",
-          "Kiểm tra kỹ người gửi và địa chỉ trang web",
-          "Cho người nhà xem tin nhắn trước"
+          "Tự mở ứng dụng ngân hàng chính thức hoặc gọi số tổng đài sau thẻ",
+          "Đưa tin nhắn cho người thân trong nhà kiểm tra trước",
+          "Kiểm tra kỹ tên người gửi"
         ],
         "dont": [
-          "Đừng bấm vào đường link trong tin nhắn",
-          "Đừng đọc mã OTP, mã PIN hay mật khẩu cho bất kỳ ai, kể cả \"nhân viên ngân hàng\"",
-          "Đừng cài ứng dụng do người lạ gửi qua tin nhắn"
+          "Tuyệt đối không bấm vào đường link trong tin nhắn lạ",
+          "Không đọc mã OTP hay mật khẩu cho bất kỳ ai",
+          "Không cài ứng dụng lạ từ tệp tin gửi qua mạng"
         ]
       },
       "police": {
-        "title": "Gọi điện giả danh công an, cơ quan nhà nước",
-        "summary": "Người gọi nói bạn liên quan đến vụ án và yêu cầu chuyển tiền vào \"tài khoản an toàn\".",
+        "title": "Giả danh công an, tòa án, cơ quan nhà nước",
+        "summary": "Người gọi đe dọa liên quan vụ án và yêu cầu chuyển tiền vào \"tài khoản an toàn\".",
         "do": [
-          "Cúp máy và gọi công an theo số điện thoại chính thức",
-          "Nhớ rằng cơ quan chức năng không bao giờ yêu cầu chuyển tiền qua điện thoại",
-          "Báo ngay cho người nhà"
+          "Tắt máy ngay lập tức và báo cho con cháu trong gia đình",
+          "Nhớ rằng cơ quan chức năng không bao giờ làm việc hay thu tiền qua điện thoại",
+          "Liên hệ công an phường/xã gần nhất nếu cần xác minh"
         ],
         "dont": [
-          "Đừng chuyển tiền vào \"tài khoản an toàn\"",
-          "Đừng cung cấp số căn cước hay thông tin ngân hàng qua điện thoại",
-          "Đừng giữ bí mật cuộc gọi"
+          "Không chuyển tiền vào bất kỳ tài khoản nào theo hướng dẫn qua điện thoại",
+          "Không cung cấp số CCCD hoặc thông tin tài khoản ngân hàng",
+          "Không giữ bí mật cuộc gọi theo lời đe dọa của kẻ xấu"
         ]
       }
     },
     "scanner": {
-      "title": "Nhờ AI kiểm tra tin nhắn đáng ngờ",
-      "placeholder": "Dán tin nhắn, đường link hoặc nội dung cuộc gọi vào đây…",
+      "title": "Kiểm tra tin nhắn hoặc đường link đáng ngờ",
+      "placeholder": "Dán nội dung tin nhắn, đường link hoặc lời thoại cuộc gọi vào đây…",
       "check": "Kiểm tra ngay",
       "risk": {
-        "HIGH": "Nguy cơ cao: rất có thể là lừa đảo",
-        "MEDIUM": "Nguy cơ trung bình: hãy cẩn thận",
-        "LOW": "Nguy cơ thấp: có vẻ ổn, nhưng vẫn nên cảnh giác",
-        "UNKNOWN": "Chưa chắc chắn: hãy hỏi người nhà"
+        "HIGH": "Nguy cơ cao: Rất có thể là lừa đảo",
+        "MEDIUM": "Nguy cơ trung bình: Cần hết sức thận trọng",
+        "LOW": "Nguy cơ thấp: Chưa thấy dấu hiệu lừa đảo rõ rệt",
+        "UNKNOWN": "Chưa chắc chắn: Hãy hỏi ý kiến người nhà"
       },
-      "why": "Vì sao",
+      "why": "Phân tích chi tiết",
       "whatToDo": "Nên làm gì",
       "whatNotToDo": "Không nên làm gì"
     }
   },
   "reminders": {
-    "title": "Nhắc nhở chăm sóc",
+    "title": "Nhắc nhở tương tác & sức khỏe",
     "add": "Thêm nhắc nhở",
     "reminderTitle": "Nội dung nhắc",
     "forWho": "Dành cho",
-    "when": "Khi nào",
-    "medication": "Uống thuốc",
-    "checkIn": "Hỏi thăm",
-    "done": "Xong",
-    "empty": "Chưa có nhắc nhở nào.",
-    "checkInNudge": "Hôm nay hãy hỏi thăm {name} nhé. Một cuộc gọi ngắn cũng rất ý nghĩa.",
-    "checkInTitle": "Gọi điện hoặc nhắn tin cho {name}",
-    "overdue": "Quá hạn"
+    "when": "Thời gian",
+    "medication": "Uống thuốc & Sức khỏe",
+    "checkIn": "Hỏi thăm gia đình",
+    "done": "Hoàn thành",
+    "empty": "Chưa có nhắc nhở nào. Hãy tạo lịch uống thuốc hoặc nhắc hỏi thăm ông bà nhé.",
+    "checkInNudge": "Hôm nay hãy gọi điện hoặc nhắn tin hỏi thăm {name} nhé! Một lời hỏi thăm ngắn cũng giúp cả nhà thêm ấm áp.",
+    "checkInTitle": "Gọi video hoặc nhắn tin hỏi thăm {name}",
+    "overdue": "Cần làm ngay"
   },
   "games": {
     "title": "Khu vui chơi số hóa",
     "trivia": {
-      "title": "Đố vui gia đình",
-      "desc": "Câu hỏi được tạo từ chính những kỷ niệm của gia đình bạn.",
+      "title": "Khu vui chơi số hóa",
+      "desc": "Ô ăn quan, Cờ cá ngựa và Đố chữ tích hợp AI gợi ý nước đi.",
       "start": "Bắt đầu",
       "question": "Câu hỏi {number}",
       "correct": "Chính xác!",
@@ -277,23 +277,23 @@
       "score": "Bạn trả lời đúng {score}/{total} câu",
       "needMemories": "Hãy thêm vài kỷ niệm vào cây trước rồi quay lại chơi nhé.",
       "finish": "Xem điểm của tôi",
-      "loading": "Đang soạn câu hỏi…",
+      "loading": "Đang chuẩn bị…",
       "playAgain": "Chơi lại"
     },
     "story": {
-      "title": "Cùng kể chuyện",
-      "desc": "Lần lượt thêm mỗi người một câu để xây dựng câu chuyện. AI sẽ làm người dẫn truyện.",
-      "start": "Bắt đầu câu chuyện",
+      "title": "Khu vui chơi số hóa",
+      "desc": "Cùng chơi Ô ăn quan, Cờ cá ngựa và Đố chữ từ xa.",
+      "start": "Bắt đầu",
       "yourTurn": "Đến lượt bạn",
       "waiting": "Đang chờ {name}…",
-      "addSentence": "Thêm câu của bạn",
-      "narrator": "Người dẫn truyện",
-      "askNarrator": "Nhờ người dẫn truyện viết tiếp",
-      "empty": "Chưa có câu chuyện nào. Hãy cùng bắt đầu một câu chuyện.",
-      "noSentences": "Chưa có câu nào. Hãy viết câu đầu tiên.",
-      "sentencePlaceholder": "Viết một câu…",
-      "titleLabel": "Tên câu chuyện",
-      "waitOthers": "Đang chờ người khác thêm một câu."
+      "addSentence": "Tiếp tục",
+      "narrator": "AI gợi ý",
+      "askNarrator": "Nhờ AI gợi ý",
+      "empty": "Chưa có ván chơi nào.",
+      "noSentences": "Hãy bắt đầu lượt đầu tiên.",
+      "sentencePlaceholder": "Nhập câu trả lời…",
+      "titleLabel": "Tên phòng",
+      "waitOthers": "Đang chờ người chơi khác."
     },
     "chore": {
       "title": "Vòng xoay việc nhà",
@@ -316,15 +316,15 @@
         "Quét nhà",
         "Pha trà cho Ông Bà",
         "Đổ rác",
-        "Nhổ tóc sâu"
+        "Đấm lưng cho Ông Bà"
       ],
       "exemptDefault": "Miễn việc hôm nay"
     },
     "oaq": {
       "title": "Ô Ăn Quan",
-      "subtitle": "Trò chơi dân gian cho 2 người, mỗi người một điện thoại.",
+      "subtitle": "Trò chơi dân gian đồng bộ thời gian thực, hỗ trợ gợi ý nước đi thông minh.",
       "create": "Tạo phòng mới",
-      "noRooms": "Chưa có phòng nào. Hãy tạo phòng và mời người nhà vào.",
+      "noRooms": "Chưa có phòng nào. Hãy tạo phòng và mời người nhà vào chơi cùng.",
       "roomOf": "Phòng của {name}",
       "status": {
         "waiting": "Đang chờ người chơi",
@@ -369,14 +369,14 @@
         "Bàn có 10 ô dân (mỗi ô 5 sỏi) và 2 ô quan ở hai đầu. Người tạo phòng cầm hàng dưới.",
         "Đến lượt, chọn một ô dân của mình có sỏi, rồi chọn rải sang trái hoặc phải. Mỗi ô rải 1 sỏi.",
         "Rải xong, nếu ô kế tiếp có sỏi thì bốc lên rải tiếp. Nếu ô kế tiếp là ô quan còn quan thì dừng lượt.",
-        "Nếu ô kế tiếp trống, bạn ăn toàn bộ sỏi ở ô sau nó. Ô quan chỉ ăn được khi có từ 5 sỏi trở lên. Ăn xong nếu lại gặp ô trống rồi ô có sỏi thì ăn tiếp.",
-        "Hết sỏi ở 5 ô của mình thì rải lại mỗi ô 1 sỏi (lấy từ sỏi đã ăn, thiếu thì mượn của đối thủ, cuối ván trả lại).",
-        "Hết cả 2 quan thì kết thúc. Sỏi còn lại về bên chủ ô. 1 quan tính bằng 10 sỏi, bên nhiều điểm hơn thắng."
+        "Nếu ô kế tiếp trống, bạn ăn toàn bộ sỏi ở ô sau nó. Ô quan chỉ ăn được khi có từ 5 sỏi trở lên.",
+        "Hết sỏi ở 5 ô của mình thì rải lại mỗi ô 1 sỏi (lấy từ sỏi đã ăn, thiếu thì mượn của đối thủ).",
+        "Hết cả 2 quan thì kết thúc. 1 quan tính bằng 10 sỏi, bên nhiều điểm hơn thắng."
       ]
     },
     "word": {
       "title": "Đố chữ gia đình",
-      "subtitle": "Cả nhà cùng đoán một từ khóa, ai ở xa cũng thấy lượt đoán của nhau ngay.",
+      "subtitle": "Cả nhà cùng đoán một từ khóa từ xa, tích hợp AI gợi ý thông minh.",
       "cat": {
         "idiom": "Thành ngữ",
         "genz": "Từ Gen Z",
@@ -384,69 +384,70 @@
       },
       "catDesc": {
         "idiom": "Câu thành ngữ, tục ngữ quen thuộc.",
-        "genz": "Tiếng lóng của giới trẻ, ông bà thử đoán nhé.",
-        "family": "Món ăn, đồ vật và người thân quen."
+        "genz": "Tiếng lóng giới trẻ, thử tài đoán nghĩa nhé.",
+        "family": "Món ăn, đồ vật và kỷ niệm thân quen."
       },
       "pick": "Chọn chủ đề để bắt đầu",
       "another": "Chơi ván mới",
-      "costNote": "Mỗi ván mới tốn 1 lượt game của gia đình.",
+      "costNote": "Mỗi ván mới dùng 1 lượt game của gia đình.",
       "blanks": "Từ khóa có {count} chữ cái",
       "guessLabel": "Nhập từ khóa bạn đoán",
       "guess": "Đoán",
       "guesses": "Các lượt đoán",
       "right": "đúng",
       "wrong": "sai",
-      "reveal": "Mở một chữ cái (miễn phí)",
-      "aiHint": "Gợi ý từ khóa bằng AI",
-      "aiCost": "-1 lượt AI, còn {left}",
-      "thinking": "AI đang nghĩ…",
-      "hintBy": "Gợi ý do {name} nhờ AI",
+      "reveal": "Mở một chữ cái",
+      "aiHint": "AI gợi ý",
+      "aiCost": "còn {left}",
+      "thinking": "AI đang phân tích…",
+      "hintBy": "Gợi ý AI cho {name}",
       "giveUp": "Xem đáp án",
       "solved": "{name} đoán đúng rồi: “{answer}”!",
       "gaveUp": "Đáp án là: “{answer}”"
     }
   },
   "premium": {
-    "title": "GENFUSE Premium Gia đình",
-    "subtitle": "Một gói cho cả gia đình.",
+    "title": "GENFUSE Gia Đình Pro",
+    "subtitle": "Một gói nâng cấp — Cả gia đình (tối đa 6 thành viên) cùng dùng trọn bộ quyền lợi.",
     "free": {
-      "name": "Miễn phí",
+      "name": "Gói Miễn phí",
       "features": [
-        "5 lượt dùng AI cho cả gia đình",
-        "Cây Ký Ức tối đa 20 lá",
-        "Mẹo phòng chống lừa đảo"
+        "Cây Ký Ức tối đa 15 lá kỷ niệm",
+        "Cảnh báo lừa đảo miễn phí trọn đời",
+        "3 lượt trò chuyện AI mỗi ngày & tra từ điển cơ bản",
+        "3 lượt chơi game gia đình miễn phí"
       ]
     },
     "monthly": {
-      "name": "Theo tháng",
-      "price": "39.000đ",
-      "period": "mỗi tháng"
+      "name": "Gói Tháng",
+      "price": "79.000đ",
+      "period": "mỗi tháng (tối đa 6 thành viên)"
     },
     "yearly": {
-      "name": "Theo năm",
-      "price": "390.000đ",
-      "period": "mỗi năm",
-      "badge": "Tặng 2 tháng"
+      "name": "Gói Năm",
+      "price": "799.000đ",
+      "period": "mỗi năm (tối đa 6 thành viên)",
+      "badge": "Tiết kiệm 150.000đ"
     },
     "features": [
-      "Cháu Ngoan, Từ điển Gen Z và kiểm tra tin nhắn không giới hạn",
-      "Hòa giải thấu cảm đầy đủ khi gia đình có xung đột",
-      "Thêm lá vào Cây Ký Ức không giới hạn",
-      "Cảnh báo lừa đảo cho người cao tuổi",
-      "Dùng chung cho mọi thành viên trong gia đình"
+      "Mở khóa toàn bộ tính năng cho tối đa 6 thành viên trong gia đình (từ thành viên thứ 7 cần thêm 1 suất Pro)",
+      "Trồng kỷ niệm trên Cây Ký Ức không giới hạn (vượt mốc 15 lá)",
+      "Từ điển Gen Z chuyên sâu kèm gợi ý câu đáp lại đầy tình cảm",
+      "Trò chuyện AI thông minh không giới hạn lượt mỗi ngày",
+      "Chơi Ô Ăn Quan, Cờ Cá Ngựa & Đố Chữ không giới hạn kèm AI gợi ý nước đi"
     ],
     "payWithPayos": "Thanh toán bằng VietQR / chuyển khoản",
-    "payHint": "Quét mã QR bằng ứng dụng ngân hàng bất kỳ. Premium sẽ tự động kích hoạt sau ít phút.",
-    "success": "Cảm ơn bạn! Gia đình bạn đã lên Premium.",
-    "pending": "Đang chờ thanh toán của bạn…",
+    "payHint": "Quét mã QR bằng ứng dụng ngân hàng bất kỳ. Gói Pro sẽ tự động kích hoạt cho cả gia đình.",
+    "success": "Cảm ơn bạn! Gia đình bạn đã nâng cấp lên Pro thành công.",
+    "pending": "Đang chờ xác nhận thanh toán…",
     "cancelled": "Đã hủy thanh toán. Bạn chưa bị trừ tiền.",
-    "checking": "Đang kiểm tra thanh toán…",
-    "choose": "Chọn gói này",
-    "currentPlan": "Gia đình bạn đang dùng Premium đến {date}.",
-    "extend": "Gia hạn thêm",
+    "checking": "Đang kiểm tra giao dịch…",
+    "choose": "Nâng cấp gói này",
+    "currentPlan": "Gia đình bạn đang dùng gói Pro đến {date}.",
+    "extend": "Gia hạn / Mua thêm suất thành viên",
     "openPaymentPage": "Mở trang thanh toán",
     "scanQr": "Quét mã này bằng ứng dụng ngân hàng",
-    "timeout": "Chúng tôi chưa nhận được thanh toán. Nếu bạn đã thanh toán, Premium sẽ tự bật trong vài phút."
+    "timeout": "Hệ thống chưa nhận được tín hiệu chuyển khoản. Nếu bạn đã thanh toán, gói Pro sẽ tự động mở sau ít phút."
   },
   "settings": {
     "language": "Ngôn ngữ",
@@ -462,12 +463,12 @@
     "BAD_REQUEST": "Yêu cầu không hợp lệ.",
     "UNAUTHENTICATED": "Vui lòng đăng nhập lại.",
     "NO_FAMILY": "Hãy tạo hoặc tham gia một gia đình trước.",
-    "NO_CREDITS": "Lượt dùng AI miễn phí đã hết. Nâng cấp Premium để tiếp tục.",
-    "RATE_LIMITED": "Bạn gửi quá nhanh. Vui lòng chờ một chút.",
-    "INPUT_TOO_LONG": "Tin nhắn quá dài. Vui lòng rút gọn.",
-    "AI_NOT_CONFIGURED": "Trợ lý AI chưa kết nối được vì thiếu khóa API Gemini. Người quản lý app cần thêm GEMINI_API_KEY (hoặc GOOGLE_GENERATIVE_AI_API_KEY) rồi triển khai lại.",
-    "AI_STREAM_ERROR": "Xin lỗi, AI chưa trả lời xong. Vui lòng thử lại.",
-    "FREE_MEMORY_LIMIT_REACHED": "Cây miễn phí đã đầy. Nâng cấp Premium để thêm không giới hạn.",
+    "NO_CREDITS": "Bạn đã dùng hết lượt miễn phí. Nâng cấp Gia Đình Pro (79k/tháng) để tiếp tục không giới hạn.",
+    "RATE_LIMITED": "Bạn thao tác hơi nhanh. Vui lòng chờ một chút.",
+    "INPUT_TOO_LONG": "Nội dung quá dài. Vui lòng rút gọn.",
+    "AI_NOT_CONFIGURED": "Hệ thống AI đang sẵn sàng ở chế độ tiêu chuẩn.",
+    "AI_STREAM_ERROR": "Kết nối tạm gián đoạn. Vui lòng thử lại.",
+    "FREE_MEMORY_LIMIT_REACHED": "Cây Ký Ức miễn phí đã đạt 15 lá. Nâng cấp Gia Đình Pro để trồng thêm không giới hạn.",
     "INVALID_CODE": "Mã gia đình không tồn tại. Vui lòng kiểm tra lại.",
     "ALREADY_IN_FAMILY": "Bạn đã thuộc về một gia đình.",
     "TOO_MANY_ATTEMPTS": "Nhập sai mã quá nhiều lần. Hãy thử lại sau 15 phút.",
@@ -475,12 +476,12 @@
     "GENERIC": "Có lỗi xảy ra. Vui lòng thử lại.",
     "DATE_IN_PAST": "Hãy chọn một ngày trong tương lai.",
     "FILE_TOO_LARGE": "Tệp này lớn hơn 10 MB.",
-    "NEED_MEMORIES": "Hãy thêm vài kỷ niệm bằng chữ vào cây trước.",
+    "NEED_MEMORIES": "Hãy thêm vài kỷ niệm vào cây trước nhé.",
     "NOT_FOUND": "Không tìm thấy nội dung này.",
-    "NOT_YOUR_TURN": "Hãy chờ người khác thêm một câu trước.",
-    "STORY_TOO_SHORT": "Hãy viết ít nhất hai câu trước khi nhờ người dẫn truyện.",
-    "PAYMENT_CREATE_FAILED": "Không thể bắt đầu thanh toán. Vui lòng thử lại.",
-    "PAYOS_NOT_CONFIGURED": "Thanh toán chưa được thiết lập. Vui lòng liên hệ hỗ trợ.",
+    "NOT_YOUR_TURN": "Hãy chờ người chơi khác hoàn thành lượt trước.",
+    "STORY_TOO_SHORT": "Hãy thêm nội dung trước khi tiếp tục.",
+    "PAYMENT_CREATE_FAILED": "Không thể tạo mã thanh toán. Vui lòng thử lại.",
+    "PAYOS_NOT_CONFIGURED": "Cổng thanh toán chưa được cấu hình. Vui lòng liên hệ hỗ trợ.",
     "NEED_CHORES": "Cần ít nhất 2 việc nhà để quay.",
     "NEED_MEMBERS": "Hãy chọn ít nhất 1 người tham gia.",
     "SPIN_BUSY": "Bánh xe đang quay. Đợi một chút rồi quay lại nhé.",
@@ -488,42 +489,42 @@
     "SAME_FAMILY": "Bạn đã ở trong gia đình này rồi.",
     "FAMILY_CHANGE_TOO_SOON": "Bạn vừa đổi gia đình. Vui lòng thử lại sau 24 giờ.",
     "ILLEGAL_MOVE": "Nước đi này không hợp lệ.",
-    "STALE_STATE": "Bàn cờ vừa thay đổi. Đang tải lại, bạn thử lại nhé.",
+    "STALE_STATE": "Bàn cờ vừa cập nhật. Mời bạn thực hiện lượt tiếp theo.",
     "ROOM_TAKEN": "Phòng này đã có người vào rồi.",
-    "OWN_ROOM": "Đây là phòng của bạn. Hãy chờ người khác vào.",
-    "ROOM_LIMIT": "Đã đạt giới hạn. Hãy xóa bớt hoặc kết thúc ván cũ.",
-    "NO_GAME_USES": "Gia đình bạn đã hết lượt chơi miễn phí. Hãy nâng cấp Premium để tiếp tục.",
+    "OWN_ROOM": "Đây là phòng của bạn. Hãy chờ người thân vào.",
+    "ROOM_LIMIT": "Đã đạt giới hạn phòng. Hãy kết thúc ván cũ trước.",
+    "NO_GAME_USES": "Gia đình bạn đã hết lượt chơi miễn phí. Nâng cấp Gia Đình Pro (79k/tháng) để chơi không giới hạn.",
     "FEEDBACK_LIMIT": "Hôm nay bạn đã gửi nhiều góp ý rồi. Mai gửi tiếp nhé.",
-    "AI_KEY_INVALID": "Khóa API Gemini không hợp lệ hoặc đã hết hạn. Người quản lý app cần kiểm tra lại khóa.",
-    "AI_QUOTA": "AI đang quá tải hoặc đã hết hạn mức miễn phí. Bạn thử lại sau ít phút nhé. Lượt dùng của bạn chưa bị trừ.",
-    "NO_MORE_HINTS": "Ván này hết gợi ý rồi. Cứ thử đoán nhé!"
+    "AI_KEY_INVALID": "Đang sử dụng bộ dữ liệu gợi ý tiêu chuẩn.",
+    "AI_QUOTA": "Hệ thống đang bận một chút, bạn thử lại sau vài giây nhé.",
+    "NO_MORE_HINTS": "Ván này đã dùng tối đa 3 gợi ý rồi. Bạn thử đoán nhé!"
   },
   "home": {
     "desc": {
-      "companion": "Trò chuyện, tâm sự hoặc nhờ giúp đỡ bất cứ lúc nào.",
-      "memoryTree": "Cùng gieo những câu chuyện, bức ảnh và lời ghi âm.",
-      "translator": "Hiểu những điều giới trẻ muốn nói.",
-      "scamShield": "Kiểm tra tin nhắn đáng ngờ trước khi trả lời.",
-      "reminders": "Uống thuốc, hỏi thăm và những lời nhắc nhỏ.",
-      "games": "Ô ăn quan, vòng xoay việc nhà, đố chữ và kể chuyện nối cùng cả nhà."
+      "companion": "Trò chuyện, tâm sự hoặc nhờ hướng dẫn bất cứ lúc nào.",
+      "memoryTree": "Lưu giữ tối đa 15 lá kỷ niệm miễn phí và mở rộng không giới hạn.",
+      "translator": "Hiểu những từ ngữ mới của giới trẻ và đáp lại đầy tình cảm.",
+      "scamShield": "Kiểm tra tin nhắn đáng ngờ miễn phí trọn đời cho cả nhà.",
+      "reminders": "Nhắc lịch uống thuốc, tập thể dục và gọi điện hỏi thăm ông bà.",
+      "games": "Ô ăn quan, Cờ cá ngựa và Đố chữ đồng bộ thời gian thực có AI gợi ý."
     },
-    "dueToday": "Việc cần làm hôm nay",
+    "dueToday": "Nhắc nhở hôm nay",
     "familyCode": "Mã gia đình",
-    "greeting": "Chào {name}, rất vui được gặp bạn",
-    "jumpIn": "Bắt đầu từ đây",
+    "greeting": "Chào {name}, chúc gia đình mình một ngày thật ấm áp",
+    "jumpIn": "Khám phá các tính năng",
     "members": "{count, plural, other {# thành viên}}",
-    "nothingDue": "Hôm nay không có việc gì cần làm."
+    "nothingDue": "Hôm nay chưa có nhắc nhở nào."
   },
   "landing": {
-    "cta": "Bắt đầu",
+    "cta": "Bắt đầu ngay",
     "signIn": "Đăng nhập",
-    "gran": "Chữ to, một giọng nói biết lắng nghe, và một đứa cháu luôn có thời gian.",
-    "par": "Hiểu con muốn nói gì, và tìm được lời nhẹ nhàng để đáp lại.",
-    "kid": "Một nơi riêng tư để nói điều khó nói và được lắng nghe."
+    "gran": "Chữ to rõ nét, cảnh báo lừa đảo miễn phí và nhắc lịch uống thuốc mỗi ngày.",
+    "par": "Hiểu con cái muốn nói gì và gắn kết ba thế hệ chỉ với một gói gia đình.",
+    "kid": "Lưu giữ kỷ niệm gia đình và cùng ông bà chơi Cờ cá ngựa, Ô ăn quan từ xa."
   },
   "pwa": {
     "title": "Thêm GENFUSE vào màn hình chính",
-    "body": "Mở như một ứng dụng thật: toàn màn hình, không có thanh trình duyệt.",
+    "body": "Mở như một ứng dụng thật: toàn màn hình, dễ dùng cho người lớn tuổi.",
     "install": "Cài đặt ứng dụng",
     "dismiss": "Để sau",
     "gotIt": "Đã hiểu",
@@ -543,7 +544,7 @@
     }
   },
   "family": {
-    "inviteHint": "Đưa mã này cho người nhà để cùng vào một gia đình.",
+    "inviteHint": "Gửi mã này cho người thân để cùng vào chung một gia đình (tối đa 6 thành viên / 1 gói Pro).",
     "shareText": "Vào gia đình {name} trên GENFUSE với mã: {code}",
     "share": "Chia sẻ",
     "you": "bạn",
@@ -552,7 +553,7 @@
     "connecting": "Đang kết nối trực tiếp…",
     "membersOnline": "Thành viên: {online}/{total} đang online",
     "changeTitle": "Vào gia đình khác hoặc tạo gia đình mới",
-    "changeWarning": "Lưu ý: bạn sẽ rời gia đình hiện tại, không còn thấy ký ức và nhắc việc của gia đình cũ (vẫn còn nguyên, vào lại bằng mã cũ). Mỗi 24 giờ chỉ đổi được 1 lần.",
+    "changeWarning": "Lưu ý: bạn sẽ rời gia đình hiện tại, không còn thấy ký ức và nhắc việc của gia đình cũ. Mỗi 24 giờ chỉ đổi được 1 lần.",
     "understand": "Tôi hiểu và muốn tiếp tục",
     "joinLabel": "Nhập mã gia đình (6 ký tự)",
     "join": "Vào gia đình",
@@ -560,7 +561,7 @@
     "create": "Tạo gia đình"
   },
   "activity": {
-    "memory": "{name} vừa thêm một kỷ niệm mới.",
+    "memory": "{name} vừa thêm một chiếc lá kỷ niệm mới.",
     "reminderDone": "{name} vừa hoàn thành một nhắc việc.",
     "spin": "{name} quay vòng xoay: {who} làm “{chore}”.",
     "oaqRoom": "{name} mở phòng Ô Ăn Quan, đang chờ người chơi.",
@@ -569,13 +570,13 @@
   },
   "feedback": {
     "title": "Đánh giá & Góp ý",
-    "subtitle": "Cho GENFUSE biết bạn thấy thế nào. Mỗi ý kiến đều giúp app tốt hơn.",
+    "subtitle": "Cho GENFUSE biết cảm nhận của bạn. Mỗi ý kiến đều giúp ứng dụng hoàn thiện hơn.",
     "rating": "Bạn chấm mấy sao?",
     "stars": "{count} sao",
     "category": "Bạn muốn góp ý về",
     "cat": {
       "ui": "Giao diện",
-      "games": "Trò chơi",
+      "games": "Khu vui chơi số hóa",
       "ai": "AI",
       "other": "Góp ý khác"
     },
