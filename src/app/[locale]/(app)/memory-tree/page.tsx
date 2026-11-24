@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
-import { getFamily, getSession, isPremium } from '@/lib/session';
+import { getSession } from '@/lib/session';
+import { getFamilyAccess, FREE_MEMORY_LIMIT } from '@/lib/credits';
 import { MemoryTreeClient } from '@/components/memory-tree/memory-tree-client';
 import type { MemoryItem } from '@/components/memory-tree/types';
 import type { Role } from '@/lib/ai/prompts';
@@ -27,15 +28,12 @@ type Row = {
   profiles: { display_name: string; role: Role } | { display_name: string; role: Role }[] | null;
 };
 
-const FREE_LEAF_LIMIT = 20;
-
 export default async function MemoryTreePage() {
   const { profile } = await getSession();
   const me = profile!;
-  const family = await getFamily(me.family_id);
+  const access = await getFamilyAccess(me.family_id);
   const supabase = await createClient();
 
-  // RLS: only this family's memories, and other people's sealed Time Capsules are filtered out.
   const { data } = await supabase
     .from('memories')
     .select(
@@ -45,7 +43,6 @@ export default async function MemoryTreePage() {
     .limit(300);
   const rows = (data ?? []) as unknown as Row[];
 
-  // Private bucket: hand the browser short-lived signed links, never public URLs.
   const now = Date.now();
   const paths = rows
     .filter((r) => r.media_url && !(r.unlock_date && new Date(r.unlock_date).getTime() > now))
@@ -79,7 +76,7 @@ export default async function MemoryTreePage() {
     };
   });
 
-  const premium = family ? isPremium(family) : false;
+  const premium = access?.premium ?? false;
 
-  return <MemoryTreeClient items={items} familyId={me.family_id} limitReached={!premium && items.length >= FREE_LEAF_LIMIT} />;
+  return <MemoryTreeClient items={items} familyId={me.family_id} limitReached={!premium && items.length >= FREE_MEMORY_LIMIT} />;
 }
