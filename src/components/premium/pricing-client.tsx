@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Check, CircleCheck, Loader2 } from 'lucide-react';
+import { Check, CircleCheck, Loader2, Users } from 'lucide-react';
+import { useFamily } from '@/components/providers/family-provider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CheckoutModal } from './checkout-modal';
@@ -17,12 +18,12 @@ export function PricingClient({
 }: {
   premium: boolean;
   premiumUntil: string | null;
-  /** order code from PayOS's return URL, if the customer just came back from the payment page */
   returnedOrder: number | null;
   cancelled: boolean;
 }) {
   const t = useTranslations();
   const locale = useLocale();
+  const { members } = useFamily();
   const [plan, setPlan] = useState<PlanId | null>(null);
   const features = t.raw('premium.features') as string[];
   const freeFeatures = t.raw('premium.free.features') as string[];
@@ -32,8 +33,35 @@ export function PricingClient({
     ? new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(new Date(premiumUntil))
     : null;
 
+  const memberCount = members.length || 1;
+  const requiredSeats = Math.max(1, Math.ceil(memberCount / 6));
+
   return (
     <div className="space-y-8">
+      {/* Khung thông báo quyền lợi 1 người mua = 6 thành viên dùng chung */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-primary/30 bg-primary/5 p-5">
+        <div className="flex items-start gap-3">
+          <Users className="mt-1 size-6 shrink-0 text-primary" />
+          <div>
+            <p className="text-lg font-extrabold text-foreground">
+              {locale === 'vi'
+                ? `1 gói Gia Đình Pro bao phủ tối đa 6 thành viên (Gia đình bạn hiện có ${memberCount} người)`
+                : `1 Family Pro seat covers up to 6 members (Your family currently has ${memberCount} members)`}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {locale === 'vi'
+                ? memberCount > 6
+                  ? `Gia đình bạn có ${memberCount} thành viên nên cần ${requiredSeats} suất Pro để mở khóa cho tất cả mọi người.`
+                  : 'Chỉ cần 1 người đại diện thanh toán, toàn bộ ông bà, cha mẹ và con cháu trong gia đình (tối đa 6 người) đều tự động được nâng cấp Pro!'
+                : 'Only 1 family member needs to subscribe—up to 6 members in your family automatically unlock Pro!'}
+            </p>
+          </div>
+        </div>
+        <span className="rounded-full bg-primary px-4 py-1.5 text-sm font-bold text-primary-foreground">
+          {memberCount} / {requiredSeats * 6} {locale === 'vi' ? 'thành viên' : 'members'}
+        </span>
+      </div>
+
       {cancelled && (
         <p role="status" className="rounded-lg bg-muted p-4 font-semibold">
           {t('premium.cancelled')}
