@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Check, CircleHelp, ShieldAlert, ShieldCheck, TriangleAlert, Volume2, VolumeX, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/input';
-import { UpgradeGate } from '@/components/premium/upgrade-gate';
 import { useSpeech } from '@/lib/hooks/use-speech';
 import { parseRisk, parseSections, safeErrorKey, toBullets, type Risk } from '@/lib/chat-utils';
 import type { Lang } from '@/lib/ai/prompts';
@@ -40,34 +39,36 @@ export function ScamScanner() {
 
   return (
     <section aria-labelledby="scanner-title" className="space-y-4 rounded-lg border-2 border-primary bg-card p-5">
-      <h2 id="scanner-title" className="flex items-center gap-2 text-xl font-bold">
-        <ShieldCheck aria-hidden className="size-6" />
-        {t('scamShield.scanner.title')}
-      </h2>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="scanner-title" className="flex items-center gap-2 text-xl font-bold">
+          <ShieldCheck aria-hidden className="size-6 text-success" />
+          {t('scamShield.scanner.title')}
+        </h2>
+        <span className="rounded-full bg-success/15 px-3 py-1 text-xs font-bold text-success">
+          {locale === 'vi' ? 'Miễn phí 100% bảo vệ gia đình' : '100% Free Forever'}
+        </span>
+      </div>
 
-      {!ai.canUseAi ? (
-        <UpgradeGate />
-      ) : (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            ai.run(text);
-          }}
-          className="space-y-3"
-        >
-          <Textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={t('scamShield.scanner.placeholder')}
-            aria-label={t('scamShield.scanner.placeholder')}
-            rows={4}
-            maxLength={4000}
-          />
-          <Button type="submit" size="lg" disabled={ai.busy || !text.trim()}>
-            {ai.busy ? t('common.loading') : t('scamShield.scanner.check')}
-          </Button>
-        </form>
-      )}
+      {/* Luôn mở miễn phí để kiểm tra tin nhắn lừa đảo */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          ai.run(text);
+        }}
+        className="space-y-3"
+      >
+        <Textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={t('scamShield.scanner.placeholder')}
+          aria-label={t('scamShield.scanner.placeholder')}
+          rows={4}
+          maxLength={4000}
+        />
+        <Button type="submit" size="lg" disabled={ai.busy || !text.trim()}>
+          {ai.busy ? t('common.loading') : t('scamShield.scanner.check')}
+        </Button>
+      </form>
 
       {ai.errorCode && ai.errorCode !== 'NO_CREDITS' && (
         <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 font-medium text-destructive">
