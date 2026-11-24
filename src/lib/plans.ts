@@ -1,5 +1,5 @@
-export const PLAN_IDS = ['monthly', 'yearly'] as const;
-export type PlanId = (typeof PLAN_IDS)[number];
+export type PlanId = 'monthly' | 'yearly';
+export const PLAN_IDS: PlanId[] = ['monthly', 'yearly'];
 
 export interface Plan {
   id: PlanId;
